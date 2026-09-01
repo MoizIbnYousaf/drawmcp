@@ -1,0 +1,212 @@
+[
+  {
+    "name": "Read the current canvas",
+    "messages": [
+      {
+        "role": "user",
+        "type": "message",
+        "content": "Tell me what is currently on this canvas."
+      }
+    ],
+    "expectedCall": [
+      {
+        "functionName": "get_canvas_summary",
+        "arguments": {}
+      }
+    ]
+  },
+  {
+    "name": "Read the human selection",
+    "messages": [
+      {
+        "role": "user",
+        "type": "message",
+        "content": "Which canvas elements have I selected?"
+      }
+    ],
+    "expectedCall": [
+      {
+        "functionName": "get_selection",
+        "arguments": {}
+      }
+    ]
+  },
+  {
+    "name": "Add a diagram node",
+    "messages": [
+      {
+        "role": "user",
+        "type": "message",
+        "content": "Add a blue rectangle labeled Browser to the canvas."
+      }
+    ],
+    "expectedCall": [
+      {
+        "functionName": "add_elements",
+        "arguments": {
+          "elements": [
+            {
+              "id": "browser_node",
+              "type": "rectangle",
+              "x": 100,
+              "y": 100,
+              "width": 180,
+              "height": 90,
+              "backgroundColor": "#a5d8ff",
+              "fillStyle": "solid",
+              "label": { "text": "Browser" }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "name": "Move an existing node",
+    "messages": [
+      {
+        "role": "user",
+        "type": "message",
+        "content": "Create node_1, then move it to x 300 and y 180."
+      }
+    ],
+    "expectedCall": [
+      {
+        "functionName": "add_elements",
+        "arguments": {
+          "elements": [
+            {
+              "id": "node_1",
+              "type": "rectangle",
+              "x": 100,
+              "y": 100,
+              "width": 180,
+              "height": 90,
+              "label": { "text": "Node" }
+            }
+          ]
+        }
+      },
+      {
+        "functionName": "update_elements",
+        "arguments": {
+          "patches": [
+            {
+              "id": "node_1",
+              "changes": { "x": 300, "y": 180 }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "name": "Delete a known element",
+    "messages": [
+      {
+        "role": "user",
+        "type": "message",
+        "content": "Create node_1 and then delete it from the canvas."
+      }
+    ],
+    "expectedCall": [
+      {
+        "functionName": "add_elements",
+        "arguments": {
+          "elements": [
+            {
+              "id": "node_1",
+              "type": "rectangle",
+              "x": 100,
+              "y": 100,
+              "width": 180,
+              "height": 90,
+              "label": { "text": "Temporary" }
+            }
+          ]
+        }
+      },
+      {
+        "functionName": "delete_elements",
+        "arguments": { "ids": ["node_1"] }
+      }
+    ]
+  },
+  {
+    "name": "Focus the full drawing",
+    "messages": [
+      {
+        "role": "user",
+        "type": "message",
+        "content": "Create a Browser node and fit all canvas content into view."
+      }
+    ],
+    "expectedCall": [
+      {
+        "functionName": "add_elements",
+        "arguments": {
+          "elements": [
+            {
+              "id": "browser_node",
+              "type": "rectangle",
+              "x": 100,
+              "y": 100,
+              "width": 180,
+              "height": 90,
+              "label": { "text": "Browser" }
+            }
+          ]
+        }
+      },
+      {
+        "functionName": "fit_to_content",
+        "arguments": { "scope": "all" }
+      }
+    ]
+  },
+  {
+    "name": "Organize selected nodes",
+    "messages": [
+      {
+        "role": "user",
+        "type": "message",
+        "content": "Create Browser and Agent nodes, then arrange all nodes as a horizontal flow with 80 pixels between them."
+      }
+    ],
+    "expectedCall": [
+      {
+        "functionName": "add_elements",
+        "arguments": {
+          "elements": [
+            {
+              "id": "browser_node",
+              "type": "rectangle",
+              "x": 100,
+              "y": 100,
+              "width": 180,
+              "height": 90,
+              "label": { "text": "Browser" }
+            },
+            {
+              "id": "agent_node",
+              "type": "diamond",
+              "x": 400,
+              "y": 300,
+              "width": 180,
+              "height": 100,
+              "label": { "text": "Agent" }
+            }
+          ]
+        }
+      },
+      {
+        "functionName": "organize_diagram",
+        "arguments": {
+          "scope": "all",
+          "layout": "horizontal",
+          "spacing": 80
+        }
+      }
+    ]
+  }
+]
