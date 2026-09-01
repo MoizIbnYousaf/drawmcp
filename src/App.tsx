@@ -1,21 +1,37 @@
 import "./App.css";
-import { DrawMcpCanvas } from "./components/DrawMcpCanvas";
+import { useEffect } from "react";
+import { BenchmarksPage } from "./pages/BenchmarksPage";
+import { CanvasPage } from "./pages/CanvasPage";
+import { DocsPage } from "./pages/DocsPage";
+import { HomePage } from "./pages/HomePage";
+
+const routeForPath = (pathname: string) => {
+  const route = pathname.replace(/\/+$/, "") || "/";
+  switch (route) {
+    case "/canvas":
+      return <CanvasPage />;
+    case "/docs":
+      return <DocsPage />;
+    case "/benchmarks":
+      return <BenchmarksPage />;
+    default:
+      return <HomePage />;
+  }
+};
 
 function App() {
-  return (
-    <main className="app-shell">
-      <header className="app-header">
-        <div>
-          <p className="eyebrow">DrawMCP</p>
-          <h1>Human canvas. Agent tools. One live state.</h1>
-        </div>
-        <p className="header-note">WebMCP foundation</p>
-      </header>
-      <section className="canvas-shell" aria-label="DrawMCP canvas">
-        <DrawMcpCanvas />
-      </section>
-    </main>
-  );
+  useEffect(() => {
+    const route = window.location.pathname.replace(/\/+$/, "") || "/";
+    const titles: Record<string, string> = {
+      "/": "DrawMCP — One live canvas for people and agents",
+      "/canvas": "DrawMCP Canvas",
+      "/docs": "DrawMCP Docs",
+      "/benchmarks": "DrawMCP Benchmarks",
+    };
+    document.title = titles[route] ?? titles["/"];
+  }, []);
+
+  return routeForPath(window.location.pathname);
 }
 
 export default App;

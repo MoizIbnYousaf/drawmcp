@@ -32,3 +32,12 @@ textarea,
 select {
   font: inherit;
 }
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 3px solid rgba(108, 92, 231, 0.45);
+  outline-offset: 3px;
+}

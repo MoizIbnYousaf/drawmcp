@@ -3,6 +3,11 @@
 DrawMCP is an Excalidraw-based canvas where a person and a browser agent work
 on the same live drawing through WebMCP.
 
+- `/` explains the side-by-side protocol comparison.
+- `/canvas` owns the live Excalidraw editor and all seven WebMCP tools.
+- `/benchmarks` visualizes verified evidence and the controlled-run boundary.
+- `/docs` documents WebMCP, the official MCP lane, security, and deployment.
+
 The project is being built for the 2026 WebMCP Challenge. Its central question
 is:
 
