@@ -567,6 +567,8 @@
 .metric-track { height: 8px; overflow: hidden; border-radius: 999px; background: #e9e7de; }
 .metric-track i { height: 100%; display: block; border-radius: inherit; }
 .metric-fill { width: 28%; background: var(--green); }
+.metric-fill-official { width: 58%; background: var(--violet); }
+.metric-row-official > strong { color: var(--violet); }
 .metric-row-pending > strong { color: #8d8a81; }
 .metric-row-pending .metric-track { background: repeating-linear-gradient(135deg, #e8e5dc 0 6px, #f5f3ec 6px 12px); }
 .metric-note { padding-top: 20px; border-top: 1px solid var(--line); color: #7a776e; font-size: 0.75rem; line-height: 1.6; }
@@ -851,6 +853,65 @@
   padding-bottom: 110px;
 }
 
+.observed-section {
+  padding-block: 110px;
+  border-top: 1px solid var(--line);
+}
+
+.observed-table {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--paper-bright);
+}
+
+.observed-table > div {
+  display: grid;
+  grid-template-columns: minmax(260px, 1.5fr) repeat(3, minmax(90px, 0.5fr));
+  gap: 18px;
+  align-items: center;
+  padding: 19px 22px;
+  color: #5e5b53;
+  font-size: 0.76rem;
+}
+
+.observed-table > div + div {
+  border-top: 1px solid var(--line);
+}
+
+.observed-table .observed-head {
+  background: #eeece4;
+  color: #8a877e;
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.observed-table strong {
+  color: var(--ink);
+}
+
+.observation-note {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 40px;
+  margin-top: 22px;
+}
+
+.observation-note p {
+  max-width: 760px;
+  margin: 0;
+  color: #77746b;
+  font-size: 0.75rem;
+  line-height: 1.7;
+}
+
+.observation-note .text-link {
+  flex: 0 0 auto;
+}
+
 .snapshot-card {
   min-height: 220px;
   display: grid;
@@ -980,6 +1041,9 @@
   .boundary-grid { grid-template-columns: 1fr; }
   .benchmark-cta { min-height: 430px; flex-direction: column; align-items: flex-start; justify-content: center; }
   .tool-reference-row { grid-template-columns: 1fr; gap: 7px; }
+  .observed-table { overflow-x: auto; }
+  .observed-table > div { min-width: 690px; }
+  .observation-note { flex-direction: column; }
   .site-footer { align-items: flex-start; flex-direction: column; justify-content: center; }
   .webmcp-status { right: 8px; bottom: 8px; max-width: calc(100% - 16px); }
 }

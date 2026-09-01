@@ -165,9 +165,9 @@ export const HomePage = () => (
 
       <div className="measurement-board">
         <div className="metric-callout">
-          <p>Last verified page-local call</p>
-          <strong>0.7 ms</strong>
-          <span>Single deployed sample · not end-to-end latency</span>
+          <p>WebMCP page-local p50</p>
+          <strong>1.4 ms</strong>
+          <span>Five warm deployed runs · not end-to-end latency</span>
         </div>
         <div
           className="metric-visual"
@@ -177,16 +177,16 @@ export const HomePage = () => (
           <div className="metric-row">
             <span>WebMCP page execution</span>
             <div className="metric-track"><i className="metric-fill" /></div>
-            <strong>recorded</strong>
+            <strong>1.4 ms</strong>
           </div>
-          <div className="metric-row metric-row-pending">
-            <span>Official MCP controlled run</span>
-            <div className="metric-track"><i /></div>
-            <strong>pending</strong>
+          <div className="metric-row metric-row-official">
+            <span>Official MCP direct transport</span>
+            <div className="metric-track"><i className="metric-fill-official" /></div>
+            <strong>110.9 ms</strong>
           </div>
           <div className="metric-note">
-            No apples-to-apples result is published until both lanes run the
-            same prompt, model, host, machine, network, and diagram.
+            These are different measurement boundaries. No end-to-end winner is
+            published until both lanes run in the same model and host.
           </div>
         </div>
         <a className="text-link" href="/benchmarks">

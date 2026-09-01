@@ -14,7 +14,9 @@ describe("DrawMCP site pages", () => {
     ).toBeInTheDocument();
     expect(screen.getByText("Official Excalidraw MCP")).toBeInTheDocument();
     expect(screen.getByText("DrawMCP WebMCP")).toBeInTheDocument();
-    expect(screen.getByText(/No apples-to-apples result/)).toBeInTheDocument();
+    expect(
+      screen.getByText(/different measurement boundaries/),
+    ).toBeInTheDocument();
   });
 
   it("documents both the page-native and official MCP setup", () => {
@@ -30,6 +32,9 @@ describe("DrawMCP site pages", () => {
     render(<BenchmarksPage />);
     expect(screen.getByText("Controlled paired runs")).toBeInTheDocument();
     expect(screen.getByText("Not published yet")).toBeInTheDocument();
+    expect(
+      screen.getByText("Official MCP direct SDK transport"),
+    ).toBeInTheDocument();
     expect(
       screen.getByRole("heading", {
         name: "The WebMCP implementation works. The race has not been run.",

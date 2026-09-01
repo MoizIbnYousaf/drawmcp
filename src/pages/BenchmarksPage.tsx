@@ -18,27 +18,57 @@ export const BenchmarksPage = () => (
       <h1>Fast is only useful when we say what the clock includes.</h1>
       <p>
         DrawMCP records protocol, agent, execution, and visible-result timing as
-        separate boundaries. Controlled official-MCP runs are still pending,
-        so no overall winner is declared.
+        separate boundaries. Tool-level observations are published below, but
+        the same-host end-to-end run is still pending, so no winner is declared.
       </p>
     </section>
 
     <section className="benchmark-snapshot section-shell">
       <article className="snapshot-card snapshot-card-primary">
-        <p>Last deployed page-local call</p>
-        <strong>0.7 <small>ms</small></strong>
-        <span>One verified WebMCP sample</span>
+        <p>WebMCP page-local p50</p>
+        <strong>1.4 <small>ms</small></strong>
+        <span>Five warm deployed runs</span>
       </article>
       <article className="snapshot-card">
-        <p>Deployed deterministic smoke</p>
-        <strong>11/11</strong>
-        <span>Seven cases · every tool</span>
+        <p>Official MCP direct p50</p>
+        <strong>110.9 <small>ms</small></strong>
+        <span>Five warm Streamable HTTP runs</span>
       </article>
       <article className="snapshot-card">
         <p>Controlled paired runs</p>
         <strong>0</strong>
         <span>Not published yet</span>
       </article>
+    </section>
+
+    <section className="observed-section section-shell">
+      <div className="section-heading split-heading">
+        <div>
+          <p className="section-kicker">Observed tool boundaries</p>
+          <h2>Three clocks, not one misleading bar.</h2>
+        </div>
+        <p>
+          Page execution, host bridge, and remote MCP transport are displayed
+          separately because combining them would erase the architecture.
+        </p>
+      </div>
+      <div className="observed-table">
+        <div className="observed-head"><span>Boundary</span><span>p50</span><span>p95</span><span>Warm runs</span></div>
+        <div><strong>WebMCP page-local execution</strong><span>1.4 ms</span><span>1.48 ms</span><span>5</span></div>
+        <div><strong>Official MCP direct SDK transport</strong><span>110.9 ms</span><span>215.0 ms</span><span>5</span></div>
+        <div><strong>ChatGPT WebMCP host round trip</strong><span>2961 ms</span><span>3491 ms</span><span>5</span></div>
+      </div>
+      <div className="observation-note">
+        <p>
+          The same five-element diagram succeeded in every run. The official
+          response was 897 bytes; the WebMCP mutation receipt was 250 bytes.
+          Host implementations differ, so these observations explain where time
+          appears—they do not rank the protocols end to end.
+        </p>
+        <a className="text-link" href="/benchmarks/2026-09-01-tool-boundary.json">
+          Download raw run data <span aria-hidden="true">→</span>
+        </a>
+      </div>
     </section>
 
     <section className="timeline-section section-shell">
