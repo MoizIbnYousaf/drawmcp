@@ -78,7 +78,7 @@ src/excalidraw/revision-store.ts
 ### Work
 
 1. Replace the Vite demo with a full-height Excalidraw component.
-2. Capture `ExcalidrawImperativeAPI` through `onExcalidrawAPI`.
+2. Capture `ExcalidrawImperativeAPI` through the installed `0.18.1` package's `excalidrawAPI` callback.
 3. Build a typed `CanvasService` around only these published methods:
    - `getSceneElements`
    - `getAppState`

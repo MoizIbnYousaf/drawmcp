@@ -65,7 +65,7 @@ tools are thin adapters around this service.
 DrawMCP builds on `@excalidraw/excalidraw`, currently pinned in `package.json`.
 The MVP uses only its published surface:
 
-- `onExcalidrawAPI` to capture the live imperative API;
+- the installed `0.18.1` package's `excalidrawAPI` callback to capture the live imperative API;
 - `getSceneElements`, `getAppState`, and `getFiles` for current state;
 - `convertToExcalidrawElements` for simplified skeleton input;
 - `updateScene` with `CaptureUpdateAction.IMMEDIATELY` for mutations;
@@ -74,6 +74,8 @@ The MVP uses only its published surface:
 
 The full upstream source submodule is evidence and documentation. It is not a
 license to depend on private internals or turn DrawMCP into a source fork.
+The pinned master source has renamed the callback to `onExcalidrawAPI`; DrawMCP
+must not use that name until the installed package exposes it.
 
 ## Element representation
 

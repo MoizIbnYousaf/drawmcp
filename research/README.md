@@ -19,6 +19,9 @@ their original authors retain their rights.
 Refresh snapshots intentionally and review the resulting diff. Do not silently
 replace a snapshot during unrelated implementation work.
 
+The Notion MCP setup snapshot is a documentation-structure reference for the
+later `drawmcp.dev/docs` guide. DrawMCP must not copy its wording or branding.
+
 ## Upstream source
 
 The complete source trees used for the audits are pinned as Git submodules:

@@ -21,10 +21,12 @@ surface over the same live state.
 ## Exact Excalidraw API boundary
 
 Production code must build on the published `@excalidraw/excalidraw` API. The
-approved boundary is `onExcalidrawAPI`, `getSceneElements`, `getAppState`,
+installed `0.18.1` boundary is `excalidrawAPI`, `getSceneElements`, `getAppState`,
 `getFiles`, `convertToExcalidrawElements`, `updateScene`, `scrollToContent`,
 `onChange`, and `CaptureUpdateAction`. Do not import private component state,
-call undocumented editor internals, or maintain a source fork for the MVP.
+call undocumented editor internals, or maintain a source fork for the MVP. The
+newer vendored master uses `onExcalidrawAPI`; do not use that name until the
+installed package exports it.
 
 ## Architecture rules
 

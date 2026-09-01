@@ -53,9 +53,10 @@ The authoritative type is
 - `onScrollChange` and pointer subscriptions — optional future context;
 - `history.clear`, `setToast`, and other UI helpers.
 
-`ExcalidrawProps` exposes `onExcalidrawAPI` as soon as the API exists,
+The pinned upstream master exposes `onExcalidrawAPI` as soon as the API exists,
 `onInitialize` after initial state loads, and `onChange` for controlled
-observation. DrawMCP should capture the API with `onExcalidrawAPI` and register
+observation. The installed `@excalidraw/excalidraw@0.18.1` declarations instead
+expose `excalidrawAPI`. DrawMCP must bind to the installed callback and register
 WebMCP tools only after initialization is safe.
 
 ## Mutation and undo semantics
