@@ -22,10 +22,10 @@ agent operates the page the human is already editing.
 
 ## Status
 
-The core browser-native implementation is working locally. DrawMCP mounts the
-published Excalidraw editor and exposes seven page-owned WebMCP tools with
-closed schemas, runtime validation, revision guards, cancellation handling,
-undoable mutations, and visible timing telemetry.
+DrawMCP is live at [drawmcp.dev](https://drawmcp.dev). It mounts the published
+Excalidraw editor and exposes seven page-owned WebMCP tools with closed schemas,
+runtime validation, revision guards, cancellation handling, undoable mutations,
+and visible timing telemetry.
 
 - Production domain: `drawmcp.dev`
 - Hosting target: Vercel
@@ -42,10 +42,11 @@ The live tool surface is:
 - `fit_to_content`
 - `organize_diagram`
 
-The core has passed 46 deterministic tests, the Chrome Labs WebMCP smoke
-runner's 11 expected calls across seven cases, and a real in-app-browser
-human → WebMCP edit → Undo → Redo continuity journey. Deployment and the
-side-by-side comparison website remain release gates, not completed claims.
+The release has passed 49 deterministic tests, the Chrome Labs WebMCP smoke
+runner's 11 expected calls across seven cases on the custom domain, and a real
+in-app-browser human → WebMCP edit → Undo → Redo continuity journey. The
+controlled official-MCP versus WebMCP benchmark remains explicitly pending;
+the site does not claim an overall latency winner.
 
 ## Product contract
 
