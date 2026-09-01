@@ -1,0 +1,8 @@
+[submodule "vendor/excalidraw"]
+	path = vendor/excalidraw
+	url = https://github.com/excalidraw/excalidraw.git
+	shallow = true
+[submodule "vendor/excalidraw-mcp"]
+	path = vendor/excalidraw-mcp
+	url = https://github.com/excalidraw/excalidraw-mcp.git
+	shallow = true
