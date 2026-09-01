@@ -1,7 +1,26 @@
 # DrawMCP core WebMCP proof
 
-Verified on 2026-09-01 against commit `85be8d4` on
-`feat/core-webmcp`.
+Core semantics were verified on 2026-09-01 against commit `85be8d4`.
+The routed showcase and custom-domain release were verified against merge
+commit `1debe6d`.
+
+## Current launch
+
+- Production domain: `https://drawmcp.dev`
+- Tool-owning route: `https://drawmcp.dev/canvas`
+- Documentation: `https://drawmcp.dev/docs`
+- Benchmark room: `https://drawmcp.dev/benchmarks`
+- Verified production deployment: `dpl_8oxBJAADh93E3QPkQX4vjKTakzUM`
+- Deployment state: `READY`
+- Domain state: ownership verified, correctly configured, edge network active
+- Custom-domain Chrome Labs smoke: 11/11 steps across all seven cases
+- Custom-domain ChatGPT discovery: 7/7 tools and successful summary call
+- Main-branch GitHub CI: passed in 38 seconds
+
+The Vercel preview deployment was accessible in the signed-in in-app browser
+but not to the unauthenticated Chrome runner, behavior consistent with preview
+access protection. The public production alias and custom domain both passed
+the same evaluator, so the preview access settings were left unchanged.
 
 ## Deployed artifact
 
@@ -13,7 +32,8 @@ Verified on 2026-09-01 against commit `85be8d4` on
 - Vercel state: `READY`
 - Target: `production` because Vercel automatically assigns a new project's
   first deployment to that target
-- Custom domain: `drawmcp.dev` was not attached during this gate
+- Custom domain at this first core-only gate: not yet attached; the current
+  launch status is recorded above
 
 The deployment was created from a clean working tree at the commit above.
 
