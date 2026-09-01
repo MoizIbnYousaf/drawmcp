@@ -12,6 +12,36 @@ export const TOOL_NAMES = [
 
 export type ToolName = (typeof TOOL_NAMES)[number];
 
+export type AddElementsInput = {
+  expected_revision?: number;
+  elements: Array<Record<string, unknown> & { id: string; type: string }>;
+};
+
+export type UpdateElementsInput = {
+  expected_revision?: number;
+  patches: Array<{
+    id: string;
+    changes: Record<string, unknown>;
+  }>;
+};
+
+export type DeleteElementsInput = {
+  expected_revision?: number;
+  ids: string[];
+};
+
+export type FitToContentInput = {
+  scope: "selection" | "all";
+  animate?: boolean;
+};
+
+export type OrganizeDiagramInput = {
+  expected_revision?: number;
+  scope: "selection" | "all";
+  layout: "horizontal" | "vertical" | "grid";
+  spacing?: number;
+};
+
 export const TOOL_LIMITS = {
   maxSummaryElements: 200,
   maxSelectionElements: 100,

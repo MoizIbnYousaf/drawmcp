@@ -15,7 +15,7 @@ export type ModelContextTool = {
   annotations?: ToolAnnotations;
   execute: (
     input: Record<string, unknown>,
-    options: ToolExecutionOptions,
+    options?: ToolExecutionOptions,
   ) => unknown | Promise<unknown>;
 };
 

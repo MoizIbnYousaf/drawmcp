@@ -9,6 +9,9 @@
     "lint": "oxlint src vite.config.ts",
     "test": "vitest run",
     "test:watch": "vitest",
+    "evals:export": "npx -y tsx@4.23.13 scripts/export-eval-fixtures.ts",
+    "evals:check": "npm run evals:export && git diff --exit-code -- evals/tools.json",
+    "evals:smoke:local": "npx -y webmcp-evals@0.0.4 smoke -u http://127.0.0.1:5173 -e evals/webmcp-evals.json --chrome-channel chrome -v",
     "preview": "vite preview"
   },
   "dependencies": {

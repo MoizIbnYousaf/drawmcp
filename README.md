@@ -17,14 +17,30 @@ agent operates the page the human is already editing.
 
 ## Status
 
-Repository foundation and upstream audit are complete. The application is a
-Vite, React, and TypeScript scaffold with the Excalidraw package and Chrome's
-WebMCP React hook installed. Production implementation has not started yet.
+The core browser-native implementation is working locally. DrawMCP mounts the
+published Excalidraw editor and exposes seven page-owned WebMCP tools with
+closed schemas, runtime validation, revision guards, cancellation handling,
+undoable mutations, and visible timing telemetry.
 
 - Production domain: `drawmcp.dev`
 - Hosting target: Vercel
 - Repository visibility: private during development
 - WebMCP API status: W3C Community Group draft, not a W3C Standard
+
+The live tool surface is:
+
+- `get_canvas_summary`
+- `get_selection`
+- `add_elements`
+- `update_elements`
+- `delete_elements`
+- `fit_to_content`
+- `organize_diagram`
+
+The core has passed 46 deterministic tests, the Chrome Labs WebMCP smoke
+runner's 11 expected calls across seven cases, and a real in-app-browser
+human → WebMCP edit → Undo → Redo continuity journey. Deployment and the
+side-by-side comparison website remain release gates, not completed claims.
 
 ## Product contract
 
@@ -43,6 +59,8 @@ The normal canvas must remain useful when WebMCP is unavailable.
 
 ```text
 src/                         DrawMCP application
+evals/                       Schemas, smoke cases, surface map, benchmark plan
+scripts/                     Generated-fixture tooling
 docs/APPROACH.md             Product and architecture decisions
 docs/IMPLEMENTATION_PLAN.md  End-to-end delivery plan
 docs/WEBMCP_GUIDELINES.md    Mandatory WebMCP implementation rules
@@ -77,7 +95,16 @@ Run the current checks:
 
 ```bash
 npm run lint
+npm test
+npm run evals:check
 npm run build
+```
+
+With the development server running, execute the official deterministic
+WebMCP smoke cases in another terminal:
+
+```bash
+npm run evals:smoke:local
 ```
 
 ## Authoritative documents

@@ -1,4 +1,6 @@
 import { describe, expect, it } from "vitest";
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
 import { TOOL_DEFINITIONS, validateToolInput } from "./tool-contracts";
 
 describe("WebMCP tool contracts", () => {
@@ -12,6 +14,19 @@ describe("WebMCP tool contracts", () => {
       "fit_to_content",
       "organize_diagram",
     ]);
+  });
+
+  it("keeps the WebMCP eval schema fixture in sync", () => {
+    const fixture = JSON.parse(
+      readFileSync(resolve("evals/tools.json"), "utf8"),
+    );
+    expect(fixture.tools).toEqual(
+      Object.entries(TOOL_DEFINITIONS).map(([name, definition]) => ({
+        name,
+        description: definition.description,
+        inputSchema: definition.inputSchema,
+      })),
+    );
   });
 
   it("rejects unknown properties on read tools", () => {

@@ -9,6 +9,9 @@ const rectangle = (id: string, x = 0) => ({
   width: 100,
   height: 50,
   isDeleted: false,
+  version: 1,
+  versionNonce: 1,
+  updated: 1,
 });
 
 const createHarness = () => {
@@ -134,6 +137,114 @@ describe("CanvasService", () => {
       revision_after: 2,
     });
     expect(harness.getElements()[0].x).toBe(20);
+  });
+
+  it("adds, updates, and deletes elements through guarded operations", async () => {
+    const harness = createHarness();
+    const signal = new AbortController().signal;
+    await expect(
+      harness.service.addElements(
+        {
+          expected_revision: 0,
+          elements: [
+            {
+              id: "node_2",
+              type: "rectangle",
+              x: 200,
+              y: 0,
+              width: 100,
+              height: 50,
+            },
+          ],
+        },
+        signal,
+      ),
+    ).resolves.toMatchObject({ ok: true, revision_after: 1 });
+    await expect(
+      harness.service.updateElements(
+        {
+          expected_revision: 1,
+          patches: [{ id: "node_2", changes: { x: 250 } }],
+        },
+        signal,
+      ),
+    ).resolves.toMatchObject({ ok: true, revision_after: 2 });
+    expect(harness.getElements().find(({ id }) => id === "node_2")?.x).toBe(
+      250,
+    );
+    expect(
+      harness.getElements().find(({ id }) => id === "node_2")?.version,
+    ).toBe(1);
+    await expect(
+      harness.service.deleteElements(
+        { expected_revision: 2, ids: ["node_2"] },
+        signal,
+      ),
+    ).resolves.toMatchObject({ ok: true, revision_after: 3 });
+    expect(
+      harness.getElements().find(({ id }) => id === "node_2")?.isDeleted,
+    ).toBe(true);
+    expect(
+      harness.getElements().find(({ id }) => id === "node_2")?.version,
+    ).toBe(2);
+  });
+
+  it("rejects duplicate additions and missing mutation targets", async () => {
+    const harness = createHarness();
+    const signal = new AbortController().signal;
+    await expect(
+      harness.service.addElements(
+        { elements: [rectangle("node_1") as never] },
+        signal,
+      ),
+    ).resolves.toMatchObject({ ok: false, code: "INVALID_INPUT" });
+    await expect(
+      harness.service.updateElements(
+        { patches: [{ id: "missing", changes: { x: 20 } }] },
+        signal,
+      ),
+    ).resolves.toMatchObject({ ok: false, code: "NOT_FOUND" });
+  });
+
+  it("focuses the current selection without advancing revision", () => {
+    const harness = createHarness();
+    expect(
+      harness.service.fitToContent({ scope: "selection", animate: false }),
+    ).toMatchObject({ ok: true, revision: 0, focused_ids: ["node_1"] });
+    expect(harness.api.scrollToContent).toHaveBeenCalledWith(
+      [expect.objectContaining({ id: "node_1" })],
+      { fitToContent: true, animate: false },
+    );
+  });
+
+  it("organizes selected supported nodes while preserving other elements", async () => {
+    const harness = createHarness();
+    const signal = new AbortController().signal;
+    await harness.service.addElements(
+      {
+        expected_revision: 0,
+        elements: [rectangle("node_2", 400) as never],
+      },
+      signal,
+    );
+    harness.select(["node_1", "node_2"]);
+    const result = await harness.service.organize(
+      {
+        expected_revision: 1,
+        scope: "selection",
+        layout: "horizontal",
+        spacing: 20,
+      },
+      signal,
+    );
+    expect(result).toMatchObject({
+      ok: true,
+      revision_after: 2,
+      affected_element_ids: ["node_1", "node_2"],
+    });
+    expect(harness.getElements().map(({ version }) => version)).toEqual([
+      2, 2,
+    ]);
   });
 
   it("fails closed when the editor is detached or destroyed", async () => {

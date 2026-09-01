@@ -52,7 +52,7 @@ describe("WebMcpRegistry", () => {
 
   it("passes the call-level cancellation signal to handlers", async () => {
     const execute = vi.fn(async (_input, options) => ({
-      aborted: options.signal.aborted,
+      aborted: options!.signal.aborted,
     }));
     let registeredTool: ModelContextTool | undefined;
     const context: ModelContext = {

@@ -35,9 +35,57 @@
 }
 
 .canvas-shell,
+.drawmcp-workspace,
 .drawmcp-canvas {
   min-height: 0;
   height: 100%;
+}
+
+.drawmcp-workspace {
+  position: relative;
+}
+
+.webmcp-status {
+  position: absolute;
+  z-index: 5;
+  right: 16px;
+  bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 34px;
+  padding: 7px 11px;
+  border: 1px solid #d9d5cc;
+  border-radius: 10px;
+  background: rgba(255, 254, 250, 0.92);
+  box-shadow: 0 8px 28px rgba(48, 45, 38, 0.1);
+  color: #504c44;
+  font-size: 0.72rem;
+  font-weight: 600;
+  backdrop-filter: blur(8px);
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #d59f24;
+}
+
+.status-registered {
+  background: #2f9e44;
+}
+
+.status-unsupported,
+.status-error,
+.status-disposed {
+  background: #e03131;
+}
+
+.status-divider {
+  width: 1px;
+  height: 14px;
+  background: #d8d3c9;
 }
 
 @media (max-width: 640px) {
@@ -48,5 +96,11 @@
 
   .header-note {
     display: none;
+  }
+
+  .webmcp-status {
+    right: 8px;
+    bottom: 8px;
+    max-width: calc(100% - 16px);
   }
 }

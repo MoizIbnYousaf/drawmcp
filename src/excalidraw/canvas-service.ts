@@ -1,4 +1,12 @@
-import { TOOL_LIMITS } from "../webmcp/tool-contracts";
+import { organizeDiagram } from "../layout/organize-diagram";
+import {
+  TOOL_LIMITS,
+  type AddElementsInput,
+  type DeleteElementsInput,
+  type FitToContentInput,
+  type OrganizeDiagramInput,
+  type UpdateElementsInput,
+} from "../webmcp/tool-contracts";
 import type { ToolFailure, ToolResult } from "../webmcp/tool-results";
 import { canceledResult, internalErrorResult } from "../webmcp/tool-results";
 import {
@@ -67,16 +75,66 @@ const staleResult = (revision: number): ToolFailure => ({
   current_revision: revision,
 });
 
+const invalidResult = (message: string): ToolFailure => ({
+  ok: false,
+  code: "INVALID_INPUT",
+  message,
+});
+
+const notFoundResult = (message: string): ToolFailure => ({
+  ok: false,
+  code: "NOT_FOUND",
+  message,
+});
+
+type MutationComputation =
+  | { elements: CanvasElement[]; affectedIds: string[] }
+  | ToolFailure;
+
+export type UpdateCanvasElement = (
+  element: CanvasElement,
+  changes: Record<string, unknown>,
+) => CanvasElement;
+
+const fallbackUpdateElement: UpdateCanvasElement = (element, changes) => ({
+  ...element,
+  ...changes,
+  version:
+    (typeof element.version === "number" ? element.version : 0) + 1,
+  versionNonce:
+    (typeof element.versionNonce === "number" ? element.versionNonce : 0) + 1,
+  updated: Date.now(),
+});
+
+const isToolFailure = (value: MutationComputation): value is ToolFailure =>
+  "ok" in value && value.ok === false;
+
 export class CanvasService {
   private readonly captureUpdateImmediately: unknown;
+  private readonly convertElements: (
+    elements: AddElementsInput["elements"],
+  ) => CanvasElement[];
+  private readonly updateElement: UpdateCanvasElement;
   private api?: CanvasApi;
   private readonly revisions = new RevisionController();
   private mutationTail: Promise<unknown> = Promise.resolve();
   private listeners = new Set<(status: CanvasStatus) => void>();
 
-  constructor(options: { captureUpdateImmediately?: unknown } = {}) {
+  constructor(
+    options: {
+      captureUpdateImmediately?: unknown;
+      convertElements?: (
+        elements: AddElementsInput["elements"],
+      ) => CanvasElement[];
+      updateElement?: UpdateCanvasElement;
+    } = {},
+  ) {
     this.captureUpdateImmediately =
       options.captureUpdateImmediately ?? "IMMEDIATELY";
+    this.convertElements =
+      options.convertElements ??
+      ((elements) => elements as unknown as CanvasElement[]);
+    this.updateElement = options.updateElement ?? fallbackUpdateElement;
   }
 
   attach(api: CanvasApi): void {
@@ -146,28 +204,224 @@ export class CanvasService {
     };
   }
 
+  addElements(
+    input: AddElementsInput,
+    signal: AbortSignal,
+  ): Promise<ToolResult<MutationReceipt>> {
+    return this.enqueueMutation({
+      operation: "add_elements",
+      expectedRevision: input.expected_revision,
+      signal,
+      compute: (api) => {
+        const current = [...api.getSceneElementsIncludingDeleted()];
+        const currentIds = new Set(current.map(({ id }) => id));
+        const requestedIds = input.elements.map(({ id }) => id);
+        if (new Set(requestedIds).size !== requestedIds.length) {
+          return invalidResult(
+            "Element IDs must be unique within one add request.",
+          );
+        }
+        const duplicate = requestedIds.find((id) => currentIds.has(id));
+        if (duplicate) {
+          return invalidResult(`Element ID already exists: ${duplicate}`);
+        }
+        const converted = this.convertElements(input.elements);
+        return {
+          elements: [...current, ...converted],
+          affectedIds: converted.map(({ id }) => id),
+        };
+      },
+    });
+  }
+
+  updateElements(
+    input: UpdateElementsInput,
+    signal: AbortSignal,
+  ): Promise<ToolResult<MutationReceipt>> {
+    return this.enqueueMutation({
+      operation: "update_elements",
+      expectedRevision: input.expected_revision,
+      signal,
+      compute: (api) => {
+        const current = [...api.getSceneElementsIncludingDeleted()];
+        const currentIds = new Set(
+          current.filter(({ isDeleted }) => !isDeleted).map(({ id }) => id),
+        );
+        const missing = input.patches.find(({ id }) => !currentIds.has(id));
+        if (missing) return notFoundResult(`Element not found: ${missing.id}`);
+        const patches = new Map(
+          input.patches.map((patch) => [patch.id, patch]),
+        );
+        return {
+          elements: current.map((element) => {
+            const patch = patches.get(element.id);
+            return patch
+              ? this.updateElement(element, patch.changes)
+              : element;
+          }),
+          affectedIds: input.patches.map(({ id }) => id),
+        };
+      },
+    });
+  }
+
+  deleteElements(
+    input: DeleteElementsInput,
+    signal: AbortSignal,
+  ): Promise<ToolResult<MutationReceipt>> {
+    return this.enqueueMutation({
+      operation: "delete_elements",
+      expectedRevision: input.expected_revision,
+      signal,
+      compute: (api) => {
+        const current = [...api.getSceneElementsIncludingDeleted()];
+        const liveIds = new Set(
+          current.filter(({ isDeleted }) => !isDeleted).map(({ id }) => id),
+        );
+        const missing = input.ids.find((id) => !liveIds.has(id));
+        if (missing) return notFoundResult(`Element not found: ${missing}`);
+        const targets = new Set(input.ids);
+        const affectedIds: string[] = [];
+        const elements = current.map((element) => {
+          const ownedText =
+            typeof element.containerId === "string" &&
+            targets.has(element.containerId);
+          if (targets.has(element.id) || ownedText) {
+            affectedIds.push(element.id);
+            return this.updateElement(element, { isDeleted: true });
+          }
+          return element;
+        });
+        return { elements, affectedIds };
+      },
+    });
+  }
+
+  fitToContent(input: FitToContentInput): ToolResult<Record<string, unknown>> {
+    const api = this.getAvailableApi();
+    if (!api) return unavailableResult();
+    const current = [...api.getSceneElements()];
+    const selected = api.getAppState().selectedElementIds ?? {};
+    const target =
+      input.scope === "selection"
+        ? current.filter(({ id }) => selected[id])
+        : current;
+    if (target.length === 0) {
+      return notFoundResult(
+        input.scope === "selection"
+          ? "No elements are selected."
+          : "The canvas has no elements to focus.",
+      );
+    }
+    api.scrollToContent(target, {
+      fitToContent: true,
+      animate: input.animate ?? true,
+    });
+    return {
+      ok: true,
+      revision: this.revisions.getSnapshot().revision,
+      focused_ids: target.map(({ id }) => id),
+      scope: input.scope,
+    };
+  }
+
+  organize(
+    input: OrganizeDiagramInput,
+    signal: AbortSignal,
+  ): Promise<ToolResult<MutationReceipt & { skipped_element_ids: string[] }>> {
+    let skippedIds: string[] = [];
+    return this.enqueueMutation({
+      operation: "organize_diagram",
+      expectedRevision: input.expected_revision,
+      signal,
+      compute: (api) => {
+        const current = [...api.getSceneElementsIncludingDeleted()];
+        const live = current.filter(({ isDeleted }) => !isDeleted);
+        const selected = api.getAppState().selectedElementIds ?? {};
+        const targetIds = new Set(
+          input.scope === "selection"
+            ? Object.keys(selected).filter((id) => selected[id])
+            : live.map(({ id }) => id),
+        );
+        if (targetIds.size === 0) {
+          return notFoundResult(
+            input.scope === "selection"
+              ? "No elements are selected."
+              : "The canvas has no elements to organize.",
+          );
+        }
+        if (signal.aborted) return canceledResult();
+        const organized = organizeDiagram(
+          current,
+          targetIds,
+          input.layout,
+          input.spacing ?? 80,
+        );
+        skippedIds = organized.skippedIds;
+        if (organized.movedIds.length === 0) {
+          return notFoundResult(
+            "No supported nodes were available to organize.",
+          );
+        }
+        return {
+          elements: current.map((element, index) => {
+            if (!organized.movedIds.includes(element.id)) return element;
+            const organizedElement = organized.elements[index];
+            return this.updateElement(element, {
+              x: organizedElement.x,
+              y: organizedElement.y,
+            });
+          }),
+          affectedIds: organized.movedIds,
+        };
+      },
+    }).then((result) =>
+      result.ok ? { ...result, skipped_element_ids: skippedIds } : result,
+    );
+  }
+
   replaceElements(
     request: ReplaceElementsRequest,
   ): Promise<ToolResult<MutationReceipt>> {
+    return this.enqueueMutation({
+      operation: request.operation,
+      expectedRevision: request.expectedRevision,
+      signal: request.signal,
+      compute: () => ({
+        elements: request.elements,
+        affectedIds: request.affectedIds,
+      }),
+    });
+  }
+
+  private enqueueMutation(input: {
+    operation: string;
+    expectedRevision?: number;
+    signal: AbortSignal;
+    compute: (api: CanvasApi) => MutationComputation;
+  }): Promise<ToolResult<MutationReceipt>> {
     const run = async (): Promise<ToolResult<MutationReceipt>> => {
-      if (request.signal.aborted) return canceledResult();
+      if (input.signal.aborted) return canceledResult();
       const api = this.getAvailableApi();
       if (!api) return unavailableResult();
       const before = this.revisions.getSnapshot().revision;
       if (
-        request.expectedRevision !== undefined &&
-        request.expectedRevision !== before
+        input.expectedRevision !== undefined &&
+        input.expectedRevision !== before
       ) {
         return staleResult(before);
       }
 
       try {
+        const computed = input.compute(api);
+        if (isToolFailure(computed)) return computed;
+        if (input.signal.aborted) return canceledResult();
         const pending = this.revisions.expectAgentChange(
-          request.operation,
-          request.elements,
+          input.operation,
+          computed.elements,
         );
         api.updateScene({
-          elements: request.elements,
+          elements: computed.elements,
           captureUpdate: this.captureUpdateImmediately,
         });
         await Promise.resolve();
@@ -176,14 +430,14 @@ export class CanvasService {
         this.emitStatus();
         return {
           ok: true,
-          operation: request.operation,
+          operation: input.operation,
           revision_before: before,
           revision_after: settled.revision,
-          affected_element_ids: request.affectedIds,
+          affected_element_ids: computed.affectedIds,
           element_count: api.getSceneElements().length,
         };
       } catch (error) {
-        if (request.signal.aborted) return canceledResult();
+        if (input.signal.aborted) return canceledResult();
         if (
           error instanceof Error &&
           error.message.includes("canvas changed")
