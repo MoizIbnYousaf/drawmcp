@@ -16,7 +16,8 @@ npm run evals:export
 npm run evals:check
 ```
 
-The deterministic smoke command expects the Vite development server at `http://127.0.0.1:5173`.
+The deterministic smoke command expects the Vite development server at
+`http://127.0.0.1:5173` and exercises the tool-owning `/canvas` route.
 
 Current local proof: 11/11 deterministic smoke steps passed across all seven
 cases on 2026-09-01. Treat that as local runtime evidence, not deployed-runtime
