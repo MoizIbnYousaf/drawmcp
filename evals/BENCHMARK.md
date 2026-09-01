@@ -2,6 +2,11 @@
 
 No official source currently provides an apples-to-apples latency benchmark for page-native WebMCP versus the hosted Excalidraw MCP service. DrawMCP will publish its own reproducible measurements and label them as project results.
 
+The first tool-boundary observation is published at
+`public/benchmarks/2026-09-01-tool-boundary.json`. It separates WebMCP's
+page-local execution, ChatGPT host round trip, and official MCP direct SDK
+transport. Because the hosts differ, it is not an end-to-end protocol ranking.
+
 ## Same-task protocol
 
 Run the same prompt, model, host application, machine, network, and target diagram for both lanes. Use at least five warm runs after one discarded cold run. Reset the canvas and conversation state between measured runs.

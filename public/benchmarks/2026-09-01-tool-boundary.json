@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-09-01T23:34:00.644Z",
+  "drawmcp_commit": "8d6151c",
+  "benchmark": "browser-agent-canvas-tool-boundary-observation",
+  "comparable_as_end_to_end": false,
+  "reason_not_comparable": "The official MCP lane uses a direct Node SDK Streamable HTTP client while the WebMCP host timing uses ChatGPT in-app-browser tools.call. Page-local WebMCP execution is recorded separately.",
+  "shared_diagram": {
+    "nodes": 3,
+    "arrows": 2,
+    "labels": ["Browser", "Agent", "Canvas"]
+  },
+  "method": {
+    "runs": 6,
+    "discarded_cold_runs": 1,
+    "warm_runs": 5,
+    "quantiles": "linear interpolation over sorted warm-run values",
+    "excludes": ["model decision", "prompt processing", "visible widget stabilization"]
+  },
+  "official_mcp": {
+    "endpoint": "https://mcp.excalidraw.com/",
+    "transport": "MCP Streamable HTTP via @modelcontextprotocol/sdk 1.25.2",
+    "tool_inventory": ["read_me", "create_view", "export_to_excalidraw", "save_checkpoint", "read_checkpoint"],
+    "tool": "create_view",
+    "input_bytes": 654,
+    "output_bytes": 897,
+    "warm_stats_ms": {
+      "p50": 110.882,
+      "p95": 215.002,
+      "min": 74.863,
+      "max": 228.856
+    },
+    "runs": [
+      {"run": 0, "cold_start": true, "duration_ms": 99.671, "is_error": false},
+      {"run": 1, "cold_start": false, "duration_ms": 110.882, "is_error": false},
+      {"run": 2, "cold_start": false, "duration_ms": 74.863, "is_error": false},
+      {"run": 3, "cold_start": false, "duration_ms": 228.856, "is_error": false},
+      {"run": 4, "cold_start": false, "duration_ms": 78.388, "is_error": false},
+      {"run": 5, "cold_start": false, "duration_ms": 159.587, "is_error": false}
+    ]
+  },
+  "webmcp": {
+    "endpoint": "https://drawmcp.dev/canvas",
+    "host": "ChatGPT in-app browser browser-client WebMCP capability",
+    "tool": "add_elements",
+    "input_bytes": 667,
+    "output_bytes": 250,
+    "host_round_trip_warm_stats_ms": {
+      "p50": 2961.383,
+      "p95": 3490.743,
+      "min": 2541.333,
+      "max": 3587.056
+    },
+    "page_local_warm_stats_ms": {
+      "p50": 1.4,
+      "p95": 1.48,
+      "min": 1.4,
+      "max": 1.5
+    },
+    "runs": [
+      {"run": 0, "cold_start": true, "host_round_trip_ms": 2346.383, "page_local_ms": 7.1, "is_error": false},
+      {"run": 1, "cold_start": false, "host_round_trip_ms": 3105.493, "page_local_ms": 1.4, "is_error": false},
+      {"run": 2, "cold_start": false, "host_round_trip_ms": 2604.271, "page_local_ms": 1.4, "is_error": false},
+      {"run": 3, "cold_start": false, "host_round_trip_ms": 2541.333, "page_local_ms": 1.5, "is_error": false},
+      {"run": 4, "cold_start": false, "host_round_trip_ms": 2961.383, "page_local_ms": 1.4, "is_error": false},
+      {"run": 5, "cold_start": false, "host_round_trip_ms": 3587.056, "page_local_ms": 1.4, "is_error": false}
+    ]
+  }
+}
