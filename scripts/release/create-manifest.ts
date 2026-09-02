@@ -14,6 +14,7 @@ export const createReleaseManifest = () => {
   const unit = readJson(".evals/unit-tests.json");
   const deterministic = readJson(".evals/deterministic-latest.json");
   const smoke = readJson(".evals/smoke-latest.json");
+  const visual = readJson(".evals/visual-qa-latest.json");
   const benchmark = readJson("public/benchmarks/latest.json");
   const evalRun = readdirSync(resolve("evidence/evals"), {
     withFileTypes: true,
@@ -29,6 +30,7 @@ export const createReleaseManifest = () => {
     unit.success !== true ||
     deterministic.passed !== true ||
     smoke.passed !== true ||
+    visual.passed !== true ||
     probabilistic.passed !== true ||
     benchmark.counts?.semantic_failures !== 0
   ) {
@@ -36,6 +38,63 @@ export const createReleaseManifest = () => {
   }
 
   const commit = git("rev-parse", "HEAD");
+  const evidence = {
+    tools: { passed: tools.tools.length, total: tools.tools.length },
+    deterministic_browser: {
+      passed: deterministic.steps.filter(
+        (step: { passed: boolean }) => step.passed,
+      ).length,
+      total: deterministic.steps.length,
+    },
+    local_model: {
+      passed: Object.values(probabilistic.categories).reduce(
+        (total: number, category: any) => total + category.passes,
+        0,
+      ),
+      total: Object.values(probabilistic.categories).reduce(
+        (total: number, category: any) => total + category.attempts,
+        0,
+      ),
+    },
+    chrome_smoke: {
+      passed: smoke.passed_steps,
+      total: smoke.total_steps,
+    },
+    visual_routes: {
+      passed: visual.passed_cases,
+      total: visual.total_cases,
+    },
+    unit_tests: {
+      passed: unit.numPassedTests,
+      total: unit.numTotalTests,
+    },
+    controlled_benchmark: {
+      semantic_passed:
+        benchmark.counts.total_trials - benchmark.counts.semantic_failures,
+      total: benchmark.counts.total_trials,
+    },
+  };
+  const assertClaims = (path: string, claims: string[]) => {
+    const source = readFileSync(resolve(path), "utf8").replace(/\s+/g, " ");
+    for (const claim of claims) {
+      if (!source.includes(claim)) {
+        throw new Error(`${path} is missing the release claim: ${claim}`);
+      }
+    }
+  };
+  assertClaims("README.md", [
+    `${evidence.unit_tests.passed} deterministic tests`,
+    `${evidence.deterministic_browser.passed}/${evidence.deterministic_browser.total} project-owned browser proof steps`,
+    `${evidence.chrome_smoke.passed}/${evidence.chrome_smoke.total} authored smoke calls`,
+    `${evidence.local_model.passed}/${evidence.local_model.total} repeated local-model decisions`,
+    `${evidence.controlled_benchmark.semantic_passed}/${evidence.controlled_benchmark.total} semantically correct trials`,
+  ]);
+  assertClaims("docs/DEVPOST_SUBMISSION.md", [
+    `${evidence.unit_tests.passed} deterministic tests`,
+    `${evidence.deterministic_browser.passed}/${evidence.deterministic_browser.total} semantic browser steps`,
+    `${evidence.chrome_smoke.passed}/${evidence.chrome_smoke.total} Chrome Labs smoke calls`,
+    `${evidence.local_model.passed} local-model decisions`,
+  ]);
   const releaseRoot = resolve("evidence/releases", commit);
   mkdirSync(releaseRoot, { recursive: true });
   const writeReleaseJson = (name: string, value: unknown) => {
@@ -60,38 +119,7 @@ export const createReleaseManifest = () => {
     deterministic,
   );
   const smokeArtifact = writeReleaseJson("chrome-smoke.json", smoke);
-  const evidence = {
-    tools: { passed: tools.tools.length, total: tools.tools.length },
-    deterministic_browser: {
-      passed: deterministic.steps.filter(
-        (step: { passed: boolean }) => step.passed,
-      ).length,
-      total: deterministic.steps.length,
-    },
-    local_model: {
-      passed: Object.values(probabilistic.categories).reduce(
-        (total: number, category: any) => total + category.passes,
-        0,
-      ),
-      total: Object.values(probabilistic.categories).reduce(
-        (total: number, category: any) => total + category.attempts,
-        0,
-      ),
-    },
-    chrome_smoke: {
-      passed: smoke.passed_steps,
-      total: smoke.total_steps,
-    },
-    unit_tests: {
-      passed: unit.numPassedTests,
-      total: unit.numTotalTests,
-    },
-    controlled_benchmark: {
-      semantic_passed:
-        benchmark.counts.total_trials - benchmark.counts.semantic_failures,
-      total: benchmark.counts.total_trials,
-    },
-  };
+  const visualArtifact = writeReleaseJson("visual-qa.json", visual);
   const manifest = {
     schema_version: 1,
     generated_at: new Date().toISOString(),
@@ -102,6 +130,7 @@ export const createReleaseManifest = () => {
       unit_tests: unitArtifact,
       deterministic_browser: deterministicArtifact,
       chrome_smoke: smokeArtifact,
+      visual_qa: visualArtifact,
       probabilistic: `evidence/evals/${evalRun}/summary.json`,
       benchmark: "public/benchmarks/latest.json",
     },

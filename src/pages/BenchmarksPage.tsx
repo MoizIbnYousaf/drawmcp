@@ -18,6 +18,13 @@ const webTask = controlled.webmcp.warm.task_duration_ms;
 const webComponent = controlled.webmcp.warm.component_duration_ms;
 const officialComponent = controlled["official-mcp"].warm.task_duration_ms;
 const formatMs = (value: number) => `${value.toFixed(2)} ms`;
+const semanticPassed =
+  benchmarkEvidence.counts.total_trials - benchmarkEvidence.counts.semantic_failures;
+const semanticTotal = benchmarkEvidence.counts.total_trials;
+const warmPairs = benchmarkEvidence.counts.warm_pairs;
+const coldPairs = benchmarkEvidence.counts.cold_pairs;
+const webWarmRuns = controlled.webmcp.warm.attempts;
+const officialWarmRuns = controlled["official-mcp"].warm.attempts;
 
 export const BenchmarksPage = () => (
   <main className="site-page benchmark-page">
@@ -29,7 +36,7 @@ export const BenchmarksPage = () => (
         <DrawablyHighlight fill="#ffec99">clock includes.</DrawablyHighlight>
       </h1>
       <p>
-        The controlled component run is complete: 220/220 scenes passed the
+        The controlled component run is complete: {semanticPassed}/{semanticTotal} scenes passed the
         semantic oracle. The same-host prompt-to-visible-result run is still
         pending, so no end-to-end winner is declared.
       </p>
@@ -39,17 +46,17 @@ export const BenchmarksPage = () => (
       <DrawablyCard className="snapshot-card snapshot-card-primary" roughness={0.65} stroke="#2f9e44">
         <p>WebMCP controlled task p50</p>
         <strong>{webTask.p50.value.toFixed(2)} <small>ms</small></strong>
-        <span>100 warm mounted-page runs</span>
+        <span>{webWarmRuns} warm mounted-page runs</span>
       </DrawablyCard>
       <DrawablyCard className="snapshot-card" roughness={0.65} stroke="#6c5ce7">
         <p>Official MCP component p50</p>
         <strong>{officialComponent.p50.value.toFixed(2)} <small>ms</small></strong>
-        <span>100 warm local Streamable HTTP runs</span>
+        <span>{officialWarmRuns} warm local Streamable HTTP runs</span>
       </DrawablyCard>
       <DrawablyCard className="snapshot-card" roughness={0.65} stroke="#77736a">
         <p>Semantic trial success</p>
-        <strong>220/220</strong>
-        <span>100 warm and 10 cold pairs</span>
+        <strong>{semanticPassed}/{semanticTotal}</strong>
+        <span>{warmPairs} warm and {coldPairs} cold pairs</span>
       </DrawablyCard>
     </section>
 
@@ -66,13 +73,13 @@ export const BenchmarksPage = () => (
       </div>
       <DrawablyCard className="observed-table" roughness={0.5} stroke="#77736a">
         <div className="observed-head"><span>Boundary</span><span>p50</span><span>p95</span><span>Warm runs</span></div>
-        <div><strong>WebMCP mounted-page task</strong><span>{formatMs(webTask.p50.value)}</span><span>{formatMs(webTask.p95!.value)}</span><span>100</span></div>
-        <div><strong>WebMCP page measures</strong><span>{formatMs(webComponent.p50.value)}</span><span>{formatMs(webComponent.p95!.value)}</span><span>100</span></div>
-        <div><strong>Official MCP checkpoint component</strong><span>{formatMs(officialComponent.p50.value)}</span><span>{formatMs(officialComponent.p95!.value)}</span><span>100</span></div>
+        <div><strong>WebMCP mounted-page task</strong><span>{formatMs(webTask.p50.value)}</span><span>{formatMs(webTask.p95!.value)}</span><span>{webWarmRuns}</span></div>
+        <div><strong>WebMCP page measures</strong><span>{formatMs(webComponent.p50.value)}</span><span>{formatMs(webComponent.p95!.value)}</span><span>{webWarmRuns}</span></div>
+        <div><strong>Official MCP checkpoint component</strong><span>{formatMs(officialComponent.p50.value)}</span><span>{formatMs(officialComponent.p95!.value)}</span><span>{officialWarmRuns}</span></div>
       </DrawablyCard>
       <div className="observation-note">
         <p>
-          Every trial produced the required three nodes, three labels, and two
+          Every trial produced the required {benchmarkEvidence.scenario.required_nodes} nodes, matching labels, and {benchmarkEvidence.scenario.required_edges}
           graph edges. The official timer ends at local checkpoint completion
           before widget rendering; the WebMCP timer includes two page calls and
           the mounted editor mutation. These results explain component cost and
@@ -116,7 +123,7 @@ export const BenchmarksPage = () => (
         </div>
         <p className="timeline-caption">
           Structure shown now; segment widths become data-driven only after the
-          controlled run set is recorded.
+          same-host run set is recorded.
         </p>
       </DrawablyCard>
     </section>
@@ -136,7 +143,7 @@ export const BenchmarksPage = () => (
         {[
           "Same prompt and target diagram",
           "One discarded warm-up pair",
-          "100 randomized warm pairs",
+          `${warmPairs} randomized warm pairs`,
           "p50, p90, p95, and bootstrap intervals",
           "Tool calls, retries, and handoffs",
           "Human-edit state preservation",

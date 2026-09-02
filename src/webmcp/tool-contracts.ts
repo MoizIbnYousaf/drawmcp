@@ -1,16 +1,7 @@
 import Ajv2020, { type ErrorObject } from "ajv/dist/2020.js";
+import { TOOL_NAMES, type ToolName } from "./tool-names";
 
-export const TOOL_NAMES = [
-  "get_canvas_summary",
-  "get_selection",
-  "add_elements",
-  "update_elements",
-  "delete_elements",
-  "fit_to_content",
-  "organize_diagram",
-] as const;
-
-export type ToolName = (typeof TOOL_NAMES)[number];
+export { TOOL_NAMES, type ToolName } from "./tool-names";
 
 export type CanvasReadInput = {
   cursor?: string;

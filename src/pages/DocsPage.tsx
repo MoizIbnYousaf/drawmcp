@@ -6,16 +6,20 @@ import {
   DrawablyUnderline,
 } from "drawably/react";
 import { SiteHeader } from "../components/SiteHeader";
+import { releaseEvidence } from "../data/release-evidence";
+import { TOOL_NAMES, type ToolName } from "../webmcp/tool-names";
 
-const tools = [
-  ["get_canvas_summary", "Read a bounded scene summary and current revision."],
-  ["get_selection", "Read the elements the person currently has selected."],
-  ["add_elements", "Add validated Excalidraw shapes as one undoable action."],
-  ["update_elements", "Change allowlisted fields on stable element IDs."],
-  ["delete_elements", "Delete live elements and their owned bound text."],
-  ["fit_to_content", "Focus the viewport on the selection or full drawing."],
-  ["organize_diagram", "Arrange supported nodes with deterministic layout."],
-];
+const toolDescriptions: Record<ToolName, string> = {
+  get_canvas_summary: "Read a bounded scene summary and current revision.",
+  get_selection: "Read the elements the person currently has selected.",
+  add_elements: "Add validated Excalidraw shapes as one undoable action.",
+  update_elements: "Change allowlisted fields on stable element IDs.",
+  delete_elements: "Delete live elements and their owned bound text.",
+  fit_to_content: "Focus the viewport on the selection or full drawing.",
+  organize_diagram: "Arrange supported nodes with deterministic layout.",
+};
+const tools = TOOL_NAMES.map((name) => [name, toolDescriptions[name]] as const);
+const toolStatus = `${releaseEvidence.tools.passed}/${releaseEvidence.tools.total}`;
 
 export const DocsPage = () => (
   <main className="site-page docs-page">
@@ -55,7 +59,7 @@ export const DocsPage = () => (
           <ol className="doc-steps">
             <li>
               Open <a href="/canvas">the live canvas</a> in ChatGPT’s in-app
-              browser and wait for <strong>7/7 site tools</strong>.
+              browser and wait for <strong>{toolStatus} site tools</strong>.
             </li>
             <li>
               Ask: <em>“Summarize this canvas, add a green rectangle titled
@@ -82,7 +86,7 @@ export const DocsPage = () => (
               in-app browser.
             </li>
             <li>
-              Wait for the status pill to show <strong>7/7 site tools</strong>.
+              Wait for the status pill to show <strong>{toolStatus} site tools</strong>.
             </li>
             <li>
               Ask the agent to inspect, create, update, delete, focus, or
@@ -166,7 +170,7 @@ npm run build`}</code></pre>
 
         <section id="tools">
           <p className="doc-step">05 · Tool reference</p>
-          <h2>The seven site tools</h2>
+          <h2>The {TOOL_NAMES.length} site tools</h2>
           <DrawablyCard className="tool-reference" roughness={0.55} stroke="#77736a">
             {tools.map(([name, description]) => (
               <div className="tool-reference-row" key={name}>

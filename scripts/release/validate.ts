@@ -14,6 +14,7 @@ run("npm", ["run", "lint"]);
 run("npm", ["run", "evals:check"]);
 run("npm", ["run", "evals:deterministic"]);
 run("npm", ["run", "evals:smoke"]);
+run("npm", ["run", "evals:visual"]);
 run("npm", ["run", "video:check"]);
 run("npm", ["run", "build"]);
 run("npm", ["audit", "--audit-level=high"]);

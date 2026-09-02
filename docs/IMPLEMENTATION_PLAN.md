@@ -1,5 +1,10 @@
 # DrawMCP end-to-end implementation plan
 
+> Historical build plan. Current release status and verification are tracked in
+> `docs/plans/2026-09-02-0325-feat-drawmcp-finalization-plan.md`,
+> `docs/PROOF_PLAN.md`, and `public/evidence/latest.json`. Unchecked items below
+> describe the original sequence and are not a current status dashboard.
+
 Last updated: 2026-09-01
 
 ## Outcome

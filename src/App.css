@@ -740,6 +740,8 @@
   padding-block: 76px 140px;
 }
 
+.docs-content { min-width: 0; }
+
 .docs-sidebar {
   position: sticky;
   top: 28px;
@@ -818,6 +820,8 @@
 }
 
 .code-block {
+  box-sizing: border-box;
+  max-width: 100%;
   margin: 25px 0;
   overflow-x: auto;
   padding: 22px;
@@ -1030,7 +1034,7 @@
   .protocol-section { grid-template-columns: 1fr; gap: 34px; }
   .comparison-grid { grid-template-columns: 1fr; }
   .tool-cloud { justify-content: flex-start; }
-  .docs-layout { grid-template-columns: 1fr; }
+  .docs-layout { grid-template-columns: minmax(0, 1fr); }
   .docs-sidebar { display: none; }
   .boundary-grid { grid-template-columns: 1fr 1fr; }
 }

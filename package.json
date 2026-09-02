@@ -16,6 +16,8 @@
     "evals:smoke:production": "npx -y tsx@4.23.13 scripts/evals/run-production-smoke.ts",
     "evals:deterministic": "npx -y tsx@4.23.13 scripts/evals/run-deterministic.ts",
     "evals:deterministic:production": "npx -y tsx@4.23.13 scripts/evals/run-deterministic.ts --url https://drawmcp.dev/canvas",
+    "evals:visual": "npx -y tsx@4.23.13 scripts/evals/run-visual-qa.ts",
+    "evals:visual:production": "npx -y tsx@4.23.13 scripts/evals/run-visual-qa.ts --url https://drawmcp.dev",
     "evals:schema": "npx -y tsx@4.23.13 scripts/evals/export-model-schema.ts",
     "evals:probabilistic": "npx -y tsx@4.23.13 scripts/evals/run-probabilistic.ts",
     "evals:accept": "npx -y tsx@4.23.13 scripts/evals/accept-probabilistic.ts",

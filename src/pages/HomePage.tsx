@@ -9,6 +9,7 @@ import { DrawablyLink } from "../components/DrawablyLink";
 import { SiteHeader } from "../components/SiteHeader";
 import { benchmarkEvidence } from "../data/benchmark-evidence";
 import { releaseEvidence } from "../data/release-evidence";
+import { TOOL_NAMES } from "../webmcp/tool-names";
 
 const proof = [
   {
@@ -29,6 +30,10 @@ const webMcpP50 =
   benchmarkEvidence.lanes.webmcp.warm.task_duration_ms.p50.value;
 const officialP50 =
   benchmarkEvidence.lanes["official-mcp"].warm.task_duration_ms.p50.value;
+const webWarm = benchmarkEvidence.lanes.webmcp.warm;
+const officialWarm = benchmarkEvidence.lanes["official-mcp"].warm;
+const officialModelVisibleTools =
+  benchmarkEvidence.scenario.official_model_visible_tools.length;
 
 const ComparisonVideo = ({
   label,
@@ -75,7 +80,7 @@ export const HomePage = () => (
           </DrawablyHighlight>
         </h1>
         <p className="hero-lede">
-          DrawMCP exposes the open Excalidraw canvas as seven WebMCP tools—so a
+          DrawMCP exposes the open Excalidraw canvas as {TOOL_NAMES.length} WebMCP tools—so a
           person and an agent can read, draw, revise, undo, and continue in one
           live state.
         </p>
@@ -165,7 +170,7 @@ export const HomePage = () => (
               editing.
             </p>
             <dl className="lane-facts">
-              <div><dt>Public tools</dt><dd>2</dd></div>
+              <div><dt>Public tools</dt><dd>{officialModelVisibleTools}</dd></div>
               <div><dt>Primary write</dt><dd>create_view</dd></div>
               <div><dt>State bridge</dt><dd>checkpoint</dd></div>
             </dl>
@@ -190,7 +195,7 @@ export const HomePage = () => (
               page-owned.
             </p>
             <dl className="lane-facts">
-              <div><dt>Site tools</dt><dd>7</dd></div>
+              <div><dt>Site tools</dt><dd>{releaseEvidence.tools.total}</dd></div>
               <div><dt>Primary writes</dt><dd>add / update</dd></div>
               <div><dt>State bridge</dt><dd>live revision</dd></div>
             </dl>
@@ -215,7 +220,7 @@ export const HomePage = () => (
         <DrawablyCard className="metric-callout" roughness={0.65} stroke="#2f9e44">
           <p>WebMCP controlled task p50</p>
           <strong>{webMcpP50.toFixed(2)} ms</strong>
-          <span>100 warm local runs · add, fit, and visible mutation</span>
+          <span>{webWarm.attempts} warm local runs · add, fit, and visible mutation</span>
         </DrawablyCard>
         <DrawablyCard
           className="metric-visual"
@@ -235,7 +240,7 @@ export const HomePage = () => (
             <strong>{officialP50.toFixed(2)} ms</strong>
           </div>
           <div className="metric-note">
-            Both lanes completed 100/100 warm scenes correctly. Their component
+            Both lanes completed {webWarm.semantic_successes}/{webWarm.attempts} and {officialWarm.semantic_successes}/{officialWarm.attempts} warm scenes correctly. Their component
             boundaries include different work, so no end-to-end winner is claimed.
           </div>
         </DrawablyCard>
@@ -251,18 +256,10 @@ export const HomePage = () => (
       <div className="section-shell tool-section-inner">
         <div>
           <p className="section-kicker">The page is the tool server</p>
-          <h2>Seven small tools. One shared state.</h2>
+          <h2>{TOOL_NAMES.length} small tools. One shared state.</h2>
         </div>
         <div className="tool-cloud" aria-label="DrawMCP tool names">
-          {[
-            "get_canvas_summary",
-            "get_selection",
-            "add_elements",
-            "update_elements",
-            "delete_elements",
-            "fit_to_content",
-            "organize_diagram",
-          ].map((tool) => (
+          {TOOL_NAMES.map((tool) => (
             <DrawablyBadge key={tool} roughness={0.7} stroke="#6e675f">
               <code>{tool}</code>
             </DrawablyBadge>
