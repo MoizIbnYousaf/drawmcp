@@ -7,6 +7,7 @@ import {
   evaluateScene,
   type ProjectedSceneElement,
 } from "../../evals/oracles/scene-oracle";
+import { LOCAL_SCENE_STORAGE_KEY } from "../../src/excalidraw/local-scene-store";
 import { MAX_TOOL_RESULT_CHARACTERS } from "../../src/webmcp/tool-results";
 
 type DomainResult = Record<string, unknown> & { ok: boolean; code?: string };
@@ -148,6 +149,32 @@ const waitForCanvas = async (
     latest = await readWholeCanvas(page);
   }
   throw new Error("Canvas state did not settle before the deterministic timeout.");
+};
+
+const waitForPersistedElement = async (page: Page, elementId: string) => {
+  await page.waitForFunction(
+    (storageKey, expectedId) => {
+      const serialized = localStorage.getItem(storageKey);
+      if (!serialized) return false;
+      try {
+        const parsed = JSON.parse(serialized) as { elements?: unknown[] };
+        return (
+          Array.isArray(parsed.elements) &&
+          parsed.elements.some(
+            (element) =>
+              Boolean(element) &&
+              typeof element === "object" &&
+              (element as { id?: unknown }).id === expectedId,
+          )
+        );
+      } catch {
+        return false;
+      }
+    },
+    { polling: 50, timeout: 5_000 },
+    LOCAL_SCENE_STORAGE_KEY,
+    elementId,
+  );
 };
 
 const readStableCanvas = async (page: Page) => {
@@ -376,7 +403,7 @@ const runHistoryJourney = async (url: string) => {
         page,
         ({ elements }) => elements.some(({ id }) => id === "history_node"),
       );
-      await new Promise((resolveDelay) => setTimeout(resolveDelay, 700));
+      await waitForPersistedElement(page, "history_node");
       await page.reload({ waitUntil: "domcontentloaded", timeout: 30_000 });
       await waitForTools(page);
       const restored = await readWholeCanvas(page);
