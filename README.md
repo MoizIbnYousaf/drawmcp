@@ -70,8 +70,8 @@ browser proof steps, the Chrome Labs runner's 11/11 authored smoke calls, and
 DrawMCP completed its two-call rendered task in 13.71 ms p50 while the official
 public MCP returned its pre-widget checkpoint in 90.23 ms p50. That is a 6.58×
 task-specific median speedup with 40/40 semantically correct trials. The older
-controlled component benchmark remains available as a separate 220/220 local
-stratum.
+controlled component benchmark remains available as a separate set of 220/220
+semantically correct trials.
 
 ## Product contract
 
