@@ -12,6 +12,7 @@
     "evals:export": "npx -y tsx@4.23.13 scripts/export-eval-fixtures.ts",
     "evals:check": "npm run evals:export && git diff --exit-code -- evals/tools.json",
     "evals:smoke:local": "npx -y webmcp-evals@0.0.4 smoke -u http://127.0.0.1:5173/canvas -e evals/webmcp-evals.json --chrome-channel chrome -v",
+    "video:check": "npm --prefix video/comparison run check",
     "preview": "vite preview"
   },
   "dependencies": {

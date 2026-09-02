@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1280, height=720" />
+    <link rel="stylesheet" href="shared.css" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  </head>
+  <body>
+    <div
+      id="root"
+      class="clip"
+      data-composition-id="official-mcp"
+      data-start="0"
+      data-duration="9"
+      data-width="1280"
+      data-height="720"
+    >
+      <img class="texture-source" data-layout-ignore src="assets/source-texture.png" alt="" />
+      <div class="stage">
+        <div class="browser">
+          <div class="chrome">
+            <img class="brand-mark" src="assets/favicon.svg" alt="" />
+            <div class="chrome-title">Official Excalidraw MCP</div>
+            <div class="chrome-path">agent → remote service</div>
+            <div class="lane-stamp"><span class="status-dot"></span>MCP APP</div>
+          </div>
+          <div class="workspace">
+            <div class="side-panel">
+              <div class="eyebrow">Remote MCP lane</div>
+              <div class="prompt">
+                <div class="prompt-label">AGENT PROMPT</div>
+                <div class="prompt-copy">Draw the browser–agent–canvas flow.</div>
+              </div>
+              <div class="route"><strong>Agent</strong><span>→</span><span class="remote-pill">Remote MCP</span><span>→ widget</span></div>
+              <div class="receipt">
+                <span>create_view</span>
+                <small>Interactive diagram returned</small>
+              </div>
+            </div>
+            <div class="canvas-wrap">
+              <div class="canvas">
+                <div class="canvas-label">INTERACTIVE MCP APP WIDGET</div>
+                <div class="node-wrap node-browser"><div class="node">Browser</div></div>
+                <div class="arrow arrow-one"></div>
+                <div class="node-wrap node-agent"><div class="agent-shift"><div class="node">Agent</div></div></div>
+                <div class="arrow arrow-two"></div>
+                <div class="node-wrap node-canvas"><div class="node">Canvas</div></div>
+                <div class="cursor"></div>
+                <div class="revision"><span class="status-dot"></span>checkpoint saved</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="phase-rail">
+          <div class="phase"><div class="phase-fill phase-1"></div><span>01 · PROMPT</span></div>
+          <div class="phase"><div class="phase-fill phase-2"></div><span>02 · REMOTE MCP</span></div>
+          <div class="phase"><div class="phase-fill phase-3"></div><span>03 · WIDGET</span></div>
+          <div class="phase"><div class="phase-fill phase-4"></div><span>04 · CHECKPOINT</span></div>
+        </div>
+      </div>
+      <div class="final-thesis">Same task. Remote boundary.</div>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo(".browser", { opacity: 0, y: 36 }, { opacity: 1, y: 0, duration: 0.7, ease: "expo.out" }, 0.2);
+      tl.fromTo(".phase-rail", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.35);
+      tl.fromTo(".prompt", { opacity: 0, x: -44 }, { opacity: 1, x: 0, duration: 0.58, ease: "back.out(1.2)" }, 0.55);
+      tl.fromTo(".eyebrow", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "sine.out" }, 0.72);
+      tl.fromTo(".route", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.46, ease: "power2.out" }, 1.05);
+      tl.fromTo(".canvas-wrap", { opacity: 0, scale: 0.96 }, { opacity: 1, scale: 1, duration: 0.7, ease: "expo.out" }, 1.5);
+      tl.fromTo(".node-browser", { opacity: 0, y: -26 }, { opacity: 1, y: 0, duration: 0.48, ease: "power3.out" }, 2.15);
+      tl.fromTo(".arrow-one", { width: 0, opacity: 0 }, { width: 190, opacity: 1, duration: 0.5, ease: "power1.inOut" }, 2.65);
+      tl.fromTo(".node-agent", { opacity: 0, scale: 0.82 }, { opacity: 1, scale: 1, duration: 0.56, ease: "back.out(1.5)" }, 3.0);
+      tl.fromTo(".arrow-two", { width: 0, opacity: 0 }, { width: 220, opacity: 1, duration: 0.5, ease: "power1.inOut" }, 3.45);
+      tl.fromTo(".node-canvas", { opacity: 0, x: 28 }, { opacity: 1, x: 0, duration: 0.5, ease: "power4.out" }, 3.85);
+      tl.fromTo(".receipt", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.48, ease: "power2.out" }, 4.45);
+      tl.fromTo(".revision", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.8)" }, 5.25);
+      tl.fromTo(".cursor", { opacity: 0, x: 80, y: 55 }, { opacity: 1, x: 0, y: 0, duration: 0.48, ease: "power3.out" }, 5.85);
+      tl.to(".agent-shift", { x: 22, y: -9, duration: 0.78, ease: "power2.inOut" }, 6.35);
+      tl.to(".cursor", { x: 25, y: -12, duration: 0.78, ease: "power2.inOut" }, 6.35);
+      tl.fromTo(".phase-fill", { scaleX: 0 }, { scaleX: 1, duration: 1.2, stagger: 1.35, ease: "power1.inOut" }, 0.6);
+      tl.fromTo(".final-thesis", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.42, ease: "power3.out" }, 7.45);
+      tl.to(".stage", { opacity: 0, duration: 0.42, ease: "power2.in" }, 8.08);
+      tl.to(".final-thesis", { opacity: 0, duration: 0.3, ease: "power2.in" }, 8.5);
+      window.__timelines["official-mcp"] = tl;
+    </script>
+  </body>
+</html>
