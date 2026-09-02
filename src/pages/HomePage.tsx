@@ -59,7 +59,7 @@ const ComparisonVideo = ({
       <source src={src} type="video/mp4" />
     </video>
     <img aria-hidden="true" className="comparison-video-poster" src={poster} alt="" />
-    <figcaption className="visually-hidden">{label}. Silent nine-second loop.</figcaption>
+    <figcaption className="visually-hidden">{label}. Silent eleven-second loop with measured performance evidence.</figcaption>
   </figure>
 );
 
@@ -145,8 +145,8 @@ export const HomePage = () => (
             <h2>Two valid ways to give an agent a pencil.</h2>
           </div>
           <p>
-            This is a protocol comparison, not a claim that one architecture
-            replaces the other.
+            Each silent loop ends on its measured component boundary. The
+            clocks include different work, so no end-to-end winner is claimed.
           </p>
         </div>
 

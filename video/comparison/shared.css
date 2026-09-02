@@ -91,6 +91,7 @@ body {
 .browser::after,
 .prompt::after,
 .receipt::after,
+.performance-card::after,
 .node::after {
   position: absolute;
   z-index: 0;
@@ -232,6 +233,74 @@ body {
   color: var(--ink-soft);
   font-family: "Inter", sans-serif;
   font-size: 17px;
+}
+
+.performance-card {
+  position: absolute;
+  z-index: 6;
+  top: 110px;
+  right: 120px;
+  bottom: 86px;
+  left: 120px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-content: center;
+  gap: 16px 28px;
+  padding: 38px 46px;
+  border: 2px solid var(--lane);
+  border-radius: 21px 17px 23px 18px;
+  background: var(--paper-bright);
+  color: var(--lane);
+  font-family: "Geist Mono", monospace;
+  font-variant-numeric: tabular-nums;
+  box-shadow: 12px 14px 0 rgb(24 24 27 / 12%);
+}
+
+.performance-label {
+  grid-column: 1 / -1;
+  font-size: 20px;
+  letter-spacing: 0.07em;
+}
+
+.performance-card strong {
+  font-size: 86px;
+  line-height: 1;
+  letter-spacing: -0.07em;
+}
+
+.performance-card strong small {
+  font-size: 30px;
+  letter-spacing: 0;
+}
+
+.performance-note {
+  align-self: end;
+  color: var(--ink-soft);
+  font-family: "Inter", sans-serif;
+  font-size: 22px;
+  text-align: right;
+}
+
+.performance-bar {
+  grid-column: 1 / -1;
+  height: 8px;
+  overflow: hidden;
+  border-radius: 4px;
+  background: var(--lane-wash);
+}
+
+.performance-bar i {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--lane);
+  transform-origin: left center;
+}
+
+.performance-boundary {
+  grid-column: 1 / -1;
+  color: var(--quiet);
+  font-size: 18px;
 }
 
 .canvas-wrap {

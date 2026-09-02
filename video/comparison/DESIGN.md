@@ -43,12 +43,13 @@ canvas sits visibly above the paper with a restrained 12px offset shadow.
 - **Live Canvas Nodes** — pastel hand-drawn rectangles and connecting arrows.
 - **Progress Rail** — four labeled phases that fill as the demo advances.
 - **Lane Stamp** — indigo MCP App or green WebMCP badge.
+- **Performance Receipt** — one boundary-qualified p50 with its warm-run count.
 
 ## Do's and Don'ts
 
 ### Do's
 
-- Keep both lanes at exactly nine seconds and the same spatial grid.
+- Keep both lanes at exactly eleven seconds and the same spatial grid.
 - Use indigo only for remote MCP activity and green only for WebMCP activity.
 - Animate the protocol path before the canvas result.
 - Hold the completed diagram long enough to read.

@@ -12,7 +12,7 @@
       class="clip"
       data-composition-id="drawmcp-webmcp"
       data-start="0"
-      data-duration="9"
+      data-duration="11"
       data-width="1280"
       data-height="720"
       style="--lane: #2f9e44; --lane-wash: #dff5e4"
@@ -37,6 +37,13 @@
               <div class="receipt">
                 <span>add_elements</span>
                 <small>Revision 0 → 1</small>
+              </div>
+              <div class="performance-card">
+                <span class="performance-label">MOUNTED-PAGE TASK P50</span>
+                <strong>28.37 <small>ms</small></strong>
+                <div class="performance-bar"><i></i></div>
+                <span class="performance-note">100 warm local runs</span>
+                <span class="performance-boundary">Different clock. No protocol winner.</span>
               </div>
             </div>
             <div class="canvas-wrap">
@@ -86,10 +93,12 @@
       tl.to(".revision-copy", { opacity: 0, duration: 0.2, ease: "power2.in" }, 6.32);
       tl.set(".revision-copy", { textContent: "revision 2 · read again" }, 6.54);
       tl.to(".revision-copy", { opacity: 1, duration: 0.28, ease: "power2.out" }, 6.56);
+      tl.fromTo(".performance-card", { opacity: 0, x: -28 }, { opacity: 1, x: 0, duration: 0.62, ease: "expo.out" }, 6.8);
+      tl.fromTo(".performance-bar i", { scaleX: 0 }, { scaleX: 1, duration: 1.05, ease: "power1.inOut" }, 7.12);
       tl.fromTo(".phase-fill", { scaleX: 0 }, { scaleX: 1, duration: 1.2, stagger: 1.35, ease: "power1.inOut" }, 0.6);
-      tl.fromTo(".final-thesis", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.42, ease: "power3.out" }, 7.45);
-      tl.to(".stage", { opacity: 0, duration: 0.42, ease: "power2.in" }, 8.08);
-      tl.to(".final-thesis", { opacity: 0, duration: 0.3, ease: "power2.in" }, 8.5);
+      tl.fromTo(".final-thesis", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.42, ease: "power3.out" }, 9.15);
+      tl.to(".stage", { opacity: 0, duration: 0.42, ease: "power2.in" }, 9.8);
+      tl.to(".final-thesis", { opacity: 0, duration: 0.3, ease: "power2.in" }, 10.45);
       window.__timelines["drawmcp-webmcp"] = tl;
     </script>
   </body>

@@ -17,10 +17,11 @@ export const recordToolMetric = (
   endedAt: number,
   ok: boolean,
 ): void => {
+  const durationMs = Math.max(0, endedAt - startedAt);
   const metric = {
     tool,
     started_at_ms: startedAt,
-    duration_ms: Math.max(0, endedAt - startedAt),
+    duration_ms: durationMs,
     ok,
   };
   metrics.push(metric);
@@ -31,7 +32,21 @@ export const recordToolMetric = (
     performance.measure(`drawmcp:${tool}`, {
       start: startedAt,
       end: endedAt,
-      detail: { ok },
+      detail: {
+        ok,
+        devtools: {
+          dataType: "track-entry",
+          track: "WebMCP tool execution",
+          trackGroup: "DrawMCP",
+          color: ok ? "tertiary-dark" : "error",
+          properties: [
+            ["Tool", tool],
+            ["Outcome", ok ? "Success" : "Failure"],
+            ["Duration", `${durationMs.toFixed(2)} ms`],
+          ],
+          tooltipText: `${tool} · ${durationMs.toFixed(2)} ms`,
+        },
+      },
     });
   } catch {
     // PerformanceMeasure options are unavailable in some test and older runtimes.

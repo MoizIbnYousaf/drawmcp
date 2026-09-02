@@ -27,6 +27,7 @@ export const DocsPage = () => (
     <div className="docs-layout section-shell">
       <aside className="docs-sidebar">
         <p>Get started</p>
+        <a href="#why"><DrawablyUnderline>Why we built this</DrawablyUnderline></a>
         <a href="#judge-path"><DrawablyUnderline>Verify in 90 seconds</DrawablyUnderline></a>
         <a href="#webmcp"><DrawablyUnderline>Use WebMCP</DrawablyUnderline></a>
         <a href="#official-mcp"><DrawablyUnderline>Connect official MCP</DrawablyUnderline></a>
@@ -52,6 +53,34 @@ export const DocsPage = () => (
             bounded tool surface through the WebMCP draft API.
           </p>
         </header>
+
+        <section id="why">
+          <p className="doc-step">Why we built DrawMCP</p>
+          <h2>The interesting part was never drawing a rectangle</h2>
+          <p>
+            Excalidraw already had a capable MCP server. I was using it, and one
+            missing piece bothered me: the generated diagram lived behind a
+            service and a widget while the canvas in front of me remained a
+            separate thing.
+          </p>
+          <p>
+            I wanted to see what happened if the page registered tools against
+            the exact Excalidraw state I was touching. A person can move a shape
+            between agent calls. Undo still has to work. A stale write has to
+            stop before it erases the newer idea. Closing the page has to remove
+            the tools. The demo only counts if the ordinary editor stays
+            ordinary.
+          </p>
+          <p>
+            DrawMCP is that experiment made public: seven bounded tools, one
+            mounted editor, and a side-by-side comparison that keeps each clock
+            honest. Remote MCP servers remain useful. DrawMCP shows the
+            page-native case, where the browser already owns the work.
+          </p>
+          <a className="text-link" href="/benchmarks">
+            Read the measurements <span aria-hidden="true">→</span>
+          </a>
+        </section>
 
         <section id="judge-path">
           <p className="doc-step">00 · Challenge judge path</p>

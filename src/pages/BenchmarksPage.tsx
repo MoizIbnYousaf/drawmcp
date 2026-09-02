@@ -91,6 +91,41 @@ export const BenchmarksPage = () => (
       </div>
     </section>
 
+    <section className="trace-section section-shell">
+      <div className="section-heading split-heading">
+        <div>
+          <p className="section-kicker">Chrome Performance proof</p>
+          <h2>Put every WebMCP call on the browser timeline.</h2>
+        </div>
+        <p>
+          DrawMCP publishes real User Timing spans into a dedicated DevTools
+          track. Record the canvas while an agent works, then inspect execution
+          beside scripting, layout, paint, and screenshots.
+        </p>
+      </div>
+      <DrawablyCard className="trace-board" roughness={0.55} stroke="#77736a">
+        <div className="trace-board-head">
+          <div>
+            <span className="trace-record-dot" aria-hidden="true" />
+            <strong>DrawMCP</strong>
+            <span>WebMCP tool execution</span>
+          </div>
+          <span className="trace-ready">instrumented</span>
+        </div>
+        <ol className="trace-steps">
+          <li><span>01</span><p>Open <strong>/canvas</strong>, then DevTools → Performance.</p></li>
+          <li><span>02</span><p>Enable <strong>Show custom tracks</strong> and start a runtime recording.</p></li>
+          <li><span>03</span><p>Ask the agent to create or revise a diagram, then stop the trace.</p></li>
+          <li><span>04</span><p>Inspect each <strong>drawmcp:*</strong> span, outcome, and measured duration.</p></li>
+        </ol>
+        <p className="trace-boundary-note">
+          This trace proves page-side tool execution and rendering behavior. The
+          official remote MCP lane remains in the controlled benchmark because
+          its server work does not execute inside this page’s browser process.
+        </p>
+      </DrawablyCard>
+    </section>
+
     <section className="timeline-section section-shell">
       <div className="section-heading split-heading">
         <div>

@@ -965,6 +965,79 @@
 .snapshot-card small { font-size: 0.34em; letter-spacing: 0; }
 .snapshot-card span { color: #77746b; font-size: 0.69rem; }
 
+.trace-section {
+  padding-block: 110px;
+  border-top: 1px solid var(--line);
+}
+
+.trace-board {
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #20201d;
+  color: #f7f5ed;
+}
+
+.trace-board-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 18px 22px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.68rem;
+}
+
+.trace-board-head > div { display: flex; align-items: center; gap: 10px; }
+.trace-board-head > div > span:last-child { color: #aaa79e; }
+
+.trace-record-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #f0655b;
+  box-shadow: 0 0 0 4px rgba(240, 101, 91, 0.13);
+}
+
+.trace-ready {
+  padding: 6px 9px;
+  border: 1px solid rgba(105, 219, 124, 0.35);
+  border-radius: 999px;
+  color: #8ce99a;
+  font-family: ui-monospace, monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.trace-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.trace-steps li {
+  min-height: 180px;
+  padding: 25px 22px;
+}
+
+.trace-steps li + li { border-left: 1px solid rgba(255, 255, 255, 0.1); }
+.trace-steps li > span { color: #8ce99a; font-family: ui-monospace, monospace; font-size: 0.62rem; }
+.trace-steps p { margin: 54px 0 0; color: #aaa79e; font-size: 0.75rem; line-height: 1.6; }
+.trace-steps strong { color: #f7f5ed; }
+
+.trace-boundary-note {
+  margin: 0;
+  padding: 19px 22px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: #8f8c84;
+  font-size: 0.67rem;
+  line-height: 1.65;
+}
+
 .timeline-section { padding-block: 110px; border-top: 1px solid var(--line); }
 
 .timeline-board {
@@ -1071,6 +1144,10 @@
   .metric-row { grid-template-columns: 1fr; gap: 8px; }
   .benchmark-snapshot { grid-template-columns: 1fr; }
   .snapshot-card { min-height: 190px; }
+  .trace-steps { grid-template-columns: 1fr; }
+  .trace-steps li { min-height: 0; }
+  .trace-steps li + li { border-top: 1px solid rgba(255, 255, 255, 0.1); border-left: 0; }
+  .trace-steps p { margin-top: 24px; }
   .timeline-board { grid-template-columns: 1fr; padding: 24px; overflow-x: auto; }
   .timeline-label { margin-top: 12px; }
   .timeline-track { min-width: 620px; }

@@ -14,9 +14,7 @@ describe("DrawMCP site pages", () => {
     ).toBeInTheDocument();
     expect(screen.getByText("Official Excalidraw MCP")).toBeInTheDocument();
     expect(screen.getByText("DrawMCP WebMCP")).toBeInTheDocument();
-    expect(
-      screen.getByText(/no end-to-end winner/),
-    ).toBeInTheDocument();
+    expect(screen.getAllByText(/no end-to-end winner/)).toHaveLength(2);
 
     const videos = screen.getAllByTestId("comparison-video");
     expect(videos).toHaveLength(2);
@@ -42,6 +40,11 @@ describe("DrawMCP site pages", () => {
     expect(
       screen.getByRole("heading", { name: "Use DrawMCP in ChatGPT" }),
     ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", {
+        name: "The interesting part was never drawing a rectangle",
+      }),
+    ).toBeInTheDocument();
     expect(screen.getByText("https://mcp.excalidraw.com")).toBeInTheDocument();
     expect(screen.getByText("get_canvas_summary")).toBeInTheDocument();
     expect(
@@ -59,6 +62,12 @@ describe("DrawMCP site pages", () => {
     expect(
       screen.getByText("Official MCP checkpoint component"),
     ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", {
+        name: "Put every WebMCP call on the browser timeline.",
+      }),
+    ).toBeInTheDocument();
+    expect(screen.getByText("Show custom tracks")).toBeInTheDocument();
     expect(
       screen.getByRole("heading", {
         name: "The controlled run is complete. The host journey remains open.",

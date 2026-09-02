@@ -12,7 +12,7 @@
       class="clip"
       data-composition-id="official-mcp"
       data-start="0"
-      data-duration="9"
+      data-duration="11"
       data-width="1280"
       data-height="720"
     >
@@ -36,6 +36,13 @@
               <div class="receipt">
                 <span>create_view</span>
                 <small>Interactive diagram returned</small>
+              </div>
+              <div class="performance-card">
+                <span class="performance-label">CHECKPOINT COMPONENT P50</span>
+                <strong>3.58 <small>ms</small></strong>
+                <div class="performance-bar"><i></i></div>
+                <span class="performance-note">100 warm local runs</span>
+                <span class="performance-boundary">Different clock. No protocol winner.</span>
               </div>
             </div>
             <div class="canvas-wrap">
@@ -81,10 +88,12 @@
       tl.fromTo(".cursor", { opacity: 0, x: 80, y: 55 }, { opacity: 1, x: 0, y: 0, duration: 0.48, ease: "power3.out" }, 5.85);
       tl.to(".agent-shift", { x: 22, y: -9, duration: 0.78, ease: "power2.inOut" }, 6.35);
       tl.to(".cursor", { x: 25, y: -12, duration: 0.78, ease: "power2.inOut" }, 6.35);
+      tl.fromTo(".performance-card", { opacity: 0, x: -28 }, { opacity: 1, x: 0, duration: 0.62, ease: "expo.out" }, 6.8);
+      tl.fromTo(".performance-bar i", { scaleX: 0 }, { scaleX: 1, duration: 1.05, ease: "power1.inOut" }, 7.12);
       tl.fromTo(".phase-fill", { scaleX: 0 }, { scaleX: 1, duration: 1.2, stagger: 1.35, ease: "power1.inOut" }, 0.6);
-      tl.fromTo(".final-thesis", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.42, ease: "power3.out" }, 7.45);
-      tl.to(".stage", { opacity: 0, duration: 0.42, ease: "power2.in" }, 8.08);
-      tl.to(".final-thesis", { opacity: 0, duration: 0.3, ease: "power2.in" }, 8.5);
+      tl.fromTo(".final-thesis", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.42, ease: "power3.out" }, 9.15);
+      tl.to(".stage", { opacity: 0, duration: 0.42, ease: "power2.in" }, 9.8);
+      tl.to(".final-thesis", { opacity: 0, duration: 0.3, ease: "power2.in" }, 10.45);
       window.__timelines["official-mcp"] = tl;
     </script>
   </body>

@@ -1,7 +1,7 @@
 # DrawMCP Side-by-Side Loop Storyboard
 
 **Format:** Two independent 1280×720 landscape clips
-**Duration:** 9 seconds each
+**Duration:** 11 seconds each
 **Audio:** None; videos are designed for muted autoplay
 **Style basis:** `DESIGN.md`
 **Loop:** Final 0.6 seconds resolve to `#E3E3E1`; first 0.2 seconds begin on the same paper
@@ -27,7 +27,7 @@
 | `assets/fonts/drawably-pen.ttf` | Font | Both | Canvas node labels |
 | `assets/source-texture.png` | Screenshot | Both | Low-opacity captured-page texture reference |
 
-## OFFICIAL MCP LOOP — 0:00–0:09
+## OFFICIAL MCP LOOP — 0:00–0:11
 
 ### Concept
 
@@ -50,15 +50,16 @@ rail across the bottom reads Prompt, Remote MCP, Widget, Checkpoint.
 - 2.25–4.20s: three nodes and two arrows cascade into the widget.
 - 4.60s: `create_view` receipt slides upward from the lower edge.
 - 5.50s: checkpoint stamp drops in with a short overshoot.
-- 6.20–7.65s: a cursor nudges the Agent node; the widget gently breathes.
-- 8.20–8.80s: all content resolves to paper for the loop.
+- 6.20–6.80s: a cursor nudges the Agent node.
+- 6.80–9.10s: the 3.58 ms checkpoint component p50 appears with its 100-run boundary.
+- 9.15–10.80s: the final thesis resolves to paper for the loop.
 
 ### Depth
 
 BG: paper + faint captured-site texture. MG: browser/widget frame. FG: prompt,
 protocol pill, cursor, and receipts.
 
-## WEBMCP LOOP — 0:00–0:09
+## WEBMCP LOOP — 0:00–0:11
 
 ### Concept
 
@@ -82,8 +83,8 @@ left. The phase rail reads Page, Site tools, Live canvas, Continue.
 - 4.50s: revision changes from 0 to 1.
 - 5.25–6.40s: a human cursor drags the Agent node.
 - 6.55s: revision changes to 2; `get_canvas_summary` confirms the new state.
-- 7.00–7.75s: the canvas gently breathes while the continuation rail completes.
-- 8.20–8.80s: all content resolves to paper for the loop.
+- 6.80–9.10s: the 28.37 ms mounted-page task p50 appears with its 100-run boundary.
+- 9.15–10.80s: the final thesis resolves to paper for the loop.
 
 ### Depth
 
