@@ -1,0 +1,2088 @@
+{
+  "config": {
+    "toolSchemaFile": ".evals/probabilistic/2026-09-02T08-37-45-793Z/tools-model-ollama.json",
+    "evalsFile": "evals/cases/direct.json",
+    "backend": "ollama",
+    "model": "qwen3:4b-instruct",
+    "runs": 5,
+    "reporter": [
+      "json"
+    ],
+    "chromeChannel": "chrome-canary"
+  },
+  "results": {
+    "results": [
+      {
+        "test": {
+          "name": "Summarize what is drawn",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "What is on this canvas right now?"
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "get_canvas_summary",
+              "arguments": {}
+            }
+          ]
+        },
+        "response": {
+          "args": {},
+          "functionName": "get_canvas_summary"
+        },
+        "outcome": "pass",
+        "runIndex": 1,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Inspect current drawing",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Inspect the current drawing and tell me which elements it contains."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "get_canvas_summary",
+              "arguments": {}
+            }
+          ]
+        },
+        "response": {
+          "args": {},
+          "functionName": "get_canvas_summary"
+        },
+        "outcome": "pass",
+        "runIndex": 1,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Read selected elements",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Which elements do I currently have selected?"
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "get_selection",
+              "arguments": {}
+            }
+          ]
+        },
+        "response": {
+          "args": {},
+          "functionName": "get_selection"
+        },
+        "outcome": "pass",
+        "runIndex": 1,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Inspect my selection",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Read my current canvas selection."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "get_selection",
+              "arguments": {}
+            }
+          ]
+        },
+        "response": {
+          "args": {},
+          "functionName": "get_selection"
+        },
+        "outcome": "pass",
+        "runIndex": 1,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Read before adding labeled rectangle",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Add a blue rectangle labeled Browser to the canvas."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "get_canvas_summary",
+              "arguments": {}
+            }
+          ]
+        },
+        "response": {
+          "args": {},
+          "functionName": "get_canvas_summary"
+        },
+        "outcome": "pass",
+        "runIndex": 1,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Add labeled rectangle after read",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Add a blue rectangle labeled Browser to the canvas."
+            },
+            {
+              "role": "model",
+              "type": "functioncall",
+              "name": "get_canvas_summary",
+              "arguments": {}
+            },
+            {
+              "role": "user",
+              "type": "functionresponse",
+              "name": "get_canvas_summary",
+              "response": {
+                "ok": true,
+                "revision": 0,
+                "element_count": 0,
+                "elements": []
+              }
+            },
+            {
+              "role": "user",
+              "type": "message",
+              "content": "The canvas is empty at revision 0. Add the requested Browser rectangle now."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "add_elements",
+              "arguments": {
+                "elements": [
+                  {
+                    "id": {
+                      "$type": "string"
+                    },
+                    "type": "rectangle",
+                    "x": {
+                      "$type": "number"
+                    },
+                    "y": {
+                      "$type": "number"
+                    },
+                    "width": {
+                      "$type": "number"
+                    },
+                    "height": {
+                      "$type": "number"
+                    },
+                    "label": {
+                      "text": "Browser"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "response": {
+          "args": {
+            "elements": [
+              {
+                "backgroundColor": "#0000FF",
+                "height": 100,
+                "id": "browser_rect_1",
+                "label": {
+                  "text": "Browser"
+                },
+                "type": "rectangle",
+                "width": 200,
+                "x": 100,
+                "y": 100
+              }
+            ],
+            "expected_revision": 0
+          },
+          "functionName": "add_elements"
+        },
+        "outcome": "pass",
+        "runIndex": 1,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Update known node after selection confirmation",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Move node_1 to x 300 and y 180."
+            },
+            {
+              "role": "model",
+              "type": "functioncall",
+              "name": "get_selection",
+              "arguments": {}
+            },
+            {
+              "role": "user",
+              "type": "functionresponse",
+              "name": "get_selection",
+              "response": {
+                "ok": true,
+                "revision": 4,
+                "selected_count": 1,
+                "elements": [
+                  {
+                    "id": "node_1",
+                    "type": "rectangle",
+                    "x": 100,
+                    "y": 100,
+                    "width": 180,
+                    "height": 90
+                  }
+                ]
+              }
+            },
+            {
+              "role": "user",
+              "type": "message",
+              "content": "node_1 is confirmed at revision 4. Perform the requested move now without another read."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "update_elements",
+              "arguments": {
+                "expected_revision": 4,
+                "patches": [
+                  {
+                    "id": "node_1",
+                    "changes": {
+                      "x": 300,
+                      "y": 180
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "response": {
+          "args": {
+            "expected_revision": 4,
+            "patches": [
+              {
+                "changes": {
+                  "x": 300,
+                  "y": 180
+                },
+                "id": "node_1"
+              }
+            ]
+          },
+          "functionName": "update_elements"
+        },
+        "outcome": "pass",
+        "runIndex": 1,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Delete known node",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Delete the canvas element whose ID is obsolete_node."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "delete_elements",
+              "arguments": {
+                "ids": [
+                  "obsolete_node"
+                ]
+              }
+            }
+          ]
+        },
+        "response": {
+          "args": {
+            "ids": [
+              "obsolete_node"
+            ]
+          },
+          "functionName": "delete_elements"
+        },
+        "outcome": "pass",
+        "runIndex": 1,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Fit entire drawing",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Fit the whole drawing into view."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "fit_to_content",
+              "arguments": {
+                "scope": "all"
+              }
+            }
+          ]
+        },
+        "response": {
+          "args": {
+            "scope": "all"
+          },
+          "functionName": "fit_to_content"
+        },
+        "outcome": "pass",
+        "runIndex": 1,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Fit current selection",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Focus the viewport on the elements I selected."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "fit_to_content",
+              "arguments": {
+                "scope": "selection"
+              }
+            }
+          ]
+        },
+        "response": {
+          "args": {
+            "scope": "selection"
+          },
+          "functionName": "fit_to_content"
+        },
+        "outcome": "pass",
+        "runIndex": 1,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Organize horizontal flow",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Arrange all supported nodes horizontally with 80 pixels between them."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "organize_diagram",
+              "arguments": {
+                "scope": "all",
+                "layout": "horizontal",
+                "spacing": 80
+              }
+            }
+          ]
+        },
+        "response": {
+          "args": {
+            "scope": "all",
+            "layout": "horizontal",
+            "spacing": 80
+          },
+          "functionName": "organize_diagram"
+        },
+        "outcome": "pass",
+        "runIndex": 1,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Summarize what is drawn",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "What is on this canvas right now?"
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "get_canvas_summary",
+              "arguments": {}
+            }
+          ]
+        },
+        "response": {
+          "args": {},
+          "functionName": "get_canvas_summary"
+        },
+        "outcome": "pass",
+        "runIndex": 2,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Inspect current drawing",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Inspect the current drawing and tell me which elements it contains."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "get_canvas_summary",
+              "arguments": {}
+            }
+          ]
+        },
+        "response": {
+          "args": {},
+          "functionName": "get_canvas_summary"
+        },
+        "outcome": "pass",
+        "runIndex": 2,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Read selected elements",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Which elements do I currently have selected?"
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "get_selection",
+              "arguments": {}
+            }
+          ]
+        },
+        "response": {
+          "args": {},
+          "functionName": "get_selection"
+        },
+        "outcome": "pass",
+        "runIndex": 2,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Inspect my selection",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Read my current canvas selection."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "get_selection",
+              "arguments": {}
+            }
+          ]
+        },
+        "response": {
+          "args": {},
+          "functionName": "get_selection"
+        },
+        "outcome": "pass",
+        "runIndex": 2,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Read before adding labeled rectangle",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Add a blue rectangle labeled Browser to the canvas."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "get_canvas_summary",
+              "arguments": {}
+            }
+          ]
+        },
+        "response": {
+          "args": {},
+          "functionName": "get_canvas_summary"
+        },
+        "outcome": "pass",
+        "runIndex": 2,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Add labeled rectangle after read",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Add a blue rectangle labeled Browser to the canvas."
+            },
+            {
+              "role": "model",
+              "type": "functioncall",
+              "name": "get_canvas_summary",
+              "arguments": {}
+            },
+            {
+              "role": "user",
+              "type": "functionresponse",
+              "name": "get_canvas_summary",
+              "response": {
+                "ok": true,
+                "revision": 0,
+                "element_count": 0,
+                "elements": []
+              }
+            },
+            {
+              "role": "user",
+              "type": "message",
+              "content": "The canvas is empty at revision 0. Add the requested Browser rectangle now."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "add_elements",
+              "arguments": {
+                "elements": [
+                  {
+                    "id": {
+                      "$type": "string"
+                    },
+                    "type": "rectangle",
+                    "x": {
+                      "$type": "number"
+                    },
+                    "y": {
+                      "$type": "number"
+                    },
+                    "width": {
+                      "$type": "number"
+                    },
+                    "height": {
+                      "$type": "number"
+                    },
+                    "label": {
+                      "text": "Browser"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "response": {
+          "args": {
+            "elements": [
+              {
+                "backgroundColor": "#0000FF",
+                "height": 100,
+                "id": "browser-rect-1",
+                "label": {
+                  "text": "Browser"
+                },
+                "type": "rectangle",
+                "width": 200,
+                "x": 100,
+                "y": 100
+              }
+            ],
+            "expected_revision": 0
+          },
+          "functionName": "add_elements"
+        },
+        "outcome": "pass",
+        "runIndex": 2,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Update known node after selection confirmation",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Move node_1 to x 300 and y 180."
+            },
+            {
+              "role": "model",
+              "type": "functioncall",
+              "name": "get_selection",
+              "arguments": {}
+            },
+            {
+              "role": "user",
+              "type": "functionresponse",
+              "name": "get_selection",
+              "response": {
+                "ok": true,
+                "revision": 4,
+                "selected_count": 1,
+                "elements": [
+                  {
+                    "id": "node_1",
+                    "type": "rectangle",
+                    "x": 100,
+                    "y": 100,
+                    "width": 180,
+                    "height": 90
+                  }
+                ]
+              }
+            },
+            {
+              "role": "user",
+              "type": "message",
+              "content": "node_1 is confirmed at revision 4. Perform the requested move now without another read."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "update_elements",
+              "arguments": {
+                "expected_revision": 4,
+                "patches": [
+                  {
+                    "id": "node_1",
+                    "changes": {
+                      "x": 300,
+                      "y": 180
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "response": {
+          "args": {
+            "expected_revision": 4,
+            "patches": [
+              {
+                "changes": {
+                  "x": 300,
+                  "y": 180
+                },
+                "id": "node_1"
+              }
+            ]
+          },
+          "functionName": "update_elements"
+        },
+        "outcome": "pass",
+        "runIndex": 2,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Delete known node",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Delete the canvas element whose ID is obsolete_node."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "delete_elements",
+              "arguments": {
+                "ids": [
+                  "obsolete_node"
+                ]
+              }
+            }
+          ]
+        },
+        "response": {
+          "args": {
+            "ids": [
+              "obsolete_node"
+            ]
+          },
+          "functionName": "delete_elements"
+        },
+        "outcome": "pass",
+        "runIndex": 2,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Fit entire drawing",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Fit the whole drawing into view."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "fit_to_content",
+              "arguments": {
+                "scope": "all"
+              }
+            }
+          ]
+        },
+        "response": {
+          "args": {
+            "scope": "all"
+          },
+          "functionName": "fit_to_content"
+        },
+        "outcome": "pass",
+        "runIndex": 2,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Fit current selection",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Focus the viewport on the elements I selected."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "fit_to_content",
+              "arguments": {
+                "scope": "selection"
+              }
+            }
+          ]
+        },
+        "response": {
+          "args": {
+            "scope": "selection"
+          },
+          "functionName": "fit_to_content"
+        },
+        "outcome": "pass",
+        "runIndex": 2,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Organize horizontal flow",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Arrange all supported nodes horizontally with 80 pixels between them."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "organize_diagram",
+              "arguments": {
+                "scope": "all",
+                "layout": "horizontal",
+                "spacing": 80
+              }
+            }
+          ]
+        },
+        "response": {
+          "args": {
+            "scope": "all",
+            "layout": "horizontal",
+            "spacing": 80
+          },
+          "functionName": "organize_diagram"
+        },
+        "outcome": "pass",
+        "runIndex": 2,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Summarize what is drawn",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "What is on this canvas right now?"
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "get_canvas_summary",
+              "arguments": {}
+            }
+          ]
+        },
+        "response": {
+          "args": {},
+          "functionName": "get_canvas_summary"
+        },
+        "outcome": "pass",
+        "runIndex": 3,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Inspect current drawing",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Inspect the current drawing and tell me which elements it contains."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "get_canvas_summary",
+              "arguments": {}
+            }
+          ]
+        },
+        "response": {
+          "args": {},
+          "functionName": "get_canvas_summary"
+        },
+        "outcome": "pass",
+        "runIndex": 3,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Read selected elements",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Which elements do I currently have selected?"
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "get_selection",
+              "arguments": {}
+            }
+          ]
+        },
+        "response": {
+          "args": {},
+          "functionName": "get_selection"
+        },
+        "outcome": "pass",
+        "runIndex": 3,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Inspect my selection",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Read my current canvas selection."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "get_selection",
+              "arguments": {}
+            }
+          ]
+        },
+        "response": {
+          "args": {},
+          "functionName": "get_selection"
+        },
+        "outcome": "pass",
+        "runIndex": 3,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Read before adding labeled rectangle",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Add a blue rectangle labeled Browser to the canvas."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "get_canvas_summary",
+              "arguments": {}
+            }
+          ]
+        },
+        "response": {
+          "args": {},
+          "functionName": "get_canvas_summary"
+        },
+        "outcome": "pass",
+        "runIndex": 3,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Add labeled rectangle after read",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Add a blue rectangle labeled Browser to the canvas."
+            },
+            {
+              "role": "model",
+              "type": "functioncall",
+              "name": "get_canvas_summary",
+              "arguments": {}
+            },
+            {
+              "role": "user",
+              "type": "functionresponse",
+              "name": "get_canvas_summary",
+              "response": {
+                "ok": true,
+                "revision": 0,
+                "element_count": 0,
+                "elements": []
+              }
+            },
+            {
+              "role": "user",
+              "type": "message",
+              "content": "The canvas is empty at revision 0. Add the requested Browser rectangle now."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "add_elements",
+              "arguments": {
+                "elements": [
+                  {
+                    "id": {
+                      "$type": "string"
+                    },
+                    "type": "rectangle",
+                    "x": {
+                      "$type": "number"
+                    },
+                    "y": {
+                      "$type": "number"
+                    },
+                    "width": {
+                      "$type": "number"
+                    },
+                    "height": {
+                      "$type": "number"
+                    },
+                    "label": {
+                      "text": "Browser"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "response": {
+          "args": {
+            "elements": [
+              {
+                "height": 100,
+                "id": "rect-browser",
+                "label": {
+                  "text": "Browser"
+                },
+                "type": "rectangle",
+                "width": 200,
+                "x": 100,
+                "y": 100
+              }
+            ],
+            "expected_revision": 0
+          },
+          "functionName": "add_elements"
+        },
+        "outcome": "pass",
+        "runIndex": 3,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Update known node after selection confirmation",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Move node_1 to x 300 and y 180."
+            },
+            {
+              "role": "model",
+              "type": "functioncall",
+              "name": "get_selection",
+              "arguments": {}
+            },
+            {
+              "role": "user",
+              "type": "functionresponse",
+              "name": "get_selection",
+              "response": {
+                "ok": true,
+                "revision": 4,
+                "selected_count": 1,
+                "elements": [
+                  {
+                    "id": "node_1",
+                    "type": "rectangle",
+                    "x": 100,
+                    "y": 100,
+                    "width": 180,
+                    "height": 90
+                  }
+                ]
+              }
+            },
+            {
+              "role": "user",
+              "type": "message",
+              "content": "node_1 is confirmed at revision 4. Perform the requested move now without another read."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "update_elements",
+              "arguments": {
+                "expected_revision": 4,
+                "patches": [
+                  {
+                    "id": "node_1",
+                    "changes": {
+                      "x": 300,
+                      "y": 180
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "response": {
+          "args": {
+            "expected_revision": 4,
+            "patches": [
+              {
+                "changes": {
+                  "x": 300,
+                  "y": 180
+                },
+                "id": "node_1"
+              }
+            ]
+          },
+          "functionName": "update_elements"
+        },
+        "outcome": "pass",
+        "runIndex": 3,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Delete known node",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Delete the canvas element whose ID is obsolete_node."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "delete_elements",
+              "arguments": {
+                "ids": [
+                  "obsolete_node"
+                ]
+              }
+            }
+          ]
+        },
+        "response": {
+          "args": {
+            "ids": [
+              "obsolete_node"
+            ]
+          },
+          "functionName": "delete_elements"
+        },
+        "outcome": "pass",
+        "runIndex": 3,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Fit entire drawing",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Fit the whole drawing into view."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "fit_to_content",
+              "arguments": {
+                "scope": "all"
+              }
+            }
+          ]
+        },
+        "response": {
+          "args": {
+            "scope": "all"
+          },
+          "functionName": "fit_to_content"
+        },
+        "outcome": "pass",
+        "runIndex": 3,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Fit current selection",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Focus the viewport on the elements I selected."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "fit_to_content",
+              "arguments": {
+                "scope": "selection"
+              }
+            }
+          ]
+        },
+        "response": {
+          "args": {
+            "scope": "selection"
+          },
+          "functionName": "fit_to_content"
+        },
+        "outcome": "pass",
+        "runIndex": 3,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Organize horizontal flow",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Arrange all supported nodes horizontally with 80 pixels between them."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "organize_diagram",
+              "arguments": {
+                "scope": "all",
+                "layout": "horizontal",
+                "spacing": 80
+              }
+            }
+          ]
+        },
+        "response": {
+          "args": {
+            "scope": "all",
+            "layout": "horizontal",
+            "spacing": 80
+          },
+          "functionName": "organize_diagram"
+        },
+        "outcome": "pass",
+        "runIndex": 3,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Summarize what is drawn",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "What is on this canvas right now?"
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "get_canvas_summary",
+              "arguments": {}
+            }
+          ]
+        },
+        "response": {
+          "args": {},
+          "functionName": "get_canvas_summary"
+        },
+        "outcome": "pass",
+        "runIndex": 4,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Inspect current drawing",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Inspect the current drawing and tell me which elements it contains."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "get_canvas_summary",
+              "arguments": {}
+            }
+          ]
+        },
+        "response": {
+          "args": {},
+          "functionName": "get_canvas_summary"
+        },
+        "outcome": "pass",
+        "runIndex": 4,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Read selected elements",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Which elements do I currently have selected?"
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "get_selection",
+              "arguments": {}
+            }
+          ]
+        },
+        "response": {
+          "args": {},
+          "functionName": "get_selection"
+        },
+        "outcome": "pass",
+        "runIndex": 4,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Inspect my selection",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Read my current canvas selection."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "get_selection",
+              "arguments": {}
+            }
+          ]
+        },
+        "response": {
+          "args": {},
+          "functionName": "get_selection"
+        },
+        "outcome": "pass",
+        "runIndex": 4,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Read before adding labeled rectangle",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Add a blue rectangle labeled Browser to the canvas."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "get_canvas_summary",
+              "arguments": {}
+            }
+          ]
+        },
+        "response": {
+          "args": {},
+          "functionName": "get_canvas_summary"
+        },
+        "outcome": "pass",
+        "runIndex": 4,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Add labeled rectangle after read",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Add a blue rectangle labeled Browser to the canvas."
+            },
+            {
+              "role": "model",
+              "type": "functioncall",
+              "name": "get_canvas_summary",
+              "arguments": {}
+            },
+            {
+              "role": "user",
+              "type": "functionresponse",
+              "name": "get_canvas_summary",
+              "response": {
+                "ok": true,
+                "revision": 0,
+                "element_count": 0,
+                "elements": []
+              }
+            },
+            {
+              "role": "user",
+              "type": "message",
+              "content": "The canvas is empty at revision 0. Add the requested Browser rectangle now."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "add_elements",
+              "arguments": {
+                "elements": [
+                  {
+                    "id": {
+                      "$type": "string"
+                    },
+                    "type": "rectangle",
+                    "x": {
+                      "$type": "number"
+                    },
+                    "y": {
+                      "$type": "number"
+                    },
+                    "width": {
+                      "$type": "number"
+                    },
+                    "height": {
+                      "$type": "number"
+                    },
+                    "label": {
+                      "text": "Browser"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "response": {
+          "args": {
+            "elements": [
+              {
+                "height": 100,
+                "id": "rect-browser",
+                "label": {
+                  "text": "Browser"
+                },
+                "type": "rectangle",
+                "width": 200,
+                "x": 100,
+                "y": 100
+              }
+            ],
+            "expected_revision": 0
+          },
+          "functionName": "add_elements"
+        },
+        "outcome": "pass",
+        "runIndex": 4,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Update known node after selection confirmation",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Move node_1 to x 300 and y 180."
+            },
+            {
+              "role": "model",
+              "type": "functioncall",
+              "name": "get_selection",
+              "arguments": {}
+            },
+            {
+              "role": "user",
+              "type": "functionresponse",
+              "name": "get_selection",
+              "response": {
+                "ok": true,
+                "revision": 4,
+                "selected_count": 1,
+                "elements": [
+                  {
+                    "id": "node_1",
+                    "type": "rectangle",
+                    "x": 100,
+                    "y": 100,
+                    "width": 180,
+                    "height": 90
+                  }
+                ]
+              }
+            },
+            {
+              "role": "user",
+              "type": "message",
+              "content": "node_1 is confirmed at revision 4. Perform the requested move now without another read."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "update_elements",
+              "arguments": {
+                "expected_revision": 4,
+                "patches": [
+                  {
+                    "id": "node_1",
+                    "changes": {
+                      "x": 300,
+                      "y": 180
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "response": {
+          "args": {
+            "expected_revision": 4,
+            "patches": [
+              {
+                "changes": {
+                  "x": 300,
+                  "y": 180
+                },
+                "id": "node_1"
+              }
+            ]
+          },
+          "functionName": "update_elements"
+        },
+        "outcome": "pass",
+        "runIndex": 4,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Delete known node",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Delete the canvas element whose ID is obsolete_node."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "delete_elements",
+              "arguments": {
+                "ids": [
+                  "obsolete_node"
+                ]
+              }
+            }
+          ]
+        },
+        "response": {
+          "args": {
+            "ids": [
+              "obsolete_node"
+            ]
+          },
+          "functionName": "delete_elements"
+        },
+        "outcome": "pass",
+        "runIndex": 4,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Fit entire drawing",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Fit the whole drawing into view."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "fit_to_content",
+              "arguments": {
+                "scope": "all"
+              }
+            }
+          ]
+        },
+        "response": {
+          "args": {
+            "scope": "all"
+          },
+          "functionName": "fit_to_content"
+        },
+        "outcome": "pass",
+        "runIndex": 4,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Fit current selection",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Focus the viewport on the elements I selected."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "fit_to_content",
+              "arguments": {
+                "scope": "selection"
+              }
+            }
+          ]
+        },
+        "response": {
+          "args": {
+            "scope": "selection"
+          },
+          "functionName": "fit_to_content"
+        },
+        "outcome": "pass",
+        "runIndex": 4,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Organize horizontal flow",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Arrange all supported nodes horizontally with 80 pixels between them."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "organize_diagram",
+              "arguments": {
+                "scope": "all",
+                "layout": "horizontal",
+                "spacing": 80
+              }
+            }
+          ]
+        },
+        "response": {
+          "args": {
+            "scope": "all",
+            "layout": "horizontal",
+            "spacing": 80
+          },
+          "functionName": "organize_diagram"
+        },
+        "outcome": "pass",
+        "runIndex": 4,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Summarize what is drawn",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "What is on this canvas right now?"
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "get_canvas_summary",
+              "arguments": {}
+            }
+          ]
+        },
+        "response": {
+          "args": {},
+          "functionName": "get_canvas_summary"
+        },
+        "outcome": "pass",
+        "runIndex": 5,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Inspect current drawing",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Inspect the current drawing and tell me which elements it contains."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "get_canvas_summary",
+              "arguments": {}
+            }
+          ]
+        },
+        "response": {
+          "args": {},
+          "functionName": "get_canvas_summary"
+        },
+        "outcome": "pass",
+        "runIndex": 5,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Read selected elements",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Which elements do I currently have selected?"
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "get_selection",
+              "arguments": {}
+            }
+          ]
+        },
+        "response": {
+          "args": {},
+          "functionName": "get_selection"
+        },
+        "outcome": "pass",
+        "runIndex": 5,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Inspect my selection",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Read my current canvas selection."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "get_selection",
+              "arguments": {}
+            }
+          ]
+        },
+        "response": {
+          "args": {},
+          "functionName": "get_selection"
+        },
+        "outcome": "pass",
+        "runIndex": 5,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Read before adding labeled rectangle",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Add a blue rectangle labeled Browser to the canvas."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "get_canvas_summary",
+              "arguments": {}
+            }
+          ]
+        },
+        "response": {
+          "args": {},
+          "functionName": "get_canvas_summary"
+        },
+        "outcome": "pass",
+        "runIndex": 5,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Add labeled rectangle after read",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Add a blue rectangle labeled Browser to the canvas."
+            },
+            {
+              "role": "model",
+              "type": "functioncall",
+              "name": "get_canvas_summary",
+              "arguments": {}
+            },
+            {
+              "role": "user",
+              "type": "functionresponse",
+              "name": "get_canvas_summary",
+              "response": {
+                "ok": true,
+                "revision": 0,
+                "element_count": 0,
+                "elements": []
+              }
+            },
+            {
+              "role": "user",
+              "type": "message",
+              "content": "The canvas is empty at revision 0. Add the requested Browser rectangle now."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "add_elements",
+              "arguments": {
+                "elements": [
+                  {
+                    "id": {
+                      "$type": "string"
+                    },
+                    "type": "rectangle",
+                    "x": {
+                      "$type": "number"
+                    },
+                    "y": {
+                      "$type": "number"
+                    },
+                    "width": {
+                      "$type": "number"
+                    },
+                    "height": {
+                      "$type": "number"
+                    },
+                    "label": {
+                      "text": "Browser"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "response": {
+          "args": {
+            "elements": [
+              {
+                "height": 100,
+                "id": "browser_rect_1",
+                "label": {
+                  "text": "Browser"
+                },
+                "type": "rectangle",
+                "width": 200,
+                "x": 100,
+                "y": 100
+              }
+            ],
+            "expected_revision": 0
+          },
+          "functionName": "add_elements"
+        },
+        "outcome": "pass",
+        "runIndex": 5,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Update known node after selection confirmation",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Move node_1 to x 300 and y 180."
+            },
+            {
+              "role": "model",
+              "type": "functioncall",
+              "name": "get_selection",
+              "arguments": {}
+            },
+            {
+              "role": "user",
+              "type": "functionresponse",
+              "name": "get_selection",
+              "response": {
+                "ok": true,
+                "revision": 4,
+                "selected_count": 1,
+                "elements": [
+                  {
+                    "id": "node_1",
+                    "type": "rectangle",
+                    "x": 100,
+                    "y": 100,
+                    "width": 180,
+                    "height": 90
+                  }
+                ]
+              }
+            },
+            {
+              "role": "user",
+              "type": "message",
+              "content": "node_1 is confirmed at revision 4. Perform the requested move now without another read."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "update_elements",
+              "arguments": {
+                "expected_revision": 4,
+                "patches": [
+                  {
+                    "id": "node_1",
+                    "changes": {
+                      "x": 300,
+                      "y": 180
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "response": {
+          "args": {
+            "expected_revision": 4,
+            "patches": [
+              {
+                "changes": {
+                  "x": 300,
+                  "y": 180
+                },
+                "id": "node_1"
+              }
+            ]
+          },
+          "functionName": "update_elements"
+        },
+        "outcome": "pass",
+        "runIndex": 5,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Delete known node",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Delete the canvas element whose ID is obsolete_node."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "delete_elements",
+              "arguments": {
+                "ids": [
+                  "obsolete_node"
+                ]
+              }
+            }
+          ]
+        },
+        "response": {
+          "args": {
+            "ids": [
+              "obsolete_node"
+            ]
+          },
+          "functionName": "delete_elements"
+        },
+        "outcome": "pass",
+        "runIndex": 5,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Fit entire drawing",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Fit the whole drawing into view."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "fit_to_content",
+              "arguments": {
+                "scope": "all"
+              }
+            }
+          ]
+        },
+        "response": {
+          "args": {
+            "scope": "all"
+          },
+          "functionName": "fit_to_content"
+        },
+        "outcome": "pass",
+        "runIndex": 5,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Fit current selection",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Focus the viewport on the elements I selected."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "fit_to_content",
+              "arguments": {
+                "scope": "selection"
+              }
+            }
+          ]
+        },
+        "response": {
+          "args": {
+            "scope": "selection"
+          },
+          "functionName": "fit_to_content"
+        },
+        "outcome": "pass",
+        "runIndex": 5,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Organize horizontal flow",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Arrange all supported nodes horizontally with 80 pixels between them."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "organize_diagram",
+              "arguments": {
+                "scope": "all",
+                "layout": "horizontal",
+                "spacing": 80
+              }
+            }
+          ]
+        },
+        "response": {
+          "args": {
+            "scope": "all",
+            "layout": "horizontal",
+            "spacing": 80
+          },
+          "functionName": "organize_diagram"
+        },
+        "outcome": "pass",
+        "runIndex": 5,
+        "stepIndex": 1
+      }
+    ],
+    "testCount": 55,
+    "passCount": 55,
+    "failCount": 0,
+    "errorCount": 0
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-09-02T08:37:45.878Z",
+  "exact": {
+    "path": "evals/tools.json",
+    "sha256": "d1ad1bde179b17454c6380a8fef5e1e424c06e92c9375200d08cbf596cfef499",
+    "bytes": 34095,
+    "tool_names": [
+      "get_canvas_summary",
+      "get_selection",
+      "add_elements",
+      "update_elements",
+      "delete_elements",
+      "fit_to_content",
+      "organize_diagram"
+    ]
+  },
+  "vercel_evaluator_mapping": {
+    "sha256": "e2f70cc9732414355489c8735d9edd7dad233fb4c50037cfb7186fb3ad4ac328",
+    "bytes": 4670,
+    "removed_union_keywords": 1,
+    "warning": "webmcp-evals 0.0.4 removes anyOf and oneOf for its Vercel backend. This mapped hash is runner evidence, not the production schema."
+  },
+  "ollama_evaluator_mapping": {
+    "sha256": "24b5fbad41f9729ba4d3bfa1ddc1829acb28eba7beb7e591b5cf3d95e09c948a",
+    "bytes": 3805,
+    "specialized_tools": [
+      "get_canvas_summary",
+      "get_selection",
+      "add_elements",
+      "update_elements"
+    ],
+    "warning": "Ollama's grammar parser rejects the full production schema. This run-only mapping simplifies add and update inputs and is not the production schema."
+  }
+}

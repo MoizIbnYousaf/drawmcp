@@ -2,7 +2,7 @@
   "tools": [
     {
       "name": "get_canvas_summary",
-      "description": "Read a bounded summary of the current DrawMCP canvas and revision.",
+      "description": "Read the current canvas, counts, and revision. Omit cursor on the first page and only reuse a returned next_cursor.",
       "inputSchema": {
         "type": "object",
         "additionalProperties": false,
@@ -11,19 +11,21 @@
             "type": "string",
             "minLength": 3,
             "maxLength": 64,
-            "pattern": "^[0-9]+:[0-9]+$"
+            "pattern": "^[0-9]+:[0-9]+$",
+            "description": "Use only next_cursor from the previous page at the same revision. Omit on the first read."
           },
           "limit": {
             "type": "integer",
             "minimum": 1,
-            "maximum": 8
+            "maximum": 8,
+            "description": "Maximum compact elements in this page, from 1 through 8."
           }
         }
       }
     },
     {
       "name": "get_selection",
-      "description": "Read the elements currently selected by the person in DrawMCP.",
+      "description": "Read the person's current selection and revision. Use only when selection matters; never invent a cursor.",
       "inputSchema": {
         "type": "object",
         "additionalProperties": false,
@@ -32,19 +34,21 @@
             "type": "string",
             "minLength": 3,
             "maxLength": 64,
-            "pattern": "^[0-9]+:[0-9]+$"
+            "pattern": "^[0-9]+:[0-9]+$",
+            "description": "Use only next_cursor from the previous page at the same revision. Omit on the first read."
           },
           "limit": {
             "type": "integer",
             "minimum": 1,
-            "maximum": 8
+            "maximum": 8,
+            "description": "Maximum compact elements in this page, from 1 through 8."
           }
         }
       }
     },
     {
       "name": "add_elements",
-      "description": "Add validated Excalidraw elements to the current canvas as one undoable action.",
+      "description": "Add validated Excalidraw elements to the current canvas as one undoable action. After a read, pass its expected_revision.",
       "inputSchema": {
         "type": "object",
         "additionalProperties": false,
@@ -54,7 +58,8 @@
         "properties": {
           "expected_revision": {
             "type": "integer",
-            "minimum": 0
+            "minimum": 0,
+            "description": "Revision returned by the read this mutation is based on. Omit only for a direct write that used no prior canvas state."
           },
           "elements": {
             "type": "array",
@@ -818,7 +823,7 @@
     },
     {
       "name": "update_elements",
-      "description": "Update allowlisted fields on current elements as one undoable action.",
+      "description": "Update known element IDs as one undoable action. Use supplied canvas state instead of rereading selection. After a read, pass its expected_revision.",
       "inputSchema": {
         "type": "object",
         "additionalProperties": false,
@@ -828,7 +833,8 @@
         "properties": {
           "expected_revision": {
             "type": "integer",
-            "minimum": 0
+            "minimum": 0,
+            "description": "Revision returned by the read this mutation is based on. Omit only for a direct write that used no prior canvas state."
           },
           "patches": {
             "type": "array",
@@ -934,7 +940,7 @@
     },
     {
       "name": "delete_elements",
-      "description": "Delete current elements by stable ID as one undoable action.",
+      "description": "Delete current elements by stable ID as one undoable action. After a read, pass its expected_revision.",
       "inputSchema": {
         "type": "object",
         "additionalProperties": false,
@@ -944,7 +950,8 @@
         "properties": {
           "expected_revision": {
             "type": "integer",
-            "minimum": 0
+            "minimum": 0,
+            "description": "Revision returned by the read this mutation is based on. Omit only for a direct write that used no prior canvas state."
           },
           "ids": {
             "type": "array",
@@ -985,7 +992,7 @@
     },
     {
       "name": "organize_diagram",
-      "description": "Arrange supported current nodes with a deterministic local layout as one undoable action.",
+      "description": "Arrange supported current nodes with a deterministic local layout as one undoable action. After a read, pass its expected_revision.",
       "inputSchema": {
         "type": "object",
         "additionalProperties": false,
@@ -996,7 +1003,8 @@
         "properties": {
           "expected_revision": {
             "type": "integer",
-            "minimum": 0
+            "minimum": 0,
+            "description": "Revision returned by the read this mutation is based on. Omit only for a direct write that used no prior canvas state."
           },
           "scope": {
             "enum": [

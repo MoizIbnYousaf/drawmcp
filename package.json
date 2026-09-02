@@ -14,6 +14,9 @@
     "evals:smoke:local": "webmcp-evals smoke -u http://127.0.0.1:5173/canvas -e evals/webmcp-evals.json --chrome-channel chrome -v",
     "evals:deterministic": "npx -y tsx@4.23.13 scripts/evals/run-deterministic.ts",
     "evals:deterministic:production": "npx -y tsx@4.23.13 scripts/evals/run-deterministic.ts --url https://drawmcp.dev/canvas",
+    "evals:schema": "npx -y tsx@4.23.13 scripts/evals/export-model-schema.ts",
+    "evals:probabilistic": "npx -y tsx@4.23.13 scripts/evals/run-probabilistic.ts",
+    "evals:accept": "npx -y tsx@4.23.13 scripts/evals/accept-probabilistic.ts",
     "video:check": "npm --prefix video/comparison run check",
     "preview": "vite preview"
   },

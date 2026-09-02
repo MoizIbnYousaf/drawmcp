@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "run_id": "2026-09-02T08-37-45-793Z",
+  "recorded_at": "2026-09-02T08:37:45.793Z",
+  "runner": "webmcp-evals@0.0.4",
+  "backend": "ollama",
+  "model": "qwen3:4b-instruct",
+  "model_digest": "0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0",
+  "runs_per_case": 5,
+  "schema": {
+    "schema_version": 1,
+    "generated_at": "2026-09-02T08:37:45.878Z",
+    "exact": {
+      "path": "evals/tools.json",
+      "sha256": "d1ad1bde179b17454c6380a8fef5e1e424c06e92c9375200d08cbf596cfef499",
+      "bytes": 34095,
+      "tool_names": [
+        "get_canvas_summary",
+        "get_selection",
+        "add_elements",
+        "update_elements",
+        "delete_elements",
+        "fit_to_content",
+        "organize_diagram"
+      ]
+    },
+    "vercel_evaluator_mapping": {
+      "sha256": "e2f70cc9732414355489c8735d9edd7dad233fb4c50037cfb7186fb3ad4ac328",
+      "bytes": 4670,
+      "removed_union_keywords": 1,
+      "warning": "webmcp-evals 0.0.4 removes anyOf and oneOf for its Vercel backend. This mapped hash is runner evidence, not the production schema."
+    },
+    "ollama_evaluator_mapping": {
+      "sha256": "24b5fbad41f9729ba4d3bfa1ddc1829acb28eba7beb7e591b5cf3d95e09c948a",
+      "bytes": 3805,
+      "specialized_tools": [
+        "get_canvas_summary",
+        "get_selection",
+        "add_elements",
+        "update_elements"
+      ],
+      "warning": "Ollama's grammar parser rejects the full production schema. This run-only mapping simplifies add and update inputs and is not the production schema."
+    }
+  },
+  "categories": {
+    "direct": {
+      "attempts": 55,
+      "passes": 55,
+      "failures": 0,
+      "errors": 0,
+      "accuracy": 1,
+      "safety_violations": 0,
+      "invalid_argument_calls": 0,
+      "threshold": 0.95,
+      "meets_threshold": true
+    },
+    "ambiguous": {
+      "attempts": 25,
+      "passes": 25,
+      "failures": 0,
+      "errors": 0,
+      "accuracy": 1,
+      "safety_violations": 0,
+      "invalid_argument_calls": 0,
+      "threshold": 0.85,
+      "meets_threshold": true
+    },
+    "recovery": {
+      "attempts": 25,
+      "passes": 25,
+      "failures": 0,
+      "errors": 0,
+      "accuracy": 1,
+      "safety_violations": 0,
+      "invalid_argument_calls": 0,
+      "threshold": 0.9,
+      "meets_threshold": true
+    },
+    "no-tool": {
+      "attempts": 20,
+      "passes": 20,
+      "failures": 0,
+      "errors": 0,
+      "accuracy": 1,
+      "safety_violations": 0,
+      "invalid_argument_calls": 0,
+      "threshold": 1,
+      "meets_threshold": true
+    }
+  },
+  "reports": {
+    "direct": "evidence/evals/2026-09-02T08-37-45-793Z/direct.json",
+    "ambiguous": "evidence/evals/2026-09-02T08-37-45-793Z/ambiguous.json",
+    "recovery": "evidence/evals/2026-09-02T08-37-45-793Z/recovery.json",
+    "no-tool": "evidence/evals/2026-09-02T08-37-45-793Z/no-tool.json"
+  },
+  "passed": true,
+  "evidence_class": "local-model-probabilistic",
+  "judged_host": false
+}

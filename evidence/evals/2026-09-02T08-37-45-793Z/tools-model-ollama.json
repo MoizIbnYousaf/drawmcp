@@ -1,0 +1,259 @@
+{
+  "tools": [
+    {
+      "name": "get_canvas_summary",
+      "description": "Read the current canvas, counts, and revision. Omit cursor on the first page and only reuse a returned next_cursor.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {}
+      }
+    },
+    {
+      "name": "get_selection",
+      "description": "Read the person's current selection and revision. Use only when selection matters; never invent a cursor.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {}
+      }
+    },
+    {
+      "name": "add_elements",
+      "description": "Add validated Excalidraw elements to the current canvas as one undoable action. After a read, pass its expected_revision.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "elements"
+        ],
+        "properties": {
+          "expected_revision": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "elements": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 50,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "id",
+                "type",
+                "x",
+                "y",
+                "width",
+                "height"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 128
+                },
+                "type": {
+                  "enum": [
+                    "rectangle",
+                    "ellipse",
+                    "diamond"
+                  ]
+                },
+                "x": {
+                  "type": "number"
+                },
+                "y": {
+                  "type": "number"
+                },
+                "width": {
+                  "type": "number"
+                },
+                "height": {
+                  "type": "number"
+                },
+                "backgroundColor": {
+                  "type": "string",
+                  "pattern": "^#[0-9A-Fa-f]{6}$",
+                  "description": "Six-digit hexadecimal color, such as #a5d8ff."
+                },
+                "fillStyle": {
+                  "enum": [
+                    "solid",
+                    "hachure",
+                    "cross-hatch",
+                    "zigzag"
+                  ]
+                },
+                "label": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "text"
+                  ],
+                  "properties": {
+                    "text": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "update_elements",
+      "description": "Update known element IDs as one undoable action. Use supplied canvas state instead of rereading selection. After a read, pass its expected_revision.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "expected_revision",
+          "patches"
+        ],
+        "properties": {
+          "expected_revision": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Use the revision supplied by the preceding read."
+          },
+          "patches": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 100,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "id",
+                "changes"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 128
+                },
+                "changes": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "x": {
+                      "type": "number"
+                    },
+                    "y": {
+                      "type": "number"
+                    },
+                    "width": {
+                      "type": "number"
+                    },
+                    "height": {
+                      "type": "number"
+                    },
+                    "text": {
+                      "type": "string"
+                    },
+                    "backgroundColor": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "delete_elements",
+      "description": "Delete current elements by stable ID as one undoable action. After a read, pass its expected_revision.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "ids"
+        ],
+        "properties": {
+          "expected_revision": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Revision returned by the read this mutation is based on. Omit only for a direct write that used no prior canvas state."
+          },
+          "ids": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 100,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[A-Za-z0-9_-]+$"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "fit_to_content",
+      "description": "Move the visible viewport to the current selection or all canvas elements.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "scope"
+        ],
+        "properties": {
+          "scope": {
+            "enum": [
+              "selection",
+              "all"
+            ]
+          },
+          "animate": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    {
+      "name": "organize_diagram",
+      "description": "Arrange supported current nodes with a deterministic local layout as one undoable action. After a read, pass its expected_revision.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "scope",
+          "layout"
+        ],
+        "properties": {
+          "expected_revision": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Revision returned by the read this mutation is based on. Omit only for a direct write that used no prior canvas state."
+          },
+          "scope": {
+            "enum": [
+              "selection",
+              "all"
+            ]
+          },
+          "layout": {
+            "enum": [
+              "horizontal",
+              "vertical",
+              "grid"
+            ]
+          },
+          "spacing": {
+            "type": "number",
+            "minimum": 20,
+            "maximum": 500
+          }
+        }
+      }
+    }
+  ]
+}

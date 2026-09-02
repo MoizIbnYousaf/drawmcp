@@ -1,0 +1,1656 @@
+{
+  "config": {
+    "toolSchemaFile": ".evals/probabilistic/2026-09-02T08-37-45-793Z/tools-model-ollama.json",
+    "evalsFile": "evals/cases/recovery.json",
+    "backend": "ollama",
+    "model": "qwen3:4b-instruct",
+    "runs": 5,
+    "reporter": [
+      "json"
+    ],
+    "chromeChannel": "chrome-canary"
+  },
+  "results": {
+    "results": [
+      {
+        "test": {
+          "name": "Recover from stale revision",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Move node_1 to x 300."
+            },
+            {
+              "role": "model",
+              "type": "functioncall",
+              "name": "update_elements",
+              "arguments": {
+                "expected_revision": 4,
+                "patches": [
+                  {
+                    "id": "node_1",
+                    "changes": {
+                      "x": 300
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "role": "user",
+              "type": "functionresponse",
+              "name": "update_elements",
+              "response": {
+                "ok": false,
+                "code": "STALE_REVISION",
+                "current_revision": 5,
+                "message": "Read the canvas again before retrying."
+              }
+            },
+            {
+              "role": "user",
+              "type": "message",
+              "content": "The write was stale. Read the current canvas before retrying."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "get_canvas_summary",
+              "arguments": {}
+            }
+          ]
+        },
+        "response": {
+          "args": {},
+          "functionName": "get_canvas_summary"
+        },
+        "outcome": "pass",
+        "runIndex": 1,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Continue after refreshed revision",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Move node_1 to x 300."
+            },
+            {
+              "role": "model",
+              "type": "functioncall",
+              "name": "get_selection",
+              "arguments": {}
+            },
+            {
+              "role": "user",
+              "type": "functionresponse",
+              "name": "get_selection",
+              "response": {
+                "ok": true,
+                "revision": 5,
+                "selected_count": 1,
+                "elements": [
+                  {
+                    "id": "node_1",
+                    "type": "rectangle",
+                    "x": 120,
+                    "y": 100,
+                    "width": 180,
+                    "height": 90
+                  }
+                ]
+              }
+            },
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Retry now by calling update_elements for node_1 at x 300 with expected revision 5."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "update_elements",
+              "arguments": {
+                "expected_revision": 5,
+                "patches": [
+                  {
+                    "id": "node_1",
+                    "changes": {
+                      "x": 300
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "response": {
+          "args": {
+            "expected_revision": 5,
+            "patches": [
+              {
+                "changes": {
+                  "x": 300
+                },
+                "id": "node_1"
+              }
+            ]
+          },
+          "functionName": "update_elements"
+        },
+        "outcome": "pass",
+        "runIndex": 1,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Correct invalid add input",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Add a rectangle called Browser."
+            },
+            {
+              "role": "model",
+              "type": "functioncall",
+              "name": "add_elements",
+              "arguments": {
+                "elements": []
+              }
+            },
+            {
+              "role": "user",
+              "type": "functionresponse",
+              "name": "add_elements",
+              "response": {
+                "ok": false,
+                "code": "INVALID_INPUT",
+                "message": "At least one valid element is required."
+              }
+            },
+            {
+              "role": "model",
+              "type": "functioncall",
+              "name": "get_canvas_summary",
+              "arguments": {}
+            },
+            {
+              "role": "user",
+              "type": "functionresponse",
+              "name": "get_canvas_summary",
+              "response": {
+                "ok": true,
+                "revision": 0,
+                "element_count": 0,
+                "elements": []
+              }
+            },
+            {
+              "role": "user",
+              "type": "message",
+              "content": "The empty canvas is confirmed. Do not call a read tool again. Correct the invalid arguments by calling add_elements with one complete Browser rectangle now."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "add_elements",
+              "arguments": {
+                "elements": [
+                  {
+                    "id": {
+                      "$type": "string"
+                    },
+                    "type": "rectangle",
+                    "x": {
+                      "$type": "number"
+                    },
+                    "y": {
+                      "$type": "number"
+                    },
+                    "width": {
+                      "$type": "number"
+                    },
+                    "height": {
+                      "$type": "number"
+                    },
+                    "label": {
+                      "text": "Browser"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "response": {
+          "args": {
+            "elements": [
+              {
+                "height": 100,
+                "id": "Browser",
+                "label": {
+                  "text": "Browser"
+                },
+                "type": "rectangle",
+                "width": 200,
+                "x": 100,
+                "y": 100
+              }
+            ],
+            "expected_revision": 0
+          },
+          "functionName": "add_elements"
+        },
+        "outcome": "pass",
+        "runIndex": 1,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Stop after unavailable canvas",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Add a Browser node."
+            },
+            {
+              "role": "model",
+              "type": "functioncall",
+              "name": "add_elements",
+              "arguments": {
+                "elements": [
+                  {
+                    "id": "browser",
+                    "type": "rectangle",
+                    "x": 0,
+                    "y": 0,
+                    "width": 180,
+                    "height": 90
+                  }
+                ]
+              }
+            },
+            {
+              "role": "user",
+              "type": "functionresponse",
+              "name": "add_elements",
+              "response": {
+                "ok": false,
+                "code": "UNAVAILABLE",
+                "message": "The canvas is not ready."
+              }
+            },
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Do not retry while the canvas is unavailable. Explain the blocker."
+            }
+          ],
+          "expectedCall": null
+        },
+        "response": null,
+        "outcome": "pass",
+        "runIndex": 1,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Stop after canceled operation",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Organize this drawing."
+            },
+            {
+              "role": "model",
+              "type": "functioncall",
+              "name": "organize_diagram",
+              "arguments": {
+                "scope": "all",
+                "layout": "grid"
+              }
+            },
+            {
+              "role": "user",
+              "type": "functionresponse",
+              "name": "organize_diagram",
+              "response": {
+                "ok": false,
+                "code": "CANCELED",
+                "message": "The operation was canceled."
+              }
+            },
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Do not retry the canceled operation. Acknowledge that it stopped."
+            }
+          ],
+          "expectedCall": null
+        },
+        "response": null,
+        "outcome": "pass",
+        "runIndex": 1,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Recover from stale revision",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Move node_1 to x 300."
+            },
+            {
+              "role": "model",
+              "type": "functioncall",
+              "name": "update_elements",
+              "arguments": {
+                "expected_revision": 4,
+                "patches": [
+                  {
+                    "id": "node_1",
+                    "changes": {
+                      "x": 300
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "role": "user",
+              "type": "functionresponse",
+              "name": "update_elements",
+              "response": {
+                "ok": false,
+                "code": "STALE_REVISION",
+                "current_revision": 5,
+                "message": "Read the canvas again before retrying."
+              }
+            },
+            {
+              "role": "user",
+              "type": "message",
+              "content": "The write was stale. Read the current canvas before retrying."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "get_canvas_summary",
+              "arguments": {}
+            }
+          ]
+        },
+        "response": {
+          "args": {},
+          "functionName": "get_canvas_summary"
+        },
+        "outcome": "pass",
+        "runIndex": 2,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Continue after refreshed revision",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Move node_1 to x 300."
+            },
+            {
+              "role": "model",
+              "type": "functioncall",
+              "name": "get_selection",
+              "arguments": {}
+            },
+            {
+              "role": "user",
+              "type": "functionresponse",
+              "name": "get_selection",
+              "response": {
+                "ok": true,
+                "revision": 5,
+                "selected_count": 1,
+                "elements": [
+                  {
+                    "id": "node_1",
+                    "type": "rectangle",
+                    "x": 120,
+                    "y": 100,
+                    "width": 180,
+                    "height": 90
+                  }
+                ]
+              }
+            },
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Retry now by calling update_elements for node_1 at x 300 with expected revision 5."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "update_elements",
+              "arguments": {
+                "expected_revision": 5,
+                "patches": [
+                  {
+                    "id": "node_1",
+                    "changes": {
+                      "x": 300
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "response": {
+          "args": {
+            "expected_revision": 5,
+            "patches": [
+              {
+                "changes": {
+                  "x": 300
+                },
+                "id": "node_1"
+              }
+            ]
+          },
+          "functionName": "update_elements"
+        },
+        "outcome": "pass",
+        "runIndex": 2,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Correct invalid add input",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Add a rectangle called Browser."
+            },
+            {
+              "role": "model",
+              "type": "functioncall",
+              "name": "add_elements",
+              "arguments": {
+                "elements": []
+              }
+            },
+            {
+              "role": "user",
+              "type": "functionresponse",
+              "name": "add_elements",
+              "response": {
+                "ok": false,
+                "code": "INVALID_INPUT",
+                "message": "At least one valid element is required."
+              }
+            },
+            {
+              "role": "model",
+              "type": "functioncall",
+              "name": "get_canvas_summary",
+              "arguments": {}
+            },
+            {
+              "role": "user",
+              "type": "functionresponse",
+              "name": "get_canvas_summary",
+              "response": {
+                "ok": true,
+                "revision": 0,
+                "element_count": 0,
+                "elements": []
+              }
+            },
+            {
+              "role": "user",
+              "type": "message",
+              "content": "The empty canvas is confirmed. Do not call a read tool again. Correct the invalid arguments by calling add_elements with one complete Browser rectangle now."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "add_elements",
+              "arguments": {
+                "elements": [
+                  {
+                    "id": {
+                      "$type": "string"
+                    },
+                    "type": "rectangle",
+                    "x": {
+                      "$type": "number"
+                    },
+                    "y": {
+                      "$type": "number"
+                    },
+                    "width": {
+                      "$type": "number"
+                    },
+                    "height": {
+                      "$type": "number"
+                    },
+                    "label": {
+                      "text": "Browser"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "response": {
+          "args": {
+            "elements": [
+              {
+                "height": 100,
+                "id": "Browser",
+                "label": {
+                  "text": "Browser"
+                },
+                "type": "rectangle",
+                "width": 200,
+                "x": 100,
+                "y": 100
+              }
+            ],
+            "expected_revision": 0
+          },
+          "functionName": "add_elements"
+        },
+        "outcome": "pass",
+        "runIndex": 2,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Stop after unavailable canvas",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Add a Browser node."
+            },
+            {
+              "role": "model",
+              "type": "functioncall",
+              "name": "add_elements",
+              "arguments": {
+                "elements": [
+                  {
+                    "id": "browser",
+                    "type": "rectangle",
+                    "x": 0,
+                    "y": 0,
+                    "width": 180,
+                    "height": 90
+                  }
+                ]
+              }
+            },
+            {
+              "role": "user",
+              "type": "functionresponse",
+              "name": "add_elements",
+              "response": {
+                "ok": false,
+                "code": "UNAVAILABLE",
+                "message": "The canvas is not ready."
+              }
+            },
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Do not retry while the canvas is unavailable. Explain the blocker."
+            }
+          ],
+          "expectedCall": null
+        },
+        "response": null,
+        "outcome": "pass",
+        "runIndex": 2,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Stop after canceled operation",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Organize this drawing."
+            },
+            {
+              "role": "model",
+              "type": "functioncall",
+              "name": "organize_diagram",
+              "arguments": {
+                "scope": "all",
+                "layout": "grid"
+              }
+            },
+            {
+              "role": "user",
+              "type": "functionresponse",
+              "name": "organize_diagram",
+              "response": {
+                "ok": false,
+                "code": "CANCELED",
+                "message": "The operation was canceled."
+              }
+            },
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Do not retry the canceled operation. Acknowledge that it stopped."
+            }
+          ],
+          "expectedCall": null
+        },
+        "response": null,
+        "outcome": "pass",
+        "runIndex": 2,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Recover from stale revision",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Move node_1 to x 300."
+            },
+            {
+              "role": "model",
+              "type": "functioncall",
+              "name": "update_elements",
+              "arguments": {
+                "expected_revision": 4,
+                "patches": [
+                  {
+                    "id": "node_1",
+                    "changes": {
+                      "x": 300
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "role": "user",
+              "type": "functionresponse",
+              "name": "update_elements",
+              "response": {
+                "ok": false,
+                "code": "STALE_REVISION",
+                "current_revision": 5,
+                "message": "Read the canvas again before retrying."
+              }
+            },
+            {
+              "role": "user",
+              "type": "message",
+              "content": "The write was stale. Read the current canvas before retrying."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "get_canvas_summary",
+              "arguments": {}
+            }
+          ]
+        },
+        "response": {
+          "args": {},
+          "functionName": "get_canvas_summary"
+        },
+        "outcome": "pass",
+        "runIndex": 3,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Continue after refreshed revision",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Move node_1 to x 300."
+            },
+            {
+              "role": "model",
+              "type": "functioncall",
+              "name": "get_selection",
+              "arguments": {}
+            },
+            {
+              "role": "user",
+              "type": "functionresponse",
+              "name": "get_selection",
+              "response": {
+                "ok": true,
+                "revision": 5,
+                "selected_count": 1,
+                "elements": [
+                  {
+                    "id": "node_1",
+                    "type": "rectangle",
+                    "x": 120,
+                    "y": 100,
+                    "width": 180,
+                    "height": 90
+                  }
+                ]
+              }
+            },
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Retry now by calling update_elements for node_1 at x 300 with expected revision 5."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "update_elements",
+              "arguments": {
+                "expected_revision": 5,
+                "patches": [
+                  {
+                    "id": "node_1",
+                    "changes": {
+                      "x": 300
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "response": {
+          "args": {
+            "expected_revision": 5,
+            "patches": [
+              {
+                "changes": {
+                  "x": 300
+                },
+                "id": "node_1"
+              }
+            ]
+          },
+          "functionName": "update_elements"
+        },
+        "outcome": "pass",
+        "runIndex": 3,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Correct invalid add input",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Add a rectangle called Browser."
+            },
+            {
+              "role": "model",
+              "type": "functioncall",
+              "name": "add_elements",
+              "arguments": {
+                "elements": []
+              }
+            },
+            {
+              "role": "user",
+              "type": "functionresponse",
+              "name": "add_elements",
+              "response": {
+                "ok": false,
+                "code": "INVALID_INPUT",
+                "message": "At least one valid element is required."
+              }
+            },
+            {
+              "role": "model",
+              "type": "functioncall",
+              "name": "get_canvas_summary",
+              "arguments": {}
+            },
+            {
+              "role": "user",
+              "type": "functionresponse",
+              "name": "get_canvas_summary",
+              "response": {
+                "ok": true,
+                "revision": 0,
+                "element_count": 0,
+                "elements": []
+              }
+            },
+            {
+              "role": "user",
+              "type": "message",
+              "content": "The empty canvas is confirmed. Do not call a read tool again. Correct the invalid arguments by calling add_elements with one complete Browser rectangle now."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "add_elements",
+              "arguments": {
+                "elements": [
+                  {
+                    "id": {
+                      "$type": "string"
+                    },
+                    "type": "rectangle",
+                    "x": {
+                      "$type": "number"
+                    },
+                    "y": {
+                      "$type": "number"
+                    },
+                    "width": {
+                      "$type": "number"
+                    },
+                    "height": {
+                      "$type": "number"
+                    },
+                    "label": {
+                      "text": "Browser"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "response": {
+          "args": {
+            "elements": [
+              {
+                "height": 100,
+                "id": "Browser",
+                "label": {
+                  "text": "Browser"
+                },
+                "type": "rectangle",
+                "width": 200,
+                "x": 100,
+                "y": 100
+              }
+            ],
+            "expected_revision": 0
+          },
+          "functionName": "add_elements"
+        },
+        "outcome": "pass",
+        "runIndex": 3,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Stop after unavailable canvas",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Add a Browser node."
+            },
+            {
+              "role": "model",
+              "type": "functioncall",
+              "name": "add_elements",
+              "arguments": {
+                "elements": [
+                  {
+                    "id": "browser",
+                    "type": "rectangle",
+                    "x": 0,
+                    "y": 0,
+                    "width": 180,
+                    "height": 90
+                  }
+                ]
+              }
+            },
+            {
+              "role": "user",
+              "type": "functionresponse",
+              "name": "add_elements",
+              "response": {
+                "ok": false,
+                "code": "UNAVAILABLE",
+                "message": "The canvas is not ready."
+              }
+            },
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Do not retry while the canvas is unavailable. Explain the blocker."
+            }
+          ],
+          "expectedCall": null
+        },
+        "response": null,
+        "outcome": "pass",
+        "runIndex": 3,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Stop after canceled operation",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Organize this drawing."
+            },
+            {
+              "role": "model",
+              "type": "functioncall",
+              "name": "organize_diagram",
+              "arguments": {
+                "scope": "all",
+                "layout": "grid"
+              }
+            },
+            {
+              "role": "user",
+              "type": "functionresponse",
+              "name": "organize_diagram",
+              "response": {
+                "ok": false,
+                "code": "CANCELED",
+                "message": "The operation was canceled."
+              }
+            },
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Do not retry the canceled operation. Acknowledge that it stopped."
+            }
+          ],
+          "expectedCall": null
+        },
+        "response": null,
+        "outcome": "pass",
+        "runIndex": 3,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Recover from stale revision",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Move node_1 to x 300."
+            },
+            {
+              "role": "model",
+              "type": "functioncall",
+              "name": "update_elements",
+              "arguments": {
+                "expected_revision": 4,
+                "patches": [
+                  {
+                    "id": "node_1",
+                    "changes": {
+                      "x": 300
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "role": "user",
+              "type": "functionresponse",
+              "name": "update_elements",
+              "response": {
+                "ok": false,
+                "code": "STALE_REVISION",
+                "current_revision": 5,
+                "message": "Read the canvas again before retrying."
+              }
+            },
+            {
+              "role": "user",
+              "type": "message",
+              "content": "The write was stale. Read the current canvas before retrying."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "get_canvas_summary",
+              "arguments": {}
+            }
+          ]
+        },
+        "response": {
+          "args": {},
+          "functionName": "get_canvas_summary"
+        },
+        "outcome": "pass",
+        "runIndex": 4,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Continue after refreshed revision",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Move node_1 to x 300."
+            },
+            {
+              "role": "model",
+              "type": "functioncall",
+              "name": "get_selection",
+              "arguments": {}
+            },
+            {
+              "role": "user",
+              "type": "functionresponse",
+              "name": "get_selection",
+              "response": {
+                "ok": true,
+                "revision": 5,
+                "selected_count": 1,
+                "elements": [
+                  {
+                    "id": "node_1",
+                    "type": "rectangle",
+                    "x": 120,
+                    "y": 100,
+                    "width": 180,
+                    "height": 90
+                  }
+                ]
+              }
+            },
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Retry now by calling update_elements for node_1 at x 300 with expected revision 5."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "update_elements",
+              "arguments": {
+                "expected_revision": 5,
+                "patches": [
+                  {
+                    "id": "node_1",
+                    "changes": {
+                      "x": 300
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "response": {
+          "args": {
+            "expected_revision": 5,
+            "patches": [
+              {
+                "changes": {
+                  "x": 300
+                },
+                "id": "node_1"
+              }
+            ]
+          },
+          "functionName": "update_elements"
+        },
+        "outcome": "pass",
+        "runIndex": 4,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Correct invalid add input",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Add a rectangle called Browser."
+            },
+            {
+              "role": "model",
+              "type": "functioncall",
+              "name": "add_elements",
+              "arguments": {
+                "elements": []
+              }
+            },
+            {
+              "role": "user",
+              "type": "functionresponse",
+              "name": "add_elements",
+              "response": {
+                "ok": false,
+                "code": "INVALID_INPUT",
+                "message": "At least one valid element is required."
+              }
+            },
+            {
+              "role": "model",
+              "type": "functioncall",
+              "name": "get_canvas_summary",
+              "arguments": {}
+            },
+            {
+              "role": "user",
+              "type": "functionresponse",
+              "name": "get_canvas_summary",
+              "response": {
+                "ok": true,
+                "revision": 0,
+                "element_count": 0,
+                "elements": []
+              }
+            },
+            {
+              "role": "user",
+              "type": "message",
+              "content": "The empty canvas is confirmed. Do not call a read tool again. Correct the invalid arguments by calling add_elements with one complete Browser rectangle now."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "add_elements",
+              "arguments": {
+                "elements": [
+                  {
+                    "id": {
+                      "$type": "string"
+                    },
+                    "type": "rectangle",
+                    "x": {
+                      "$type": "number"
+                    },
+                    "y": {
+                      "$type": "number"
+                    },
+                    "width": {
+                      "$type": "number"
+                    },
+                    "height": {
+                      "$type": "number"
+                    },
+                    "label": {
+                      "text": "Browser"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "response": {
+          "args": {
+            "elements": [
+              {
+                "height": 100,
+                "id": "Browser",
+                "label": {
+                  "text": "Browser"
+                },
+                "type": "rectangle",
+                "width": 200,
+                "x": 100,
+                "y": 100
+              }
+            ],
+            "expected_revision": 0
+          },
+          "functionName": "add_elements"
+        },
+        "outcome": "pass",
+        "runIndex": 4,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Stop after unavailable canvas",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Add a Browser node."
+            },
+            {
+              "role": "model",
+              "type": "functioncall",
+              "name": "add_elements",
+              "arguments": {
+                "elements": [
+                  {
+                    "id": "browser",
+                    "type": "rectangle",
+                    "x": 0,
+                    "y": 0,
+                    "width": 180,
+                    "height": 90
+                  }
+                ]
+              }
+            },
+            {
+              "role": "user",
+              "type": "functionresponse",
+              "name": "add_elements",
+              "response": {
+                "ok": false,
+                "code": "UNAVAILABLE",
+                "message": "The canvas is not ready."
+              }
+            },
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Do not retry while the canvas is unavailable. Explain the blocker."
+            }
+          ],
+          "expectedCall": null
+        },
+        "response": null,
+        "outcome": "pass",
+        "runIndex": 4,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Stop after canceled operation",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Organize this drawing."
+            },
+            {
+              "role": "model",
+              "type": "functioncall",
+              "name": "organize_diagram",
+              "arguments": {
+                "scope": "all",
+                "layout": "grid"
+              }
+            },
+            {
+              "role": "user",
+              "type": "functionresponse",
+              "name": "organize_diagram",
+              "response": {
+                "ok": false,
+                "code": "CANCELED",
+                "message": "The operation was canceled."
+              }
+            },
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Do not retry the canceled operation. Acknowledge that it stopped."
+            }
+          ],
+          "expectedCall": null
+        },
+        "response": null,
+        "outcome": "pass",
+        "runIndex": 4,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Recover from stale revision",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Move node_1 to x 300."
+            },
+            {
+              "role": "model",
+              "type": "functioncall",
+              "name": "update_elements",
+              "arguments": {
+                "expected_revision": 4,
+                "patches": [
+                  {
+                    "id": "node_1",
+                    "changes": {
+                      "x": 300
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "role": "user",
+              "type": "functionresponse",
+              "name": "update_elements",
+              "response": {
+                "ok": false,
+                "code": "STALE_REVISION",
+                "current_revision": 5,
+                "message": "Read the canvas again before retrying."
+              }
+            },
+            {
+              "role": "user",
+              "type": "message",
+              "content": "The write was stale. Read the current canvas before retrying."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "get_canvas_summary",
+              "arguments": {}
+            }
+          ]
+        },
+        "response": {
+          "args": {},
+          "functionName": "get_canvas_summary"
+        },
+        "outcome": "pass",
+        "runIndex": 5,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Continue after refreshed revision",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Move node_1 to x 300."
+            },
+            {
+              "role": "model",
+              "type": "functioncall",
+              "name": "get_selection",
+              "arguments": {}
+            },
+            {
+              "role": "user",
+              "type": "functionresponse",
+              "name": "get_selection",
+              "response": {
+                "ok": true,
+                "revision": 5,
+                "selected_count": 1,
+                "elements": [
+                  {
+                    "id": "node_1",
+                    "type": "rectangle",
+                    "x": 120,
+                    "y": 100,
+                    "width": 180,
+                    "height": 90
+                  }
+                ]
+              }
+            },
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Retry now by calling update_elements for node_1 at x 300 with expected revision 5."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "update_elements",
+              "arguments": {
+                "expected_revision": 5,
+                "patches": [
+                  {
+                    "id": "node_1",
+                    "changes": {
+                      "x": 300
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "response": {
+          "args": {
+            "expected_revision": 5,
+            "patches": [
+              {
+                "changes": {
+                  "x": 300
+                },
+                "id": "node_1"
+              }
+            ]
+          },
+          "functionName": "update_elements"
+        },
+        "outcome": "pass",
+        "runIndex": 5,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Correct invalid add input",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Add a rectangle called Browser."
+            },
+            {
+              "role": "model",
+              "type": "functioncall",
+              "name": "add_elements",
+              "arguments": {
+                "elements": []
+              }
+            },
+            {
+              "role": "user",
+              "type": "functionresponse",
+              "name": "add_elements",
+              "response": {
+                "ok": false,
+                "code": "INVALID_INPUT",
+                "message": "At least one valid element is required."
+              }
+            },
+            {
+              "role": "model",
+              "type": "functioncall",
+              "name": "get_canvas_summary",
+              "arguments": {}
+            },
+            {
+              "role": "user",
+              "type": "functionresponse",
+              "name": "get_canvas_summary",
+              "response": {
+                "ok": true,
+                "revision": 0,
+                "element_count": 0,
+                "elements": []
+              }
+            },
+            {
+              "role": "user",
+              "type": "message",
+              "content": "The empty canvas is confirmed. Do not call a read tool again. Correct the invalid arguments by calling add_elements with one complete Browser rectangle now."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "add_elements",
+              "arguments": {
+                "elements": [
+                  {
+                    "id": {
+                      "$type": "string"
+                    },
+                    "type": "rectangle",
+                    "x": {
+                      "$type": "number"
+                    },
+                    "y": {
+                      "$type": "number"
+                    },
+                    "width": {
+                      "$type": "number"
+                    },
+                    "height": {
+                      "$type": "number"
+                    },
+                    "label": {
+                      "text": "Browser"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "response": {
+          "args": {
+            "elements": [
+              {
+                "height": 100,
+                "id": "Browser",
+                "label": {
+                  "text": "Browser"
+                },
+                "type": "rectangle",
+                "width": 200,
+                "x": 100,
+                "y": 100
+              }
+            ],
+            "expected_revision": 0
+          },
+          "functionName": "add_elements"
+        },
+        "outcome": "pass",
+        "runIndex": 5,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Stop after unavailable canvas",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Add a Browser node."
+            },
+            {
+              "role": "model",
+              "type": "functioncall",
+              "name": "add_elements",
+              "arguments": {
+                "elements": [
+                  {
+                    "id": "browser",
+                    "type": "rectangle",
+                    "x": 0,
+                    "y": 0,
+                    "width": 180,
+                    "height": 90
+                  }
+                ]
+              }
+            },
+            {
+              "role": "user",
+              "type": "functionresponse",
+              "name": "add_elements",
+              "response": {
+                "ok": false,
+                "code": "UNAVAILABLE",
+                "message": "The canvas is not ready."
+              }
+            },
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Do not retry while the canvas is unavailable. Explain the blocker."
+            }
+          ],
+          "expectedCall": null
+        },
+        "response": null,
+        "outcome": "pass",
+        "runIndex": 5,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Stop after canceled operation",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Organize this drawing."
+            },
+            {
+              "role": "model",
+              "type": "functioncall",
+              "name": "organize_diagram",
+              "arguments": {
+                "scope": "all",
+                "layout": "grid"
+              }
+            },
+            {
+              "role": "user",
+              "type": "functionresponse",
+              "name": "organize_diagram",
+              "response": {
+                "ok": false,
+                "code": "CANCELED",
+                "message": "The operation was canceled."
+              }
+            },
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Do not retry the canceled operation. Acknowledge that it stopped."
+            }
+          ],
+          "expectedCall": null
+        },
+        "response": null,
+        "outcome": "pass",
+        "runIndex": 5,
+        "stepIndex": 1
+      }
+    ],
+    "testCount": 25,
+    "passCount": 25,
+    "failCount": 0,
+    "errorCount": 0
+  }
+}

@@ -1,0 +1,776 @@
+{
+  "config": {
+    "toolSchemaFile": ".evals/probabilistic/2026-09-02T08-37-45-793Z/tools-model-ollama.json",
+    "evalsFile": "evals/cases/ambiguous.json",
+    "backend": "ollama",
+    "model": "qwen3:4b-instruct",
+    "runs": 5,
+    "reporter": [
+      "json"
+    ],
+    "chromeChannel": "chrome-canary"
+  },
+  "results": {
+    "results": [
+      {
+        "test": {
+          "name": "These boxes need alignment",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "These boxes are messy. Line up the ones I selected."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "get_selection",
+              "arguments": {}
+            }
+          ]
+        },
+        "response": {
+          "args": {},
+          "functionName": "get_selection"
+        },
+        "outcome": "pass",
+        "runIndex": 1,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Make the diagram readable",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Make this diagram easier to read and show me the result."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "get_canvas_summary",
+              "arguments": {}
+            }
+          ]
+        },
+        "response": {
+          "args": {},
+          "functionName": "get_canvas_summary"
+        },
+        "outcome": "pass",
+        "runIndex": 1,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Remove the selected item",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Remove the thing I selected from this drawing."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "get_selection",
+              "arguments": {}
+            }
+          ]
+        },
+        "response": {
+          "args": {},
+          "functionName": "get_selection"
+        },
+        "outcome": "pass",
+        "runIndex": 1,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Describe then focus",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Tell me what is here, then fit everything nicely on screen."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "get_canvas_summary",
+              "arguments": {}
+            }
+          ]
+        },
+        "response": {
+          "args": {},
+          "functionName": "get_canvas_summary"
+        },
+        "outcome": "pass",
+        "runIndex": 1,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Fit after description",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Tell me what is here, then fit everything nicely on screen."
+            },
+            {
+              "role": "model",
+              "type": "functioncall",
+              "name": "get_canvas_summary",
+              "arguments": {}
+            },
+            {
+              "role": "user",
+              "type": "functionresponse",
+              "name": "get_canvas_summary",
+              "response": {
+                "ok": true,
+                "revision": 3,
+                "element_count": 4,
+                "elements": []
+              }
+            },
+            {
+              "role": "user",
+              "type": "message",
+              "content": "The description is complete. Now fit the full drawing into view."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "fit_to_content",
+              "arguments": {
+                "scope": "all"
+              }
+            }
+          ]
+        },
+        "response": {
+          "args": {
+            "scope": "all"
+          },
+          "functionName": "fit_to_content"
+        },
+        "outcome": "pass",
+        "runIndex": 1,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "These boxes need alignment",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "These boxes are messy. Line up the ones I selected."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "get_selection",
+              "arguments": {}
+            }
+          ]
+        },
+        "response": {
+          "args": {},
+          "functionName": "get_selection"
+        },
+        "outcome": "pass",
+        "runIndex": 2,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Make the diagram readable",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Make this diagram easier to read and show me the result."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "get_canvas_summary",
+              "arguments": {}
+            }
+          ]
+        },
+        "response": {
+          "args": {},
+          "functionName": "get_canvas_summary"
+        },
+        "outcome": "pass",
+        "runIndex": 2,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Remove the selected item",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Remove the thing I selected from this drawing."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "get_selection",
+              "arguments": {}
+            }
+          ]
+        },
+        "response": {
+          "args": {},
+          "functionName": "get_selection"
+        },
+        "outcome": "pass",
+        "runIndex": 2,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Describe then focus",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Tell me what is here, then fit everything nicely on screen."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "get_canvas_summary",
+              "arguments": {}
+            }
+          ]
+        },
+        "response": {
+          "args": {},
+          "functionName": "get_canvas_summary"
+        },
+        "outcome": "pass",
+        "runIndex": 2,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Fit after description",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Tell me what is here, then fit everything nicely on screen."
+            },
+            {
+              "role": "model",
+              "type": "functioncall",
+              "name": "get_canvas_summary",
+              "arguments": {}
+            },
+            {
+              "role": "user",
+              "type": "functionresponse",
+              "name": "get_canvas_summary",
+              "response": {
+                "ok": true,
+                "revision": 3,
+                "element_count": 4,
+                "elements": []
+              }
+            },
+            {
+              "role": "user",
+              "type": "message",
+              "content": "The description is complete. Now fit the full drawing into view."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "fit_to_content",
+              "arguments": {
+                "scope": "all"
+              }
+            }
+          ]
+        },
+        "response": {
+          "args": {
+            "scope": "all"
+          },
+          "functionName": "fit_to_content"
+        },
+        "outcome": "pass",
+        "runIndex": 2,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "These boxes need alignment",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "These boxes are messy. Line up the ones I selected."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "get_selection",
+              "arguments": {}
+            }
+          ]
+        },
+        "response": {
+          "args": {},
+          "functionName": "get_selection"
+        },
+        "outcome": "pass",
+        "runIndex": 3,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Make the diagram readable",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Make this diagram easier to read and show me the result."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "get_canvas_summary",
+              "arguments": {}
+            }
+          ]
+        },
+        "response": {
+          "args": {},
+          "functionName": "get_canvas_summary"
+        },
+        "outcome": "pass",
+        "runIndex": 3,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Remove the selected item",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Remove the thing I selected from this drawing."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "get_selection",
+              "arguments": {}
+            }
+          ]
+        },
+        "response": {
+          "args": {},
+          "functionName": "get_selection"
+        },
+        "outcome": "pass",
+        "runIndex": 3,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Describe then focus",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Tell me what is here, then fit everything nicely on screen."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "get_canvas_summary",
+              "arguments": {}
+            }
+          ]
+        },
+        "response": {
+          "args": {},
+          "functionName": "get_canvas_summary"
+        },
+        "outcome": "pass",
+        "runIndex": 3,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Fit after description",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Tell me what is here, then fit everything nicely on screen."
+            },
+            {
+              "role": "model",
+              "type": "functioncall",
+              "name": "get_canvas_summary",
+              "arguments": {}
+            },
+            {
+              "role": "user",
+              "type": "functionresponse",
+              "name": "get_canvas_summary",
+              "response": {
+                "ok": true,
+                "revision": 3,
+                "element_count": 4,
+                "elements": []
+              }
+            },
+            {
+              "role": "user",
+              "type": "message",
+              "content": "The description is complete. Now fit the full drawing into view."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "fit_to_content",
+              "arguments": {
+                "scope": "all"
+              }
+            }
+          ]
+        },
+        "response": {
+          "args": {
+            "scope": "all"
+          },
+          "functionName": "fit_to_content"
+        },
+        "outcome": "pass",
+        "runIndex": 3,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "These boxes need alignment",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "These boxes are messy. Line up the ones I selected."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "get_selection",
+              "arguments": {}
+            }
+          ]
+        },
+        "response": {
+          "args": {},
+          "functionName": "get_selection"
+        },
+        "outcome": "pass",
+        "runIndex": 4,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Make the diagram readable",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Make this diagram easier to read and show me the result."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "get_canvas_summary",
+              "arguments": {}
+            }
+          ]
+        },
+        "response": {
+          "args": {},
+          "functionName": "get_canvas_summary"
+        },
+        "outcome": "pass",
+        "runIndex": 4,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Remove the selected item",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Remove the thing I selected from this drawing."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "get_selection",
+              "arguments": {}
+            }
+          ]
+        },
+        "response": {
+          "args": {},
+          "functionName": "get_selection"
+        },
+        "outcome": "pass",
+        "runIndex": 4,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Describe then focus",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Tell me what is here, then fit everything nicely on screen."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "get_canvas_summary",
+              "arguments": {}
+            }
+          ]
+        },
+        "response": {
+          "args": {},
+          "functionName": "get_canvas_summary"
+        },
+        "outcome": "pass",
+        "runIndex": 4,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Fit after description",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Tell me what is here, then fit everything nicely on screen."
+            },
+            {
+              "role": "model",
+              "type": "functioncall",
+              "name": "get_canvas_summary",
+              "arguments": {}
+            },
+            {
+              "role": "user",
+              "type": "functionresponse",
+              "name": "get_canvas_summary",
+              "response": {
+                "ok": true,
+                "revision": 3,
+                "element_count": 4,
+                "elements": []
+              }
+            },
+            {
+              "role": "user",
+              "type": "message",
+              "content": "The description is complete. Now fit the full drawing into view."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "fit_to_content",
+              "arguments": {
+                "scope": "all"
+              }
+            }
+          ]
+        },
+        "response": {
+          "args": {
+            "scope": "all"
+          },
+          "functionName": "fit_to_content"
+        },
+        "outcome": "pass",
+        "runIndex": 4,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "These boxes need alignment",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "These boxes are messy. Line up the ones I selected."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "get_selection",
+              "arguments": {}
+            }
+          ]
+        },
+        "response": {
+          "args": {},
+          "functionName": "get_selection"
+        },
+        "outcome": "pass",
+        "runIndex": 5,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Make the diagram readable",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Make this diagram easier to read and show me the result."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "get_canvas_summary",
+              "arguments": {}
+            }
+          ]
+        },
+        "response": {
+          "args": {},
+          "functionName": "get_canvas_summary"
+        },
+        "outcome": "pass",
+        "runIndex": 5,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Remove the selected item",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Remove the thing I selected from this drawing."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "get_selection",
+              "arguments": {}
+            }
+          ]
+        },
+        "response": {
+          "args": {},
+          "functionName": "get_selection"
+        },
+        "outcome": "pass",
+        "runIndex": 5,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Describe then focus",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Tell me what is here, then fit everything nicely on screen."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "get_canvas_summary",
+              "arguments": {}
+            }
+          ]
+        },
+        "response": {
+          "args": {},
+          "functionName": "get_canvas_summary"
+        },
+        "outcome": "pass",
+        "runIndex": 5,
+        "stepIndex": 1
+      },
+      {
+        "test": {
+          "name": "Fit after description",
+          "messages": [
+            {
+              "role": "user",
+              "type": "message",
+              "content": "Tell me what is here, then fit everything nicely on screen."
+            },
+            {
+              "role": "model",
+              "type": "functioncall",
+              "name": "get_canvas_summary",
+              "arguments": {}
+            },
+            {
+              "role": "user",
+              "type": "functionresponse",
+              "name": "get_canvas_summary",
+              "response": {
+                "ok": true,
+                "revision": 3,
+                "element_count": 4,
+                "elements": []
+              }
+            },
+            {
+              "role": "user",
+              "type": "message",
+              "content": "The description is complete. Now fit the full drawing into view."
+            }
+          ],
+          "expectedCall": [
+            {
+              "functionName": "fit_to_content",
+              "arguments": {
+                "scope": "all"
+              }
+            }
+          ]
+        },
+        "response": {
+          "args": {
+            "scope": "all"
+          },
+          "functionName": "fit_to_content"
+        },
+        "outcome": "pass",
+        "runIndex": 5,
+        "stepIndex": 1
+      }
+    ],
+    "testCount": 25,
+    "passCount": 25,
+    "failCount": 0,
+    "errorCount": 0
+  }
+}

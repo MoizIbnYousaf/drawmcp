@@ -197,7 +197,12 @@ const skeletonSchema = {
   ],
 } as const;
 
-const expectedRevision = { type: "integer", minimum: 0 } as const;
+const expectedRevision = {
+  type: "integer",
+  minimum: 0,
+  description:
+    "Revision returned by the read this mutation is based on. Omit only for a direct write that used no prior canvas state.",
+} as const;
 
 const readProperties = {
   cursor: {
@@ -205,11 +210,14 @@ const readProperties = {
     minLength: 3,
     maxLength: 64,
     pattern: "^[0-9]+:[0-9]+$",
+    description:
+      "Use only next_cursor from the previous page at the same revision. Omit on the first read.",
   },
   limit: {
     type: "integer",
     minimum: 1,
     maximum: TOOL_LIMITS.maxReadPageSize,
+    description: "Maximum compact elements in this page, from 1 through 8.",
   },
 } as const;
 
@@ -321,34 +329,35 @@ export const TOOL_DEFINITIONS = {
   get_canvas_summary: {
     title: "Read canvas summary",
     description:
-      "Read a bounded summary of the current DrawMCP canvas and revision.",
+      "Read the current canvas, counts, and revision. Omit cursor on the first page and only reuse a returned next_cursor.",
     inputSchema: schemas.get_canvas_summary,
     annotations: { readOnlyHint: true, untrustedContentHint: true },
   },
   get_selection: {
     title: "Read current selection",
     description:
-      "Read the elements currently selected by the person in DrawMCP.",
+      "Read the person's current selection and revision. Use only when selection matters; never invent a cursor.",
     inputSchema: schemas.get_selection,
     annotations: { readOnlyHint: true, untrustedContentHint: true },
   },
   add_elements: {
     title: "Add canvas elements",
     description:
-      "Add validated Excalidraw elements to the current canvas as one undoable action.",
+      "Add validated Excalidraw elements to the current canvas as one undoable action. After a read, pass its expected_revision.",
     inputSchema: schemas.add_elements,
     annotations: { readOnlyHint: false, untrustedContentHint: true },
   },
   update_elements: {
     title: "Update canvas elements",
     description:
-      "Update allowlisted fields on current elements as one undoable action.",
+      "Update known element IDs as one undoable action. Use supplied canvas state instead of rereading selection. After a read, pass its expected_revision.",
     inputSchema: schemas.update_elements,
     annotations: { readOnlyHint: false, untrustedContentHint: true },
   },
   delete_elements: {
     title: "Delete canvas elements",
-    description: "Delete current elements by stable ID as one undoable action.",
+    description:
+      "Delete current elements by stable ID as one undoable action. After a read, pass its expected_revision.",
     inputSchema: schemas.delete_elements,
     annotations: { readOnlyHint: false, untrustedContentHint: true },
   },
@@ -362,7 +371,7 @@ export const TOOL_DEFINITIONS = {
   organize_diagram: {
     title: "Organize diagram",
     description:
-      "Arrange supported current nodes with a deterministic local layout as one undoable action.",
+      "Arrange supported current nodes with a deterministic local layout as one undoable action. After a read, pass its expected_revision.",
     inputSchema: schemas.organize_diagram,
     annotations: { readOnlyHint: false, untrustedContentHint: true },
   },
