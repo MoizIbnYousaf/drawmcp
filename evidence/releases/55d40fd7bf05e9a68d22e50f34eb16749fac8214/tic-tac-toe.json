@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-09-02T11:44:16.039Z",
+  "target_url": "http://127.0.0.1:55635/canvas?demo=tic-tac-toe",
+  "human_move": {
+    "input": "Excalidraw keyboard and pointer",
+    "mark": "X",
+    "cell": "top-left",
+    "revision_after": 2
+  },
+  "agent_move": {
+    "protocol": "WebMCP",
+    "tool": "add_elements",
+    "mark": "O",
+    "cell": "center",
+    "duration_ms": 13.375708000000031,
+    "receipt": {
+      "ok": true,
+      "operation": "add_elements",
+      "changed": true,
+      "revision_before": 2,
+      "revision_after": 3,
+      "affected_element_count": 1,
+      "affected_element_ids": [
+        "o_center"
+      ],
+      "affected_ids_truncated": false,
+      "element_count": 8
+    }
+  },
+  "final": {
+    "revision": 3,
+    "element_count": 8,
+    "human_move_present": true,
+    "agent_move_present": true,
+    "visual_change_detected": true
+  },
+  "console_errors": [],
+  "passed": true
+}

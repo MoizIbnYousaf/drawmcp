@@ -20,13 +20,17 @@ export const releaseEvidence = {
     "passed": 11,
     "total": 11
   },
+  "tic_tac_toe": {
+    "passed": 1,
+    "total": 1
+  },
   "visual_routes": {
     "passed": 8,
     "total": 8
   },
   "unit_tests": {
-    "passed": 109,
-    "total": 109
+    "passed": 112,
+    "total": 112
   },
   "controlled_benchmark": {
     "semantic_passed": 220,
