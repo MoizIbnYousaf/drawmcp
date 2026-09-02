@@ -17,8 +17,8 @@ export const releaseEvidence = {
     "total": 11
   },
   "unit_tests": {
-    "passed": 104,
-    "total": 104
+    "passed": 105,
+    "total": 105
   },
   "controlled_benchmark": {
     "semantic_passed": 220,
