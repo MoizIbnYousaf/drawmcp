@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-09-02T09:23:53.528Z",
+  "runner": "vitest",
+  "passed": true,
+  "passed_tests": 106,
+  "total_tests": 106,
+  "failed_tests": 0,
+  "pending_tests": 0
+}
