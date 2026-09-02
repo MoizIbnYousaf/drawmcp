@@ -222,7 +222,7 @@ export class CanvasService {
     const { elements: _elements, truncated: _truncated, ...summary } =
       summarizeElements(elements, 0);
     return this.pageElements(elements, input, {
-      selected_count: Object.values(selection).filter(Boolean).length,
+      selected_count: elements.filter(({ id }) => selection[id]).length,
       ...summary,
     });
   }
@@ -237,7 +237,7 @@ export class CanvasService {
       .getSceneElements()
       .filter((element) => selectedSet.has(element.id));
     return this.pageElements(elements, input, {
-      selected_count: selectedIds.length,
+      selected_count: elements.length,
     });
   }
 

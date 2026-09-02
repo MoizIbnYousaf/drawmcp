@@ -74,6 +74,21 @@ describe("CanvasService", () => {
     });
   });
 
+  it("ignores stale selected IDs that are absent from the live scene", () => {
+    const harness = createHarness();
+    harness.select(["missing_node"]);
+    expect(harness.service.getSelection()).toMatchObject({
+      ok: true,
+      selected_count: 0,
+      elements: [],
+    });
+    expect(harness.service.getCanvasSummary()).toMatchObject({
+      ok: true,
+      element_count: 1,
+      selected_count: 0,
+    });
+  });
+
   it("tracks human edits without counting selection-only changes", () => {
     const harness = createHarness();
     harness.select([]);
