@@ -69,7 +69,7 @@ is unavailable.
 | Criterion | Evidence a judge can inspect |
 | --- | --- |
 | WebMCP leverage | Seven non-trivial page tools, closed schemas, runtime validation, cancellation, revision guards, and visible mutation receipts |
-| Execution | Deployed no-login product, normal editor fallback, 50 deterministic tests, and 11/11 deployed WebMCP smoke steps |
+| Execution | Deployed no-login product, normal editor fallback, 51 deterministic tests, and 11/11 deployed WebMCP smoke steps |
 | Potential impact | A concrete shared-state workflow for anyone who diagrams systems, plans, or ideas with an agent |
 | Creativity and ambition | The human editor itself becomes the agent tool server while preserving selection, revisions, viewport, and native history |
 

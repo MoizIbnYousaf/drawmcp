@@ -52,7 +52,7 @@ one continuous human-agent journey.”
 
 **Voice:** “The tools cannot run code, navigate, upload, or contact a backend.
 Writes are serialized, revision-guarded, visible, and undoable. The deployed
-surface passes all seven tool checks, eleven smoke steps, and fifty
+surface passes all seven tool checks, eleven smoke steps, and fifty-one
 deterministic tests.”
 
 ## 2:15–2:20 — Close

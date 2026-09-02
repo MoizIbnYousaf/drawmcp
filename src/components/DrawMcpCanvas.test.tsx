@@ -4,9 +4,12 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { CanvasApi } from "../excalidraw/canvas-service";
 
 let suppliedApi: CanvasApi;
+let suppliedExcalidrawProps: Record<string, unknown>;
 
 vi.mock("@excalidraw/excalidraw", () => ({
-  Excalidraw: ({ excalidrawAPI, onChange }: Record<string, unknown>) => {
+  Excalidraw: (props: Record<string, unknown>) => {
+    suppliedExcalidrawProps = props;
+    const { excalidrawAPI, onChange } = props;
     useEffect(() => {
       (excalidrawAPI as (api: CanvasApi) => void)(suppliedApi);
       (
@@ -37,6 +40,15 @@ describe("DrawMcpCanvas", () => {
       updateScene: vi.fn(),
       scrollToContent: vi.fn(),
     };
+  });
+
+  it("enables the native Excalidraw keyboard surface globally on mount", () => {
+    render(<DrawMcpCanvas />);
+    expect(suppliedExcalidrawProps).toMatchObject({
+      autoFocus: true,
+      handleKeyboardGlobally: true,
+      name: "DrawMCP",
+    });
   });
 
   it("mounts the editor and publishes a ready service", async () => {
