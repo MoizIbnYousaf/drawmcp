@@ -26,6 +26,7 @@ export const DocsPage = () => (
         <a href="#judge-path"><DrawablyUnderline>Verify in 90 seconds</DrawablyUnderline></a>
         <a href="#webmcp"><DrawablyUnderline>Use WebMCP</DrawablyUnderline></a>
         <a href="#official-mcp"><DrawablyUnderline>Connect official MCP</DrawablyUnderline></a>
+        <a href="#shortcuts"><DrawablyUnderline>Native shortcuts</DrawablyUnderline></a>
         <a href="#local"><DrawablyUnderline>Run locally</DrawablyUnderline></a>
         <p>Reference</p>
         <a href="#tools"><DrawablyUnderline>Site tools</DrawablyUnderline></a>
@@ -123,8 +124,33 @@ export const DocsPage = () => (
           </p>
         </section>
 
+        <section id="shortcuts">
+          <p className="doc-step">03 · Native keyboard</p>
+          <h2>Every Excalidraw shortcut stays native</h2>
+          <p>
+            The canvas takes focus on load and uses Excalidraw’s global keyboard
+            handler. Tool keys, editing commands, zoom, clipboard operations,
+            grouping, history, and the built-in shortcut reference therefore
+            come from the installed editor—not a partial DrawMCP reimplementation.
+          </p>
+          <div className="revision-flow" aria-label="Common Excalidraw shortcuts">
+            <DrawablyBadge stroke="#6c5ce7">R · rectangle</DrawablyBadge>
+            <DrawablyBadge stroke="#6c5ce7">A · arrow</DrawablyBadge>
+            <DrawablyBadge stroke="#6c5ce7">T · text</DrawablyBadge>
+            <DrawablyBadge stroke="#2f9e44">⌘/Ctrl Z · undo</DrawablyBadge>
+            <DrawablyBadge stroke="#2f9e44">? · all shortcuts</DrawablyBadge>
+          </div>
+          <DrawablyCard className="callout" roughness={0.65} stroke="#6e675f">
+            <strong>Press ? on the canvas for the complete versioned list.</strong>
+            <span>
+              Excalidraw still suppresses global commands while a text field,
+              editor, or modal owns the keystroke.
+            </span>
+          </DrawablyCard>
+        </section>
+
         <section id="local">
-          <p className="doc-step">03 · Local development</p>
+          <p className="doc-step">04 · Local development</p>
           <h2>Run the exact project locally</h2>
           <pre className="code-block"><code>{`git clone --recurse-submodules git@github.com:MoizIbnYousaf/drawmcp.git
 cd drawmcp
@@ -139,7 +165,7 @@ npm run build`}</code></pre>
         </section>
 
         <section id="tools">
-          <p className="doc-step">04 · Tool reference</p>
+          <p className="doc-step">05 · Tool reference</p>
           <h2>The seven site tools</h2>
           <DrawablyCard className="tool-reference" roughness={0.55} stroke="#77736a">
             {tools.map(([name, description]) => (
@@ -159,7 +185,7 @@ npm run build`}</code></pre>
         </section>
 
         <section id="revisions">
-          <p className="doc-step">05 · Shared history</p>
+          <p className="doc-step">06 · Shared history</p>
           <h2>Revisions keep human and agent edits coherent</h2>
           <div
             className="revision-flow"
@@ -181,7 +207,7 @@ npm run build`}</code></pre>
         </section>
 
         <section id="security">
-          <p className="doc-step">06 · Security</p>
+          <p className="doc-step">07 · Security</p>
           <h2>A deliberately narrow page boundary</h2>
           <DrawablyList className="doc-list" marker="check" stroke="#2f9e44">
             <li>No tool accepts arbitrary code, HTML, URLs, selectors, or file paths.</li>
@@ -193,7 +219,7 @@ npm run build`}</code></pre>
         </section>
 
         <section id="auth">
-          <p className="doc-step">07 · Auth and hosting</p>
+          <p className="doc-step">08 · Auth and hosting</p>
           <h2>Vercel is enough for the core</h2>
           <p>
             DrawMCP’s core is a static client application. It has no account
@@ -212,7 +238,7 @@ npm run build`}</code></pre>
         </section>
 
         <section id="ui-system">
-          <p className="doc-step">08 · UI system</p>
+          <p className="doc-step">09 · UI system</p>
           <h2>Real controls with hand-drawn chrome</h2>
           <p>
             DrawMCP uses{" "}

@@ -79,6 +79,8 @@ export const DrawMcpCanvas = ({ onServiceReady }: DrawMcpCanvasProps) => {
     <div className="drawmcp-workspace">
       <div className="drawmcp-canvas" data-testid="drawmcp-canvas">
         <Excalidraw
+          autoFocus
+          handleKeyboardGlobally
           name="DrawMCP"
           excalidrawAPI={handleApi as never}
           onChange={handleChange as never}

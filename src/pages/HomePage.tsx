@@ -11,7 +11,7 @@ import { SiteHeader } from "../components/SiteHeader";
 const proof = [
   { value: "7/7", label: "deployed site tools" },
   { value: "11/11", label: "deployed smoke steps" },
-  { value: "50", label: "deterministic tests" },
+  { value: "51", label: "deterministic tests" },
 ];
 
 const ComparisonVideo = ({

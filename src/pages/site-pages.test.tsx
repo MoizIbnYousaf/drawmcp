@@ -47,6 +47,9 @@ describe("DrawMCP site pages", () => {
     expect(
       screen.getByRole("heading", { name: "Verify the shared canvas in 90 seconds" }),
     ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: "Every Excalidraw shortcut stays native" }),
+    ).toBeInTheDocument();
   });
 
   it("labels incomplete benchmark evidence as pending", () => {
