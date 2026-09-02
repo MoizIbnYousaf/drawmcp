@@ -20,8 +20,8 @@ artifact paths in that manifest.
 | Controlled component benchmark | Passed locally | 220/220 semantic trials, 100 warm plus 10 cold pairs per lane, raw checksummed rows, and qualified statistics |
 | Live production task benchmark | Passed | 20 randomized pairs, 40/40 semantic successes, 20/20 rendered WebMCP changes, 6.58× p50 and 9.93× p90 observed task speedups |
 | Shared tic-tac-toe journey | Passed locally and in production | Human Excalidraw input followed by a rendered WebMCP agent move on one revisioned canvas |
-| Exact production deployment | Awaiting user approval | No candidate push or deployment has been performed |
-| Production WebMCP and headers | Awaiting exact deployment | Packaged production deterministic, Chrome Labs, visual, header, and live-observation commands |
+| Exact production deployment | Passed for the optimized runtime | Vercel deployment, `drawmcp.dev` alias, and exact `/release.json` source commit were verified; the final presentation revision repeats this gate |
+| Production WebMCP and headers | Passed and repeatable | Packaged production deterministic, Chrome Labs, visual, header, game, and live-observation commands have passed against `drawmcp.dev` |
 | Matched-model prompt journey | Evidence pending | The accepted live result starts at tool dispatch; model decision time remains outside the published speed claim |
 | Repository visibility, recording, Devpost submit | User-controlled | Explicit checklist in `docs/DEVPOST_SUBMISSION.md` |
 | Upstream Excalidraw MCP contribution | Paused by user | No active pull request or remote feature branch; local candidate details remain in `docs/UPSTREAM_CONTRIBUTION.md` |
@@ -37,10 +37,10 @@ artifact paths in that manifest.
 | R10: connected supported diagrams | Proven for labeled nodes and bound connectors through add, update, organize, human continuation, Undo, and Redo; unsupported types are reported rather than claimed as parity |
 | R11: deterministic coverage | Proven by 113 tests plus the 17-step semantic browser journey under both development and production CSP, the external 11-step smoke layer, and the shared game journey |
 | R12: probabilistic and adversarial coverage | Proven locally for direct, ambiguous, recovery, no-tool, and injection cases; judged-host confirmation remains a production gate |
-| R13: production verification | Packaged but not yet executed against the candidate because deployment requires explicit user approval |
+| R13: production verification | Executed against the optimized production runtime; the same exact-revision checks are repeated after the final presentation deployment |
 | R14-R17: benchmark boundaries, controls, statistics, oracle | Proven for controlled local and live production strata; the live task speedup is published separately from unmeasured model decision time |
-| R18: claim traceability | Public page values come from generated evidence; README and Devpost totals are checked during release validation; production fields remain pending |
-| R19: challenge judge path | Implemented with no login and documented; exact candidate production proof awaits approval |
+| R18: claim traceability | Public page values come from generated evidence; README and Devpost totals are checked during release validation; the release manifest intentionally records production as pending until its committed revision is deployed and verified |
+| R19: challenge judge path | Implemented with no login and documented; the optimized production path passed and the final presentation revision repeats the exact candidate proof |
 | R20: upstream contribution | Local narrow candidate and upstream-native test are prepared; publishing is now an explicit future human gate |
 | R21: recording handoff | The safe sub-three-minute journey, receipts, claims, and exclusions are in `docs/DEMO_SCRIPT.md`; the user owns recording and upload |
 
@@ -68,13 +68,13 @@ work.
 
 ## Human-in-the-loop publication gate
 
-Before any push or Vercel deployment, present the user with:
+Before any newly requested push or Vercel deployment, record:
 
 1. the exact local commit and branch;
 2. the full diff summary and confirmation that the repository is still private;
 3. the release-manifest proof totals and every remaining pending proof level;
 4. the exact Git push and Vercel production actions proposed; and
-5. a clear yes/no approval request.
+5. the user's explicit approval for that publication action.
 
 After approval, verify `/release.json`, the deployed commit, deployment ID, domain alias, TLS and
 security headers, seven-tool inventory, 17-step semantic journey, 11-step smoke

@@ -29,11 +29,18 @@ export const releaseEvidence = {
     "total": 8
   },
   "unit_tests": {
-    "passed": 112,
-    "total": 112
+    "passed": 113,
+    "total": 113
   },
   "controlled_benchmark": {
     "semantic_passed": 220,
     "total": 220
+  },
+  "live_benchmark": {
+    "semantic_passed": 40,
+    "total": 40,
+    "rendered_webmcp": 20,
+    "pairs": 20,
+    "p50_speedup": 6.579570054187292
   }
 } as const;
