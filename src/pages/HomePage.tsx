@@ -14,28 +14,32 @@ const proof = [
   { value: "50", label: "deterministic tests" },
 ];
 
-const mcpSteps = ["Agent", "Remote MCP", "MCP App widget", "Editor"];
-const webMcpSteps = ["Agent", "Page tools", "Current canvas"];
-
-const Lane = ({
-  steps,
-  tone,
+const ComparisonVideo = ({
+  label,
+  poster,
+  src,
 }: {
-  steps: string[];
-  tone: "violet" | "green";
+  label: string;
+  poster: string;
+  src: string;
 }) => (
-  <div className={`flow flow-${tone}`} aria-label={steps.join(" to ")}>
-    {steps.map((step, index) => (
-      <div className="flow-step-wrap" key={step}>
-        <div className="flow-step">{step}</div>
-        {index < steps.length - 1 ? (
-          <span className="flow-arrow" aria-hidden="true">
-            →
-          </span>
-        ) : null}
-      </div>
-    ))}
-  </div>
+  <figure className="comparison-video">
+    <video
+      aria-label={label}
+      autoPlay
+      data-testid="comparison-video"
+      disablePictureInPicture
+      loop
+      muted
+      playsInline
+      poster={poster}
+      preload="metadata"
+    >
+      <source src={src} type="video/mp4" />
+    </video>
+    <img aria-hidden="true" className="comparison-video-poster" src={poster} alt="" />
+    <figcaption className="visually-hidden">{label}. Silent nine-second loop.</figcaption>
+  </figure>
 );
 
 export const HomePage = () => (
@@ -134,7 +138,11 @@ export const HomePage = () => (
               </div>
               <DrawablyBadge className="protocol-chip protocol-chip-violet" roughness={0.7} stroke="#8f80ff" variant="scribble">MCP App</DrawablyBadge>
             </div>
-            <Lane steps={mcpSteps} tone="violet" />
+            <ComparisonVideo
+              label="Official Excalidraw MCP remote service flow"
+              poster="/videos/official-mcp-poster.jpg"
+              src="/videos/official-mcp.mp4"
+            />
             <p className="lane-summary">
               A hosted MCP server generates an interactive diagram widget,
               checkpoints its state, and can open the result for fullscreen
@@ -155,7 +163,11 @@ export const HomePage = () => (
               </div>
               <DrawablyBadge className="protocol-chip protocol-chip-green" roughness={0.7} stroke="#2f9e44" variant="scribble">WebMCP</DrawablyBadge>
             </div>
-            <Lane steps={webMcpSteps} tone="green" />
+            <ComparisonVideo
+              label="DrawMCP page-native WebMCP flow"
+              poster="/videos/drawmcp-webmcp-poster.jpg"
+              src="/videos/drawmcp-webmcp.mp4"
+            />
             <p className="lane-summary">
               The open website registers bounded tools against the exact canvas
               the person is viewing. Selection, revision, and undo history stay
@@ -252,7 +264,10 @@ export const HomePage = () => (
     </section>
 
     <footer className="site-footer section-shell">
-      <span>DrawMCP · Independent WebMCP experiment</span>
+      <span>
+        DrawMCP · Built for the{" "}
+        <a href="https://webmcp.devpost.com/">2026 WebMCP Challenge</a>
+      </span>
       <span>
         Built on the published Excalidraw API · UI chrome by{" "}
         <a href="https://github.com/Danilaa1/drawably">Drawably</a>

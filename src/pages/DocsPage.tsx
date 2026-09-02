@@ -23,6 +23,7 @@ export const DocsPage = () => (
     <div className="docs-layout section-shell">
       <aside className="docs-sidebar">
         <p>Get started</p>
+        <a href="#judge-path"><DrawablyUnderline>Verify in 90 seconds</DrawablyUnderline></a>
         <a href="#webmcp"><DrawablyUnderline>Use WebMCP</DrawablyUnderline></a>
         <a href="#official-mcp"><DrawablyUnderline>Connect official MCP</DrawablyUnderline></a>
         <a href="#local"><DrawablyUnderline>Run locally</DrawablyUnderline></a>
@@ -46,6 +47,30 @@ export const DocsPage = () => (
             bounded tool surface through the WebMCP draft API.
           </p>
         </header>
+
+        <section id="judge-path">
+          <p className="doc-step">00 · Challenge judge path</p>
+          <h2>Verify the shared canvas in 90 seconds</h2>
+          <ol className="doc-steps">
+            <li>
+              Open <a href="/canvas">the live canvas</a> in ChatGPT’s in-app
+              browser and wait for <strong>7/7 site tools</strong>.
+            </li>
+            <li>
+              Ask: <em>“Summarize this canvas, add a green rectangle titled
+              WebMCP, then fit the view to the drawing.”</em>
+            </li>
+            <li>Move the new shape by hand in the normal Excalidraw editor.</li>
+            <li>
+              Ask the agent to summarize the canvas again, then use native Undo
+              and Redo to confirm that both actors share one history.
+            </li>
+          </ol>
+          <DrawablyCard className="callout callout-green" roughness={0.65} stroke="#2f9e44">
+            <strong>No login, connector, API key, or second canvas.</strong>
+            <span>The page owns the tools, live scene, revision, and undo history.</span>
+          </DrawablyCard>
+        </section>
 
         <section id="webmcp">
           <p className="doc-step">01 · WebMCP</p>
@@ -109,6 +134,7 @@ npm run dev`}</code></pre>
           <pre className="code-block"><code>{`npm run lint
 npm test
 npm run evals:check
+npm run video:check
 npm run build`}</code></pre>
         </section>
 

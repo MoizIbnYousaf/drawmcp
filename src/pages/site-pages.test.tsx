@@ -6,7 +6,7 @@ import { HomePage } from "./HomePage";
 
 describe("DrawMCP site pages", () => {
   it("presents the two protocol lanes without declaring a winner", () => {
-    render(<HomePage />);
+    const { container } = render(<HomePage />);
     expect(
       screen.getByRole("heading", {
         name: "Two valid ways to give an agent a pencil.",
@@ -17,6 +17,24 @@ describe("DrawMCP site pages", () => {
     expect(
       screen.getByText(/different measurement boundaries/),
     ).toBeInTheDocument();
+
+    const videos = screen.getAllByTestId("comparison-video");
+    expect(videos).toHaveLength(2);
+    for (const video of videos) {
+      expect(video).toHaveAttribute("autoplay");
+      expect(video).toHaveAttribute("loop");
+      expect((video as HTMLVideoElement).muted).toBe(true);
+      expect(video).toHaveAttribute("playsinline");
+      expect(video).not.toHaveAttribute("controls");
+    }
+    expect(
+      Array.from(container.querySelectorAll("video source"), (source) =>
+        source.getAttribute("src"),
+      ),
+    ).toEqual([
+      "/videos/official-mcp.mp4",
+      "/videos/drawmcp-webmcp.mp4",
+    ]);
   });
 
   it("documents both the page-native and official MCP setup", () => {
@@ -26,6 +44,9 @@ describe("DrawMCP site pages", () => {
     ).toBeInTheDocument();
     expect(screen.getByText("https://mcp.excalidraw.com")).toBeInTheDocument();
     expect(screen.getByText("get_canvas_summary")).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: "Verify the shared canvas in 90 seconds" }),
+    ).toBeInTheDocument();
   });
 
   it("labels incomplete benchmark evidence as pending", () => {

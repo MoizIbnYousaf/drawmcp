@@ -38,6 +38,19 @@ and visible timing telemetry.
 - Repository visibility: private during development
 - WebMCP API status: W3C Community Group draft, not a W3C Standard
 
+## WebMCP Challenge submission
+
+The project was created during the 2026 challenge window. Its first commit is
+dated September 1, 2026, and the repository history keeps the WebMCP work
+separate and reviewable. Judges can follow the 90-second verification path on
+the [live docs](https://drawmcp.dev/docs#judge-path).
+
+- [Submission checklist and judging map](docs/DEVPOST_SUBMISSION.md)
+- [Under-three-minute narrated demo script](docs/DEMO_SCRIPT.md)
+
+The paired silent loops on the homepage explain the two protocol boundaries.
+They do not replace the required narrated YouTube submission video.
+
 The live tool surface is:
 
 - `get_canvas_summary`
@@ -48,7 +61,7 @@ The live tool surface is:
 - `fit_to_content`
 - `organize_diagram`
 
-The release has passed 49 deterministic tests, the Chrome Labs WebMCP smoke
+The release has passed 50 deterministic tests, the Chrome Labs WebMCP smoke
 runner's 11 expected calls across seven cases on the custom domain, and a real
 in-app-browser human → WebMCP edit → Undo → Redo continuity journey. The
 controlled official-MCP versus WebMCP benchmark remains explicitly pending;
@@ -78,6 +91,8 @@ docs/IMPLEMENTATION_PLAN.md  End-to-end delivery plan
 docs/WEBMCP_GUIDELINES.md    Mandatory WebMCP implementation rules
 research/                    Source-backed upstream audits
 research/snapshots/          Dated documentation snapshots
+video/comparison/            HyperFrames sources for the paired demos
+public/videos/               Web-ready MP4 loops and reduced-motion posters
 vendor/excalidraw/           Pinned upstream Excalidraw submodule
 vendor/excalidraw-mcp/       Pinned upstream Excalidraw MCP submodule
 ```
@@ -109,6 +124,7 @@ Run the current checks:
 npm run lint
 npm test
 npm run evals:check
+npm run video:check
 npm run build
 ```
 
@@ -130,6 +146,7 @@ Read these before implementation:
 5. [Upstream contribution strategy](docs/UPSTREAM_CONTRIBUTION.md)
 6. [Excalidraw architecture audit](research/EXCALIDRAW_ARCHITECTURE.md)
 7. [Excalidraw MCP audit](research/EXCALIDRAW_MCP_AUDIT.md)
+8. [Devpost submission checklist](docs/DEVPOST_SUBMISSION.md)
 
 ## Upstream projects
 
