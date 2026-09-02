@@ -47,7 +47,13 @@ export class OfficialMcpLane {
   private process?: ChildProcessWithoutNullStreams;
   private endpoint?: string;
 
+  constructor(private readonly configuredEndpoint?: string) {}
+
   async start(): Promise<void> {
+    if (this.configuredEndpoint) {
+      this.endpoint = this.configuredEndpoint;
+      return;
+    }
     const port = await availablePort();
     this.endpoint = `http://127.0.0.1:${port}/mcp`;
     this.process = spawn(
@@ -80,7 +86,7 @@ export class OfficialMcpLane {
   async stop(): Promise<void> {
     const child = this.process;
     this.process = undefined;
-    this.endpoint = undefined;
+    this.endpoint = this.configuredEndpoint;
     if (!child || child.exitCode !== null) return;
     child.kill("SIGTERM");
     await new Promise<void>((resolveStop) => {

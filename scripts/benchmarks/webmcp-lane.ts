@@ -78,17 +78,23 @@ export class WebMcpLane {
   private page?: Page;
   private targetUrl?: string;
 
+  constructor(private readonly configuredTargetUrl?: string) {}
+
   async start(): Promise<void> {
-    this.vite = await createServer({
-      logLevel: "error",
-      server: { host: "127.0.0.1", port: 0 },
-    });
-    await this.vite.listen();
-    const address = this.vite.httpServer?.address();
-    if (!address || typeof address === "string") {
-      throw new Error("Vite benchmark server did not expose a port.");
+    if (this.configuredTargetUrl) {
+      this.targetUrl = this.configuredTargetUrl;
+    } else {
+      this.vite = await createServer({
+        logLevel: "error",
+        server: { host: "127.0.0.1", port: 0 },
+      });
+      await this.vite.listen();
+      const address = this.vite.httpServer?.address();
+      if (!address || typeof address === "string") {
+        throw new Error("Vite benchmark server did not expose a port.");
+      }
+      this.targetUrl = `http://127.0.0.1:${address.port}/canvas`;
     }
-    this.targetUrl = `http://127.0.0.1:${address.port}/canvas`;
     this.browser = await puppeteer.launch({
       browser: "chrome",
       channel: "chrome",

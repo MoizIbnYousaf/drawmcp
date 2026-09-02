@@ -116,7 +116,8 @@ tools may include `expected_revision`:
 
 - matching revision: apply the operation;
 - missing revision: apply to the latest state and report both revisions;
-- stale revision: reject with the current revision and a compact fresh summary.
+- stale revision: reject without mutation and return the current revision so the
+  agent can reread.
 
 This prevents a slow agent call from silently overwriting edits the person made
 while it was thinking.
@@ -125,7 +126,8 @@ while it was thinking.
 
 WebMCP executes in the page and can reuse the current signed-in session and
 application logic. A backend is unnecessary for the core proof. The MVP uses
-local browser persistence for recovery and export. Server persistence,
+versioned local browser persistence for non-file scene recovery. It does not
+restore the prior Undo/Redo stack. Server persistence,
 collaboration, authentication, and accounts remain explicit non-goals unless
 time remains after the complete submission path works.
 

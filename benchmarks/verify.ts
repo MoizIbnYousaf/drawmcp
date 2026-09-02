@@ -3,7 +3,7 @@ import { resolve } from "node:path";
 import Ajv2020 from "ajv/dist/2020.js";
 import type { BenchmarkTrial } from "./summarize";
 
-export const verifyBenchmark = (value: unknown) => {
+export const verifyBenchmarkSchema = (value: unknown) => {
   const schema = JSON.parse(
     readFileSync(resolve("benchmarks/schema/run-v2.schema.json"), "utf8"),
   );
@@ -17,6 +17,12 @@ export const verifyBenchmark = (value: unknown) => {
       ),
     };
   }
+  return { ok: true, errors: [] as string[] };
+};
+
+export const verifyBenchmark = (value: unknown) => {
+  const schemaResult = verifyBenchmarkSchema(value);
+  if (!schemaResult.ok) return schemaResult;
   const run = value as { trials: BenchmarkTrial[]; summary: Record<string, any> };
   const warm = run.trials.filter(
     (trial) => trial.stratum === "controlled-local" && !trial.cold_start,

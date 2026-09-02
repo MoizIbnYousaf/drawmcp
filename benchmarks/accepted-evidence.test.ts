@@ -3,12 +3,14 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 import { verifyBenchmark } from "./verify";
+import { benchmarkEvidence } from "../src/data/benchmark-evidence";
 
 describe("accepted benchmark evidence", () => {
   it("matches its checksum, sample counts, semantic gate, and raw schema", () => {
     const summary = JSON.parse(
       readFileSync(resolve("public/benchmarks/latest.json"), "utf8"),
     );
+    expect(benchmarkEvidence).toEqual(summary);
     const rawSource = readFileSync(
       resolve(`public${summary.raw.path}`),
       "utf8",

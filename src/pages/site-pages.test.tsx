@@ -15,7 +15,7 @@ describe("DrawMCP site pages", () => {
     expect(screen.getByText("Official Excalidraw MCP")).toBeInTheDocument();
     expect(screen.getByText("DrawMCP WebMCP")).toBeInTheDocument();
     expect(
-      screen.getByText(/different measurement boundaries/),
+      screen.getByText(/no end-to-end winner/),
     ).toBeInTheDocument();
 
     const videos = screen.getAllByTestId("comparison-video");
@@ -52,16 +52,16 @@ describe("DrawMCP site pages", () => {
     ).toBeInTheDocument();
   });
 
-  it("labels incomplete benchmark evidence as pending", () => {
+  it("renders controlled evidence without claiming an end-to-end winner", () => {
     render(<BenchmarksPage />);
-    expect(screen.getByText("Controlled paired runs")).toBeInTheDocument();
-    expect(screen.getByText("Not published yet")).toBeInTheDocument();
+    expect(screen.getByText("Semantic trial success")).toBeInTheDocument();
+    expect(screen.getByText("220/220")).toBeInTheDocument();
     expect(
-      screen.getByText("Official MCP direct SDK transport"),
+      screen.getByText("Official MCP checkpoint component"),
     ).toBeInTheDocument();
     expect(
       screen.getByRole("heading", {
-        name: "The WebMCP implementation works. The race has not been run.",
+        name: "The controlled run is complete. The host journey remains open.",
       }),
     ).toBeInTheDocument();
   });

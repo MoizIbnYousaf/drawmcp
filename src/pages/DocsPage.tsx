@@ -182,6 +182,12 @@ npm run build`}</code></pre>
             dimensions. Inputs are validated again inside the execution
             handler.
           </p>
+          <p>
+            Scene reads return revision-bound pages. Start without a cursor,
+            reuse only the returned <code className="inline-code">next_cursor</code>,
+            and reread from the beginning if the revision changes. Every
+            serialized tool result is capped at 1,536 characters.
+          </p>
         </section>
 
         <section id="revisions">
@@ -202,7 +208,9 @@ npm run build`}</code></pre>
             person changes the canvas after the agent reads it, the stale write
             fails closed and returns the current revision. Agent updates use
             Excalidraw’s own versioning primitive, so native Undo and Redo
-            preserve the shared journey.
+            preserve the shared journey. No-op updates return{" "}
+            <code className="inline-code">changed: false</code> without adding
+            a history entry, and every failure path releases the mutation queue.
           </p>
         </section>
 
@@ -215,6 +223,7 @@ npm run build`}</code></pre>
             <li>User-authored canvas text is bounded and marked as untrusted content.</li>
             <li>Mutations are visible, revision-guarded, serialized, and undoable.</li>
             <li>Tool registrations are aborted when the owning canvas unmounts.</li>
+            <li>Tool exposure uses the self-only origin policy and production security headers.</li>
           </DrawablyList>
         </section>
 
@@ -229,10 +238,11 @@ npm run build`}</code></pre>
             context.
           </p>
           <DrawablyCard className="callout" roughness={0.65} stroke="#6e675f">
-            <strong>If persistence or private team canvases are added later,</strong>
+            <strong>Reload recovery stays on this device.</strong>
             <span>
-              auth and storage become a separate product decision—not a
-              prerequisite for this proof.
+              DrawMCP stores a versioned non-file scene under
+              <code> drawmcp:scene:v1</code>. Clearing the canvas clears that
+              snapshot. Reload does not restore the previous Undo/Redo stack.
             </span>
           </DrawablyCard>
         </section>

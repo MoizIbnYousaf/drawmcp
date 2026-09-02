@@ -51,9 +51,9 @@ one continuous human-agent journey.”
 **Picture:** Briefly show `/docs#tools`, then the homepage proof counters.
 
 **Voice:** “The tools cannot run code, navigate, upload, or contact a backend.
-Writes are serialized, revision-guarded, visible, and undoable. The deployed
-surface passes all seven tool checks, eleven smoke steps, and fifty-one
-deterministic tests.”
+Writes are serialized, revision-aware, visible, and undoable. The candidate
+passes all seven tool checks, seventeen semantic browser steps, eleven Chrome
+Labs smoke calls, and one hundred twenty-five local-model decisions.”
 
 ## 2:15–2:20 — Close
 

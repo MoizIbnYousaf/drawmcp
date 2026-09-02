@@ -2,6 +2,7 @@ import { DrawablyCard, DrawablyHighlight, DrawablyList } from "drawably/react";
 import type { CSSProperties } from "react";
 import { DrawablyLink } from "../components/DrawablyLink";
 import { SiteHeader } from "../components/SiteHeader";
+import { benchmarkEvidence } from "../data/benchmark-evidence";
 
 const phases = [
   "Prompt",
@@ -11,6 +12,12 @@ const phases = [
   "Human edit",
   "Continue",
 ];
+
+const controlled = benchmarkEvidence.lanes;
+const webTask = controlled.webmcp.warm.task_duration_ms;
+const webComponent = controlled.webmcp.warm.component_duration_ms;
+const officialComponent = controlled["official-mcp"].warm.task_duration_ms;
+const formatMs = (value: number) => `${value.toFixed(2)} ms`;
 
 export const BenchmarksPage = () => (
   <main className="site-page benchmark-page">
@@ -22,27 +29,27 @@ export const BenchmarksPage = () => (
         <DrawablyHighlight fill="#ffec99">clock includes.</DrawablyHighlight>
       </h1>
       <p>
-        DrawMCP records protocol, agent, execution, and visible-result timing as
-        separate boundaries. Tool-level observations are published below, but
-        the same-host end-to-end run is still pending, so no winner is declared.
+        The controlled component run is complete: 220/220 scenes passed the
+        semantic oracle. The same-host prompt-to-visible-result run is still
+        pending, so no end-to-end winner is declared.
       </p>
     </section>
 
     <section className="benchmark-snapshot section-shell">
       <DrawablyCard className="snapshot-card snapshot-card-primary" roughness={0.65} stroke="#2f9e44">
-        <p>WebMCP page-local p50</p>
-        <strong>1.4 <small>ms</small></strong>
-        <span>Five warm deployed runs</span>
+        <p>WebMCP controlled task p50</p>
+        <strong>{webTask.p50.value.toFixed(2)} <small>ms</small></strong>
+        <span>100 warm mounted-page runs</span>
       </DrawablyCard>
       <DrawablyCard className="snapshot-card" roughness={0.65} stroke="#6c5ce7">
-        <p>Official MCP direct p50</p>
-        <strong>110.9 <small>ms</small></strong>
-        <span>Five warm Streamable HTTP runs</span>
+        <p>Official MCP component p50</p>
+        <strong>{officialComponent.p50.value.toFixed(2)} <small>ms</small></strong>
+        <span>100 warm local Streamable HTTP runs</span>
       </DrawablyCard>
       <DrawablyCard className="snapshot-card" roughness={0.65} stroke="#77736a">
-        <p>Controlled paired runs</p>
-        <strong>0</strong>
-        <span>Not published yet</span>
+        <p>Semantic trial success</p>
+        <strong>220/220</strong>
+        <span>100 warm and 10 cold pairs</span>
       </DrawablyCard>
     </section>
 
@@ -59,18 +66,19 @@ export const BenchmarksPage = () => (
       </div>
       <DrawablyCard className="observed-table" roughness={0.5} stroke="#77736a">
         <div className="observed-head"><span>Boundary</span><span>p50</span><span>p95</span><span>Warm runs</span></div>
-        <div><strong>WebMCP page-local execution</strong><span>1.4 ms</span><span>1.48 ms</span><span>5</span></div>
-        <div><strong>Official MCP direct SDK transport</strong><span>110.9 ms</span><span>215.0 ms</span><span>5</span></div>
-        <div><strong>ChatGPT WebMCP host round trip</strong><span>2961 ms</span><span>3491 ms</span><span>5</span></div>
+        <div><strong>WebMCP mounted-page task</strong><span>{formatMs(webTask.p50.value)}</span><span>{formatMs(webTask.p95!.value)}</span><span>100</span></div>
+        <div><strong>WebMCP page measures</strong><span>{formatMs(webComponent.p50.value)}</span><span>{formatMs(webComponent.p95!.value)}</span><span>100</span></div>
+        <div><strong>Official MCP checkpoint component</strong><span>{formatMs(officialComponent.p50.value)}</span><span>{formatMs(officialComponent.p95!.value)}</span><span>100</span></div>
       </DrawablyCard>
       <div className="observation-note">
         <p>
-          The same five-element diagram succeeded in every run. The official
-          response was 897 bytes; the WebMCP mutation receipt was 250 bytes.
-          Host implementations differ, so these observations explain where time
-          appears—they do not rank the protocols end to end.
+          Every trial produced the required three nodes, three labels, and two
+          graph edges. The official timer ends at local checkpoint completion
+          before widget rendering; the WebMCP timer includes two page calls and
+          the mounted editor mutation. These results explain component cost and
+          do not rank the protocols end to end.
         </p>
-        <a className="text-link" href="/benchmarks/2026-09-01-tool-boundary.json">
+        <a className="text-link" href={benchmarkEvidence.raw.path}>
           Download raw run data <span aria-hidden="true">→</span>
         </a>
       </div>
@@ -83,8 +91,8 @@ export const BenchmarksPage = () => (
           <h2>Six moments, measured independently.</h2>
         </div>
         <p>
-          The final comparison will use at least five warm runs per lane after
-          one discarded cold run.
+          Segment widths remain structural until a same-model, same-host journey
+          records prompt, decision, visible result, human edit, and continuation.
         </p>
       </div>
       <DrawablyCard className="timeline-board" roughness={0.55} stroke="#77736a">
@@ -118,18 +126,18 @@ export const BenchmarksPage = () => (
         <p className="section-kicker">Benchmark protocol</p>
         <h2>Hold everything still except the boundary.</h2>
         <p>
-          Both lanes receive the same two-stage architecture-diagram task using
-          the same model, host application, machine, network, and reset state.
-          Every published chart links back to the sanitized run data and exact
-          deployment.
+          The controlled local tier holds task semantics, source commits,
+          machine, trial order, and reset state. The later host tier will add the
+          same model and host application. Every published number links to the
+          checksummed raw trials.
         </p>
       </div>
       <DrawablyList className="protocol-checks" marker="check" stroke="#2f9e44">
         {[
           "Same prompt and target diagram",
-          "One discarded cold run",
-          "Five or more warm runs",
-          "p50 and p95 durations",
+          "One discarded warm-up pair",
+          "100 randomized warm pairs",
+          "p50, p90, p95, and bootstrap intervals",
           "Tool calls, retries, and handoffs",
           "Human-edit state preservation",
         ].map((item) => (
@@ -153,7 +161,7 @@ export const BenchmarksPage = () => (
     <section className="benchmark-cta section-shell">
       <div>
         <p className="section-kicker">Current verdict</p>
-        <h2>The WebMCP implementation works. The race has not been run.</h2>
+        <h2>The controlled run is complete. The host journey remains open.</h2>
       </div>
       <DrawablyLink href="/canvas" tone="dark">
         Open the verified canvas ↗

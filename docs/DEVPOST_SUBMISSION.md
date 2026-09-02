@@ -69,7 +69,7 @@ is unavailable.
 | Criterion | Evidence a judge can inspect |
 | --- | --- |
 | WebMCP leverage | Seven non-trivial page tools, closed schemas, runtime validation, cancellation, revision guards, and visible mutation receipts |
-| Execution | Deployed no-login product, normal editor fallback, 51 deterministic tests, and 11/11 deployed WebMCP smoke steps |
+| Execution | Deployed no-login product, normal editor fallback, 104 deterministic tests, 17/17 semantic browser steps, and 11/11 Chrome Labs smoke calls |
 | Potential impact | A concrete shared-state workflow for anyone who diagrams systems, plans, or ideas with an agent |
 | Creativity and ambition | The human editor itself becomes the agent tool server while preserving selection, revisions, viewport, and native history |
 
@@ -78,7 +78,7 @@ is unavailable.
 Record these exact proof levels independently:
 
 1. Git commit and public repository revision.
-2. Green local lint, test, eval-fixture, build, audit, and HyperFrames checks.
+2. Green local lint, 104 deterministic tests, 17 browser proof steps, 125 local-model decisions, eval-fixture, build, audit, and HyperFrames checks.
 3. Successful Vercel production deployment for that exact revision.
 4. Live `drawmcp.dev` WebMCP enumeration and the 11-step smoke suite.
 5. A manual human edit → agent read/write → Undo/Redo continuation journey.

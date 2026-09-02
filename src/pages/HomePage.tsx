@@ -7,12 +7,28 @@ import {
 } from "drawably/react";
 import { DrawablyLink } from "../components/DrawablyLink";
 import { SiteHeader } from "../components/SiteHeader";
+import { benchmarkEvidence } from "../data/benchmark-evidence";
+import { releaseEvidence } from "../data/release-evidence";
 
 const proof = [
-  { value: "7/7", label: "deployed site tools" },
-  { value: "11/11", label: "deployed smoke steps" },
-  { value: "51", label: "deterministic tests" },
+  {
+    value: `${releaseEvidence.tools.passed}/${releaseEvidence.tools.total}`,
+    label: "site tools",
+  },
+  {
+    value: `${releaseEvidence.deterministic_browser.passed}/${releaseEvidence.deterministic_browser.total}`,
+    label: "browser proof steps",
+  },
+  {
+    value: `${releaseEvidence.local_model.passed}/${releaseEvidence.local_model.total}`,
+    label: "local model decisions",
+  },
 ];
+
+const webMcpP50 =
+  benchmarkEvidence.lanes.webmcp.warm.task_duration_ms.p50.value;
+const officialP50 =
+  benchmarkEvidence.lanes["official-mcp"].warm.task_duration_ms.p50.value;
 
 const ComparisonVideo = ({
   label,
@@ -197,9 +213,9 @@ export const HomePage = () => (
 
       <div className="measurement-board">
         <DrawablyCard className="metric-callout" roughness={0.65} stroke="#2f9e44">
-          <p>WebMCP page-local p50</p>
-          <strong>1.4 ms</strong>
-          <span>Five warm deployed runs · not end-to-end latency</span>
+          <p>WebMCP controlled task p50</p>
+          <strong>{webMcpP50.toFixed(2)} ms</strong>
+          <span>100 warm local runs · add, fit, and visible mutation</span>
         </DrawablyCard>
         <DrawablyCard
           className="metric-visual"
@@ -209,18 +225,18 @@ export const HomePage = () => (
           stroke="#77736a"
         >
           <div className="metric-row">
-            <span>WebMCP page execution</span>
+            <span>WebMCP mounted-page task</span>
             <div className="metric-track"><i className="metric-fill" /></div>
-            <strong>1.4 ms</strong>
+            <strong>{webMcpP50.toFixed(2)} ms</strong>
           </div>
           <div className="metric-row metric-row-official">
             <span>Official MCP direct transport</span>
             <div className="metric-track"><i className="metric-fill-official" /></div>
-            <strong>110.9 ms</strong>
+            <strong>{officialP50.toFixed(2)} ms</strong>
           </div>
           <div className="metric-note">
-            These are different measurement boundaries. No end-to-end winner is
-            published until both lanes run in the same model and host.
+            Both lanes completed 100/100 warm scenes correctly. Their component
+            boundaries include different work, so no end-to-end winner is claimed.
           </div>
         </DrawablyCard>
         <a className="text-link" href="/benchmarks">
