@@ -1,4 +1,5 @@
 import { DrawablyBadge, DrawablyUnderline } from "drawably/react";
+import { DrawMcpMark } from "./DrawMcpMark";
 import { DrawablyLink } from "./DrawablyLink";
 
 type SiteHeaderProps = {
@@ -15,9 +16,7 @@ const links = [
 export const SiteHeader = ({ current, compact = false }: SiteHeaderProps) => (
   <header className={`site-header${compact ? " site-header-compact" : ""}`}>
     <a className="wordmark" href="/" aria-label="DrawMCP home">
-      <span className="wordmark-mark" aria-hidden="true">
-        D
-      </span>
+      <DrawMcpMark />
       <span>DrawMCP</span>
     </a>
     <nav className="site-nav" aria-label="Primary navigation">
