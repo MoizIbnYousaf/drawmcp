@@ -13,6 +13,7 @@
     "evals:check": "npm run evals:export && git diff --exit-code -- evals/tools.json",
     "evals:smoke:local": "webmcp-evals smoke -u http://127.0.0.1:5173/canvas -e evals/webmcp-evals.json --chrome-channel chrome -v",
     "evals:smoke": "npx -y tsx@4.23.13 scripts/evals/run-smoke.ts",
+    "evals:smoke:production": "npx -y tsx@4.23.13 scripts/evals/run-production-smoke.ts",
     "evals:deterministic": "npx -y tsx@4.23.13 scripts/evals/run-deterministic.ts",
     "evals:deterministic:production": "npx -y tsx@4.23.13 scripts/evals/run-deterministic.ts --url https://drawmcp.dev/canvas",
     "evals:schema": "npx -y tsx@4.23.13 scripts/evals/export-model-schema.ts",

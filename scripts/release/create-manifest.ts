@@ -36,6 +36,30 @@ export const createReleaseManifest = () => {
   }
 
   const commit = git("rev-parse", "HEAD");
+  const releaseRoot = resolve("evidence/releases", commit);
+  mkdirSync(releaseRoot, { recursive: true });
+  const writeReleaseJson = (name: string, value: unknown) => {
+    writeFileSync(
+      resolve(releaseRoot, name),
+      `${JSON.stringify(value, null, 2)}\n`,
+    );
+    return `evidence/releases/${commit}/${name}`;
+  };
+  const unitArtifact = writeReleaseJson("unit-tests.json", {
+    schema_version: 1,
+    recorded_at: new Date(unit.startTime).toISOString(),
+    runner: "vitest",
+    passed: unit.success === true,
+    passed_tests: unit.numPassedTests,
+    total_tests: unit.numTotalTests,
+    failed_tests: unit.numFailedTests,
+    pending_tests: unit.numPendingTests,
+  });
+  const deterministicArtifact = writeReleaseJson(
+    "deterministic-browser.json",
+    deterministic,
+  );
+  const smokeArtifact = writeReleaseJson("chrome-smoke.json", smoke);
   const evidence = {
     tools: { passed: tools.tools.length, total: tools.tools.length },
     deterministic_browser: {
@@ -75,8 +99,9 @@ export const createReleaseManifest = () => {
     source_tree_clean: true,
     proof: evidence,
     artifacts: {
-      deterministic_browser: ".evals/deterministic-latest.json",
-      chrome_smoke: ".evals/smoke-latest.json",
+      unit_tests: unitArtifact,
+      deterministic_browser: deterministicArtifact,
+      chrome_smoke: smokeArtifact,
       probabilistic: `evidence/evals/${evalRun}/summary.json`,
       benchmark: "public/benchmarks/latest.json",
     },
@@ -86,8 +111,6 @@ export const createReleaseManifest = () => {
       deployed_commit: null,
     },
   };
-  const releaseRoot = resolve("evidence/releases", commit);
-  mkdirSync(releaseRoot, { recursive: true });
   const manifestSource = `${JSON.stringify(manifest, null, 2)}\n`;
   writeFileSync(resolve(releaseRoot, "manifest.json"), manifestSource);
   mkdirSync(resolve("public/evidence"), { recursive: true });

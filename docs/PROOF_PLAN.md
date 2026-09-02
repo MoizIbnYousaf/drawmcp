@@ -103,18 +103,18 @@ Every displayed claim links to a proof artifact, source file, or live action.
 
 ## WebMCP completeness checklist
 
-- [ ] Imperative tools register on the top-level document
-- [ ] Feature detection and unsupported-browser fallback
-- [ ] Lifecycle cleanup via `AbortSignal`
-- [ ] Closed JSON Schemas with bounded inputs
-- [ ] Accurate read-only and untrusted-content annotations
-- [ ] Current-state reads at execution time
-- [ ] Pre-commit cancellation with an explicit non-rollback boundary
-- [ ] Revision preconditions for mutations
-- [ ] Structured success and error receipts
-- [ ] Closed tool validation plus the published Excalidraw mutation boundary
-- [ ] Visible, undoable agent mutations
-- [ ] No hidden external uploads or network effects
+- [x] Imperative tools register on the top-level document
+- [x] Feature detection and unsupported-browser fallback
+- [x] Lifecycle cleanup via `AbortSignal`
+- [x] Closed JSON Schemas with bounded inputs
+- [x] Accurate read-only and untrusted-content annotations
+- [x] Current-state reads at execution time
+- [x] Pre-commit cancellation with an explicit non-rollback boundary
+- [x] Revision preconditions for mutations
+- [x] Structured success and error receipts
+- [x] Closed tool validation plus the published Excalidraw mutation boundary
+- [x] Visible, undoable agent mutations
+- [x] No hidden external uploads or network effects
 - [ ] In-app-browser enumeration and invocation proof
 
 ## Automated acceptance journey
