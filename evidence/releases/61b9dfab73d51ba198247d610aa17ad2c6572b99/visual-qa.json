@@ -1,0 +1,206 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-09-02T14:06:15.912Z",
+  "target": "isolated-local-vite",
+  "cases": [
+    {
+      "name": "home-desktop",
+      "url": "http://127.0.0.1:53716/",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "inspection": {
+        "heading_found": true,
+        "main_count": 1,
+        "horizontal_overflow": 0,
+        "clipped_text_elements": 0,
+        "images": {
+          "total": 1,
+          "failed": 0
+        },
+        "videos": {
+          "total": 1,
+          "not_ready": 0
+        }
+      },
+      "errors": [],
+      "passed": true
+    },
+    {
+      "name": "docs-desktop",
+      "url": "http://127.0.0.1:53716/docs",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "inspection": {
+        "heading_found": true,
+        "main_count": 1,
+        "horizontal_overflow": 0,
+        "clipped_text_elements": 0,
+        "images": {
+          "total": 0,
+          "failed": 0
+        },
+        "videos": {
+          "total": 0,
+          "not_ready": 0
+        }
+      },
+      "errors": [],
+      "passed": true
+    },
+    {
+      "name": "benchmarks-desktop",
+      "url": "http://127.0.0.1:53716/benchmarks",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "inspection": {
+        "heading_found": true,
+        "main_count": 1,
+        "horizontal_overflow": 0,
+        "clipped_text_elements": 0,
+        "images": {
+          "total": 0,
+          "failed": 0
+        },
+        "videos": {
+          "total": 0,
+          "not_ready": 0
+        }
+      },
+      "errors": [],
+      "passed": true
+    },
+    {
+      "name": "canvas-desktop",
+      "url": "http://127.0.0.1:53716/canvas",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "inspection": {
+        "heading_found": true,
+        "main_count": 1,
+        "horizontal_overflow": 0,
+        "clipped_text_elements": 0,
+        "images": {
+          "total": 0,
+          "failed": 0
+        },
+        "videos": {
+          "total": 0,
+          "not_ready": 0
+        },
+        "excalidraw_mounted": true,
+        "webmcp_tools": 7
+      },
+      "errors": [],
+      "passed": true
+    },
+    {
+      "name": "home-mobile",
+      "url": "http://127.0.0.1:53716/",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "inspection": {
+        "heading_found": true,
+        "main_count": 1,
+        "horizontal_overflow": 0,
+        "clipped_text_elements": 0,
+        "images": {
+          "total": 1,
+          "failed": 0
+        },
+        "videos": {
+          "total": 1,
+          "not_ready": 0
+        }
+      },
+      "errors": [],
+      "passed": true
+    },
+    {
+      "name": "docs-mobile",
+      "url": "http://127.0.0.1:53716/docs",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "inspection": {
+        "heading_found": true,
+        "main_count": 1,
+        "horizontal_overflow": 0,
+        "clipped_text_elements": 0,
+        "images": {
+          "total": 0,
+          "failed": 0
+        },
+        "videos": {
+          "total": 0,
+          "not_ready": 0
+        }
+      },
+      "errors": [],
+      "passed": true
+    },
+    {
+      "name": "benchmarks-mobile",
+      "url": "http://127.0.0.1:53716/benchmarks",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "inspection": {
+        "heading_found": true,
+        "main_count": 1,
+        "horizontal_overflow": 0,
+        "clipped_text_elements": 0,
+        "images": {
+          "total": 0,
+          "failed": 0
+        },
+        "videos": {
+          "total": 0,
+          "not_ready": 0
+        }
+      },
+      "errors": [],
+      "passed": true
+    },
+    {
+      "name": "canvas-mobile",
+      "url": "http://127.0.0.1:53716/canvas",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "inspection": {
+        "heading_found": true,
+        "main_count": 1,
+        "horizontal_overflow": 0,
+        "clipped_text_elements": 0,
+        "images": {
+          "total": 0,
+          "failed": 0
+        },
+        "videos": {
+          "total": 0,
+          "not_ready": 0
+        },
+        "excalidraw_mounted": true,
+        "webmcp_tools": 7
+      },
+      "errors": [],
+      "passed": true
+    }
+  ],
+  "passed_cases": 8,
+  "total_cases": 8,
+  "passed": true
+}

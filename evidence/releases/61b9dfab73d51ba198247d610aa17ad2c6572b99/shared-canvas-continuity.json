@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-09-02T14:06:02.285Z",
+  "target_url": "http://127.0.0.1:53672/canvas",
+  "workflow": "human editor change -> WebMCP read -> agent add -> fit -> undo -> redo",
+  "human_edit": {
+    "input": "Excalidraw keyboard and pointer",
+    "id": "66cAny-j4lFHsl4DWPlsF",
+    "type": "rectangle",
+    "revision_after": 9
+  },
+  "agent_edit": {
+    "protocol": "WebMCP",
+    "tools": [
+      "add_elements",
+      "fit_to_content"
+    ],
+    "id": "agent_response",
+    "duration_ms": 17.75454200000013,
+    "add_receipt": {
+      "ok": true,
+      "operation": "add_elements",
+      "changed": true,
+      "revision_before": 9,
+      "revision_after": 10,
+      "affected_element_count": 2,
+      "affected_element_ids": [
+        "agent_response",
+        "SFR10LyUjAgKCI2eV2_1D"
+      ],
+      "affected_ids_truncated": false,
+      "element_count": 3
+    },
+    "fit_receipt": {
+      "ok": true,
+      "revision": 12,
+      "focused_element_count": 3,
+      "focused_element_ids": [
+        "66cAny-j4lFHsl4DWPlsF",
+        "agent_response",
+        "SFR10LyUjAgKCI2eV2_1D"
+      ],
+      "focused_ids_truncated": false,
+      "scope": "all"
+    },
+    "revision_after": 10
+  },
+  "history": {
+    "revision_after_undo": 11,
+    "revision_after_redo": 12
+  },
+  "checks": {
+    "seven_tools_registered": true,
+    "human_edit_read_by_agent": true,
+    "agent_edit_present": true,
+    "rendered_before_return": true,
+    "fit_completed": true,
+    "undo_preserved_human_edit": true,
+    "undo_removed_agent_edit": true,
+    "redo_restored_agent_edit": true,
+    "no_console_errors": true
+  },
+  "console_errors": [],
+  "screenshot": "/Users/moizibnyousaf/Documents/Codex/2026-09-01/new-chat/excalidraw-webmcp/.evals/shared-canvas-continuity-final.png",
+  "passed": true
+}

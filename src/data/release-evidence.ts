@@ -20,7 +20,7 @@ export const releaseEvidence = {
     "passed": 11,
     "total": 11
   },
-  "tic_tac_toe": {
+  "shared_canvas_continuity": {
     "passed": 1,
     "total": 1
   },
@@ -29,8 +29,8 @@ export const releaseEvidence = {
     "total": 8
   },
   "unit_tests": {
-    "passed": 113,
-    "total": 113
+    "passed": 115,
+    "total": 115
   },
   "controlled_benchmark": {
     "semantic_passed": 220,
