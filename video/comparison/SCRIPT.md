@@ -32,7 +32,7 @@ The measurements include different work. No protocol winner is claimed.
 2. **Human move:** Moiz places X through normal Excalidraw input.
 3. **Agent read:** Codex reads the same canvas through WebMCP.
 4. **Agent move:** Codex places O in the center with `add_elements`.
-5. **Receipt:** The visible move returns in 15.1 ms during the recorded local proof.
+5. **Receipt:** The visible move returns in 13.4 ms during the recorded release proof.
 6. **Continuation:** The board remains editable with native Undo and no second canvas.
 
 Final message: “Your move.”

@@ -1,0 +1,1343 @@
+{
+  "schema_version": 2,
+  "run_id": "live-2026-09-02T11-45-46-842Z",
+  "recorded_at": "2026-09-02T11:45:46.842Z",
+  "environment": {
+    "machine": "darwin arm64",
+    "os_release": "25.6.0",
+    "node": "v22.23.1",
+    "chrome": "Chrome/152.0.7977.65",
+    "drawmcp_commit": "92b6b6b6558d219b9c3dfac7251597eb390c86a8",
+    "drawmcp_dirty": false,
+    "excalidraw_mcp_commit": "live-service-unverified"
+  },
+  "method": {
+    "stratum": "live-service",
+    "random_seed": 20260905,
+    "warm_pairs": 20,
+    "cold_pairs": 0,
+    "order": "seeded randomized AB/BA with 500 ms throttle",
+    "webmcp_task_boundary": "Production page add_elements plus fit_to_content completion.",
+    "official_mcp_task_boundary": "Public Streamable HTTP create_view completion; widget render excluded.",
+    "comparability": "Small live observation only. No p95 or protocol ranking is permitted."
+  },
+  "scenario": {
+    "path": "benchmarks/scenarios/architecture-diagram.json",
+    "name": "Browser-Agent-Canvas architecture",
+    "required_nodes": 3,
+    "required_edges": 2,
+    "official_registered_tools": [
+      "read_me",
+      "create_view",
+      "export_to_excalidraw",
+      "save_checkpoint",
+      "read_checkpoint"
+    ],
+    "official_model_visible_tools": [
+      "read_me",
+      "create_view"
+    ]
+  },
+  "trials": [
+    {
+      "stratum": "live-service",
+      "trial": 1,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 255.4511249999996,
+      "component_duration_ms": 255.4511249999996,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "live-service",
+      "trial": 1,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 20.917083000000275,
+      "component_duration_ms": 19,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "visual_change_detected": true,
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 18.5
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.5
+        }
+      ]
+    },
+    {
+      "stratum": "live-service",
+      "trial": 2,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 15.1357909999997,
+      "component_duration_ms": 13.399999991059303,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "visual_change_detected": true,
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 13.299999997019768
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.09999999403953552
+        }
+      ]
+    },
+    {
+      "stratum": "live-service",
+      "trial": 2,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 69.96170900000016,
+      "component_duration_ms": 69.96170900000016,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "live-service",
+      "trial": 3,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 12.0625,
+      "component_duration_ms": 10.400000005960464,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "visual_change_detected": true,
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 10.299999997019768
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.10000000894069672
+        }
+      ]
+    },
+    {
+      "stratum": "live-service",
+      "trial": 3,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 119.97762499999953,
+      "component_duration_ms": 119.97762499999953,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "live-service",
+      "trial": 4,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 80.88045800000145,
+      "component_duration_ms": 80.88045800000145,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "live-service",
+      "trial": 4,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 14.06762499999968,
+      "component_duration_ms": 12.400000005960464,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "visual_change_detected": true,
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 12.200000002980232
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "live-service",
+      "trial": 5,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 14.521834000001036,
+      "component_duration_ms": 12.799999997019768,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "visual_change_detected": true,
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 12.700000002980232
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.09999999403953552
+        }
+      ]
+    },
+    {
+      "stratum": "live-service",
+      "trial": 5,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 58.01312499999949,
+      "component_duration_ms": 58.01312499999949,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "live-service",
+      "trial": 6,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 98.93612499999836,
+      "component_duration_ms": 98.93612499999836,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "live-service",
+      "trial": 6,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 12.810999999999694,
+      "component_duration_ms": 11.099999994039536,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "visual_change_detected": true,
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 10.899999991059303
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "live-service",
+      "trial": 7,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 18.348833000000013,
+      "component_duration_ms": 16.200000017881393,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "visual_change_detected": true,
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 16.100000008940697
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.10000000894069672
+        }
+      ]
+    },
+    {
+      "stratum": "live-service",
+      "trial": 7,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 73.22533399999884,
+      "component_duration_ms": 73.22533399999884,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "live-service",
+      "trial": 8,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 82.96625000000131,
+      "component_duration_ms": 82.96625000000131,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "live-service",
+      "trial": 8,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 19.52454100000068,
+      "component_duration_ms": 15.799999997019768,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "visual_change_detected": true,
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 15.5
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.29999999701976776
+        }
+      ]
+    },
+    {
+      "stratum": "live-service",
+      "trial": 9,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 97.49737499999901,
+      "component_duration_ms": 97.49737499999901,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "live-service",
+      "trial": 9,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 12.202957999998034,
+      "component_duration_ms": 10.000000014901161,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "visual_change_detected": true,
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 9.800000011920929
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "live-service",
+      "trial": 10,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 13.360250000001543,
+      "component_duration_ms": 11.400000005960464,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "visual_change_detected": true,
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 11.200000002980232
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "live-service",
+      "trial": 10,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 123.44162499999948,
+      "component_duration_ms": 123.44162499999948,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "live-service",
+      "trial": 11,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 80.7189580000013,
+      "component_duration_ms": 80.7189580000013,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "live-service",
+      "trial": 11,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 8.329167000003508,
+      "component_duration_ms": 7,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "visual_change_detected": true,
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 6.799999997019768
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "live-service",
+      "trial": 12,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 187.79650000000038,
+      "component_duration_ms": 187.79650000000038,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "live-service",
+      "trial": 12,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 8.30070799999885,
+      "component_duration_ms": 6.800000011920929,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "visual_change_detected": true,
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 6.600000008940697
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "live-service",
+      "trial": 13,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 17.008584000002884,
+      "component_duration_ms": 15.200000002980232,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "visual_change_detected": true,
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 15
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "live-service",
+      "trial": 13,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 72.49820900000122,
+      "component_duration_ms": 72.49820900000122,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "live-service",
+      "trial": 14,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 67.67149999999674,
+      "component_duration_ms": 67.67149999999674,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "live-service",
+      "trial": 14,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 9.668624999998428,
+      "component_duration_ms": 7.699999988079071,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "visual_change_detected": true,
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 7.5999999940395355
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.09999999403953552
+        }
+      ]
+    },
+    {
+      "stratum": "live-service",
+      "trial": 15,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 209.13416700000016,
+      "component_duration_ms": 209.13416700000016,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "live-service",
+      "trial": 15,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 12.443667000003188,
+      "component_duration_ms": 10.700000002980232,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "visual_change_detected": true,
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 10.599999994039536
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.10000000894069672
+        }
+      ]
+    },
+    {
+      "stratum": "live-service",
+      "trial": 16,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 19.092541999998502,
+      "component_duration_ms": 17.599999994039536,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "visual_change_detected": true,
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 17.299999997019768
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.29999999701976776
+        }
+      ]
+    },
+    {
+      "stratum": "live-service",
+      "trial": 16,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 103.68812499999694,
+      "component_duration_ms": 103.68812499999694,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "live-service",
+      "trial": 17,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 57.72099999999773,
+      "component_duration_ms": 57.72099999999773,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "live-service",
+      "trial": 17,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 16.91675000000032,
+      "component_duration_ms": 15.300000011920929,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "visual_change_detected": true,
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 15.100000008940697
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "live-service",
+      "trial": 18,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 15.073084000003291,
+      "component_duration_ms": 12.300000011920929,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "visual_change_detected": true,
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 12.100000008940697
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "live-service",
+      "trial": 18,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 165.23691699999836,
+      "component_duration_ms": 165.23691699999836,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "live-service",
+      "trial": 19,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 7.70745800000077,
+      "component_duration_ms": 6.299999997019768,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "visual_change_detected": true,
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 6
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.29999999701976776
+        }
+      ]
+    },
+    {
+      "stratum": "live-service",
+      "trial": 19,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 61.21954099999857,
+      "component_duration_ms": 61.21954099999857,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "live-service",
+      "trial": 20,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 9.755917000002228,
+      "component_duration_ms": 8.100000008940697,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "visual_change_detected": true,
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 7.800000011920929
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.29999999701976776
+        }
+      ]
+    },
+    {
+      "stratum": "live-service",
+      "trial": 20,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 179.2917910000033,
+      "component_duration_ms": 179.2917910000033,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    }
+  ],
+  "summary": {
+    "live-service": {
+      "webmcp": {
+        "warm": {
+          "attempts": 20,
+          "completed": 20,
+          "semantic_successes": 20,
+          "completion": {
+            "rate": 1,
+            "low": 0.8388748419471806,
+            "high": 1
+          },
+          "task_duration_ms": {
+            "samples": 20,
+            "min": 7.70745800000077,
+            "max": 20.917083000000275,
+            "p50": {
+              "value": 13.713937500000611,
+              "ci95": {
+                "low": 12.0625,
+                "high": 16.07218750000129,
+                "resamples": 2000
+              }
+            },
+            "p90": {
+              "value": 19.13574189999872,
+              "ci95": {
+                "low": 15.400658900002968,
+                "high": 20.917083000000275,
+                "resamples": 2000
+              }
+            },
+            "p95": null
+          },
+          "component_duration_ms": {
+            "samples": 20,
+            "min": 6.299999997019768,
+            "max": 19,
+            "p50": {
+              "value": 11.850000008940697,
+              "ci95": {
+                "low": 10.200000010430813,
+                "high": 14.350000001490116,
+                "resamples": 2000
+              }
+            },
+            "p90": {
+              "value": 16.34000001549721,
+              "ci95": {
+                "low": 13.639999991655353,
+                "high": 19,
+                "resamples": 2000
+              }
+            },
+            "p95": null
+          },
+          "total_tool_calls": 40,
+          "total_input_bytes": 14880,
+          "total_output_bytes": 11420
+        },
+        "cold": {
+          "attempts": 0,
+          "completed": 0,
+          "semantic_successes": 0,
+          "completion": {
+            "rate": 0,
+            "low": 0,
+            "high": 0
+          },
+          "task_duration_ms": {
+            "samples": 0,
+            "min": null,
+            "max": null,
+            "p50": null,
+            "p90": null,
+            "p95": null
+          },
+          "component_duration_ms": {
+            "samples": 0,
+            "min": null,
+            "max": null,
+            "p50": null,
+            "p90": null,
+            "p95": null
+          },
+          "total_tool_calls": 0,
+          "total_input_bytes": 0,
+          "total_output_bytes": 0
+        }
+      },
+      "official-mcp": {
+        "warm": {
+          "attempts": 20,
+          "completed": 20,
+          "semantic_successes": 20,
+          "completion": {
+            "rate": 1,
+            "low": 0.8388748419471806,
+            "high": 1
+          },
+          "task_duration_ms": {
+            "samples": 20,
+            "min": 57.72099999999773,
+            "max": 255.4511249999996,
+            "p50": {
+              "value": 90.23181250000016,
+              "ci95": {
+                "low": 72.86177150000003,
+                "high": 121.7096249999995,
+                "resamples": 2000
+              }
+            },
+            "p90": {
+              "value": 189.93026670000037,
+              "ci95": {
+                "low": 124.47700596999948,
+                "high": 255.4511249999996,
+                "resamples": 2000
+              }
+            },
+            "p95": null
+          },
+          "component_duration_ms": {
+            "samples": 20,
+            "min": 57.72099999999773,
+            "max": 255.4511249999996,
+            "p50": {
+              "value": 90.23181250000016,
+              "ci95": {
+                "low": 72.86177150000003,
+                "high": 121.7096249999995,
+                "resamples": 2000
+              }
+            },
+            "p90": {
+              "value": 189.93026670000037,
+              "ci95": {
+                "low": 120.32402499999954,
+                "high": 255.4511249999996,
+                "resamples": 2000
+              }
+            },
+            "p95": null
+          },
+          "total_tool_calls": 20,
+          "total_input_bytes": 23620,
+          "total_output_bytes": 17940
+        },
+        "cold": {
+          "attempts": 0,
+          "completed": 0,
+          "semantic_successes": 0,
+          "completion": {
+            "rate": 0,
+            "low": 0,
+            "high": 0
+          },
+          "task_duration_ms": {
+            "samples": 0,
+            "min": null,
+            "max": null,
+            "p50": null,
+            "p90": null,
+            "p95": null
+          },
+          "component_duration_ms": {
+            "samples": 0,
+            "min": null,
+            "max": null,
+            "p50": null,
+            "p90": null,
+            "p95": null
+          },
+          "total_tool_calls": 0,
+          "total_input_bytes": 0,
+          "total_output_bytes": 0
+        }
+      }
+    }
+  }
+}

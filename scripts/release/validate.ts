@@ -18,6 +18,7 @@ run("npm", ["run", "evals:deterministic"]);
 run("npm", ["run", "evals:smoke"]);
 run("npm", ["run", "evals:tic-tac-toe"]);
 run("npm", ["run", "evals:visual"]);
+run("npm", ["run", "benchmark:verify:live"]);
 run("npm", ["run", "video:check"]);
 run("npm", ["run", "build"]);
 run("npm", ["run", "evals:csp"]);

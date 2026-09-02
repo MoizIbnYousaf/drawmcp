@@ -35,6 +35,8 @@ const summary = {
   recorded_at: run.recorded_at,
   evidence_class: "live-production-task-boundary",
   comparable_as_prompt_to_visible: false,
+  claim_scope:
+    "Observed production task speedup. WebMCP includes two page calls and a rendered canvas change; official MCP ends at checkpoint response before widget rendering.",
   boundary_note: run.method.comparability,
   environment: run.environment,
   method: run.method,

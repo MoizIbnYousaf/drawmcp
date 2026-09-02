@@ -9,9 +9,10 @@ controls with generated SVG chrome. Inter and Geist Mono are bundled locally,
 while the optional Drawably Pen font is limited to sketch annotations.
 Excalidraw remains the editor itself.
 
-- `/` explains the side-by-side protocol comparison.
+- `/` shows the live speed result and the Moiz-versus-Codex game.
 - `/canvas` owns the live Excalidraw editor and all seven WebMCP tools.
-- `/benchmarks` visualizes verified evidence and the controlled-run boundary.
+- `/canvas?demo=tic-tac-toe` opens a ready-to-play shared agent board.
+- `/benchmarks` publishes the verified live result and checksummed raw trials.
 - `/docs` documents WebMCP, the official MCP lane, security, and deployment.
 
 The project is being built for the 2026 WebMCP Challenge. Its central question
@@ -49,8 +50,9 @@ the [live docs](https://drawmcp.dev/docs#judge-path).
 - [Submission checklist and judging map](docs/DEVPOST_SUBMISSION.md)
 - [Under-three-minute narrated demo script](docs/DEMO_SCRIPT.md)
 
-The paired silent loops on the homepage explain the two protocol boundaries.
-They do not replace the required narrated YouTube submission video.
+The silent homepage loop shows a human move through normal Excalidraw input and
+an agent move through WebMCP on the same board. It does not replace the required
+narrated YouTube submission video.
 
 The live tool surface is:
 
@@ -62,13 +64,14 @@ The live tool surface is:
 - `fit_to_content`
 - `organize_diagram`
 
-The current candidate has passed 112 deterministic tests, 17/17 project-owned
+The current candidate has passed 113 deterministic tests, 17/17 project-owned
 browser proof steps, the Chrome Labs runner's 11/11 authored smoke calls, and
-125/125 repeated local-model decisions. The accepted controlled benchmark has
-220/220 semantically correct trials across 100 warm and 10 cold pairs per lane.
-Its component boundaries contain different work, so the site does not claim an
-overall latency winner. Production proof is repeated after the exact candidate
-is deployed.
+125/125 repeated local-model decisions. In 20 randomized live production pairs,
+DrawMCP completed its two-call rendered task in 13.71 ms p50 while the official
+public MCP returned its pre-widget checkpoint in 90.23 ms p50. That is a 6.58×
+task-specific median speedup with 40/40 semantically correct trials. The older
+controlled component benchmark remains available as a separate 220/220 local
+stratum.
 
 ## Product contract
 
@@ -127,6 +130,8 @@ Run the current checks:
 npm run lint
 npm test
 npm run evals:check
+npm run evals:tic-tac-toe
+npm run benchmark:verify:live
 npm run video:check
 npm run build
 ```

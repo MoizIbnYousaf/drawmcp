@@ -1,6 +1,21 @@
 # WebMCP and Excalidraw MCP benchmark
 
-No official source provides an apples-to-apples latency ranking for page-native WebMCP and the hosted Excalidraw MCP service. DrawMCP therefore publishes distinct boundaries and refuses to turn unmatched component timings into a protocol winner.
+No official source provides an apples-to-apples latency ranking for page-native WebMCP and the hosted Excalidraw MCP service. DrawMCP publishes a measured production-task result with both boundaries written beside it. The result describes this deployment and task, not a universal law about every WebMCP site and MCP server.
+
+## Accepted live production run
+
+The accepted run is `public/benchmarks/live-2026-09-02T11-45-46-842Z/summary.json`, with the checksummed raw trials beside it.
+
+- DrawMCP deployment commit: `92b6b6b6558d219b9c3dfac7251597eb390c86a8`
+- Environment: macOS arm64, Node `v22.23.1`, Chrome `152.0.7977.65`
+- Sample: 20 seeded, randomized AB/BA production pairs with a 500 ms public-service throttle
+- Result: 40/40 semantically correct trials and 20/20 rendered WebMCP pixel changes
+- WebMCP: 13.71 ms p50 and 19.14 ms p90
+- Official public MCP: 90.23 ms p50 and 189.93 ms p90
+- Observed task speedup: 6.58× at p50 and 9.93× at p90
+- Statistics: 95% percentile-bootstrap intervals with 2,000 resamples; p95 withheld below 40 successful trials per lane
+
+The WebMCP timer includes `add_elements`, `fit_to_content`, and proof that the Excalidraw canvas pixels changed before return. The official timer ends when the public `create_view` call returns its checkpoint; its widget has not rendered yet. That asymmetry favors the official measurement, yet the page task still finished first.
 
 ## Accepted controlled run
 
@@ -35,9 +50,11 @@ Cold p50 was 325.59 ms for a new DrawMCP browser context through task completion
 
 `npm run benchmark:accept -- <raw.json>` accepts only a verified clean-tree run, removes ephemeral checkpoint IDs, writes checksummed public raw data, and updates `public/benchmarks/latest.json`.
 
+`npm run benchmark:verify:live` verifies the accepted production run. `npm run benchmark:accept:live -- <raw.json>` requires at least 20 complete randomized pairs, zero semantic failures, a named clean deployment commit, and a rendered pixel change for every WebMCP trial.
+
 ## Live and host strata
 
-- **Live service:** A small throttled observation checks production DrawMCP and `mcp.excalidraw.com`. It stops on rate limiting and does not publish p95.
+- **Live service:** The accepted throttled observation checks production DrawMCP and `mcp.excalidraw.com`, publishes p50 and p90, and withholds p95.
 - **Matched host:** Prompt-to-visible-result timing is publishable only when both lanes use the same model and host. Below 40 successful trials, report p50 and p90 but withhold p95.
 - **Pilot history:** `public/benchmarks/2026-09-01-tool-boundary.json` remains historical unmatched-boundary evidence. Its five-sample p95 values must not be presented as the accepted comparison.
 

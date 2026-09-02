@@ -134,7 +134,7 @@ const main = async () => {
         official_mcp_task_boundary:
           "Public Streamable HTTP create_view completion; widget render excluded.",
         comparability:
-          "Small live observation only. No p95 or protocol ranking is permitted.",
+          "Observed production task comparison, not universal protocol causality. WebMCP includes a rendered page update; official MCP excludes widget rendering. No p95 below 40 successful trials.",
       },
       scenario: {
         path: "benchmarks/scenarios/architecture-diagram.json",

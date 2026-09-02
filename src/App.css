@@ -393,6 +393,7 @@
 }
 
 .comparison-section,
+.game-showcase,
 .boundaries-section {
   padding-block: 118px;
   background: #23231f;
@@ -432,8 +433,79 @@
 }
 
 .comparison-section .section-kicker,
+.game-showcase .section-kicker,
 .boundaries-section .section-kicker {
   color: #a5a298;
+}
+
+.game-video-card {
+  padding: clamp(18px, 3vw, 32px);
+  border-radius: var(--radius);
+  background: #263129;
+}
+
+.game-video-card .comparison-video { margin: 0; }
+
+.game-video-facts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  margin-top: 22px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+}
+
+.game-video-facts span {
+  display: grid;
+  gap: 5px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.035);
+  color: #a9a69d;
+  font-size: 0.72rem;
+}
+
+.game-video-facts strong { color: #f8f7f1; font-size: 0.78rem; }
+
+.game-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 22px;
+}
+
+.speed-section { padding-block: 120px; }
+
+.speed-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.speed-card {
+  min-height: 250px;
+  display: grid;
+  align-content: end;
+  padding: 30px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper-bright);
+}
+
+.speed-card-web { border-color: #b8ddc0; background: var(--green-soft); }
+.speed-card p { align-self: start; margin: 0 0 auto; color: #747168; font-size: 0.75rem; font-weight: 700; }
+.speed-card strong { font-size: clamp(2.6rem, 4.7vw, 4.8rem); letter-spacing: -0.065em; }
+.speed-card small { font-size: 0.28em; letter-spacing: 0; }
+.speed-card span { color: #77746b; font-size: 0.7rem; line-height: 1.5; }
+.speed-card-proof strong { color: var(--green); }
+
+.speed-link {
+  grid-column: 1 / -1;
+  justify-self: end;
+  margin-top: 8px;
+  color: var(--ink);
+  font-size: 0.79rem;
+  font-weight: 760;
+  text-decoration: none;
 }
 
 .comparison-grid {
@@ -1168,12 +1240,16 @@
   .sketch-agent { right: 24px; bottom: 92px; }
   .tool-receipt { top: 24px; right: 18px; }
   .comparison-section,
+  .game-showcase,
   .measurement-section,
   .tool-section,
   .timeline-section,
   .protocol-section,
   .boundaries-section { padding-block: 78px; }
   .lane-card { min-height: 0; padding: 24px; }
+  .game-video-facts,
+  .speed-grid { grid-template-columns: 1fr; }
+  .speed-card { min-height: 210px; }
   .comparison-video { margin-block: 26px 24px; border-radius: 10px; }
   .lane-facts { grid-template-columns: 1fr; }
   .measurement-board { grid-template-columns: 1fr; }

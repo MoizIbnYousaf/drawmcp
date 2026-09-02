@@ -7,7 +7,7 @@ import {
 } from "drawably/react";
 import { DrawablyLink } from "../components/DrawablyLink";
 import { SiteHeader } from "../components/SiteHeader";
-import { benchmarkEvidence } from "../data/benchmark-evidence";
+import { liveBenchmarkEvidence } from "../data/live-benchmark-evidence";
 import { releaseEvidence } from "../data/release-evidence";
 import { TOOL_NAMES } from "../webmcp/tool-names";
 
@@ -26,16 +26,11 @@ const proof = [
   },
 ];
 
-const webMcpP50 =
-  benchmarkEvidence.lanes.webmcp.warm.task_duration_ms.p50.value;
-const officialP50 =
-  benchmarkEvidence.lanes["official-mcp"].warm.task_duration_ms.p50.value;
-const webWarm = benchmarkEvidence.lanes.webmcp.warm;
-const officialWarm = benchmarkEvidence.lanes["official-mcp"].warm;
-const officialModelVisibleTools =
-  benchmarkEvidence.scenario.official_model_visible_tools.length;
+const liveP50 = liveBenchmarkEvidence.comparison.p50;
+const liveP90 = liveBenchmarkEvidence.comparison.p90;
+const speedup = liveP50.webmcp_speedup;
 
-const ComparisonVideo = ({
+const DemoVideo = ({
   label,
   poster,
   src,
@@ -59,7 +54,7 @@ const ComparisonVideo = ({
       <source src={src} type="video/mp4" />
     </video>
     <img aria-hidden="true" className="comparison-video-poster" src={poster} alt="" />
-    <figcaption className="visually-hidden">{label}. Silent eleven-second loop with measured performance evidence.</figcaption>
+    <figcaption className="visually-hidden">{label}. Silent thirteen-second human-agent game.</figcaption>
   </figure>
 );
 
@@ -71,18 +66,18 @@ export const HomePage = () => (
       <div className="hero-copy">
         <p className="section-kicker">
           <span className="live-dot" aria-hidden="true" />
-          A browser-native Excalidraw experiment
+          Excalidraw with page-native agent tools
         </p>
         <h1>
-          The shortest path from an agent to the canvas is the{" "}
+          You draw. The agent answers on the{" "}
           <DrawablyHighlight fill="#dff5e4" roughness={0.7}>
-            page itself.
+            same canvas.
           </DrawablyHighlight>
         </h1>
         <p className="hero-lede">
-          DrawMCP exposes the open Excalidraw canvas as {TOOL_NAMES.length} WebMCP tools—so a
-          person and an agent can read, draw, revise, undo, and continue in one
-          live state.
+          DrawMCP gives the browser agent {TOOL_NAMES.length} tools over the
+          Excalidraw canvas on screen. You draw, the agent responds, and both
+          moves stay in one history.
         </p>
         <div className="hero-actions">
           <DrawablyLink href="/canvas" tone="dark">
@@ -137,116 +132,70 @@ export const HomePage = () => (
       </DrawablyCard>
     </section>
 
-    <section className="comparison-section" id="comparison">
+    <section className="game-showcase" id="play">
       <div className="section-shell">
         <div className="section-heading split-heading">
           <div>
-            <p className="section-kicker">Same canvas. Different boundary.</p>
-            <h2>Two valid ways to give an agent a pencil.</h2>
+            <p className="section-kicker">Moiz vs Codex</p>
+            <h2>You play X. The agent sees it.</h2>
           </div>
           <p>
-            Each silent loop ends on its measured component boundary. The
-            clocks include different work, so no end-to-end winner is claimed.
+            Draw through normal Excalidraw controls. The agent reads that exact
+            board, plays O through WebMCP, and leaves the canvas ready for your
+            next move.
           </p>
         </div>
-
-        <div className="comparison-grid">
-          <DrawablyCard className="lane-card lane-card-mcp" roughness={0.6} stroke="#8f80ff">
-            <div className="lane-card-header">
-              <div>
-                <p className="card-overline">Remote MCP lane</p>
-                <h3>Official Excalidraw MCP</h3>
-              </div>
-              <DrawablyBadge className="protocol-chip protocol-chip-violet" roughness={0.7} stroke="#8f80ff" variant="scribble">MCP App</DrawablyBadge>
-            </div>
-            <ComparisonVideo
-              label="Official Excalidraw MCP remote service flow"
-              poster="/videos/official-mcp-poster.jpg"
-              src="/videos/official-mcp.mp4"
-            />
-            <p className="lane-summary">
-              A hosted MCP server generates an interactive diagram widget,
-              checkpoints its state, and can open the result for fullscreen
-              editing.
-            </p>
-            <dl className="lane-facts">
-              <div><dt>Public tools</dt><dd>{officialModelVisibleTools}</dd></div>
-              <div><dt>Primary write</dt><dd>create_view</dd></div>
-              <div><dt>State bridge</dt><dd>checkpoint</dd></div>
-            </dl>
-          </DrawablyCard>
-
-          <DrawablyCard className="lane-card lane-card-webmcp" roughness={0.6} stroke="#63be73">
-            <div className="lane-card-header">
-              <div>
-                <p className="card-overline">Page-native lane</p>
-                <h3>DrawMCP WebMCP</h3>
-              </div>
-              <DrawablyBadge className="protocol-chip protocol-chip-green" roughness={0.7} stroke="#2f9e44" variant="scribble">WebMCP</DrawablyBadge>
-            </div>
-            <ComparisonVideo
-              label="DrawMCP page-native WebMCP flow"
-              poster="/videos/drawmcp-webmcp-poster.jpg"
-              src="/videos/drawmcp-webmcp.mp4"
-            />
-            <p className="lane-summary">
-              The open website registers bounded tools against the exact canvas
-              the person is viewing. Selection, revision, and undo history stay
-              page-owned.
-            </p>
-            <dl className="lane-facts">
-              <div><dt>Site tools</dt><dd>{releaseEvidence.tools.total}</dd></div>
-              <div><dt>Primary writes</dt><dd>add / update</dd></div>
-              <div><dt>State bridge</dt><dd>live revision</dd></div>
-            </dl>
-          </DrawablyCard>
+        <DrawablyCard className="game-video-card" roughness={0.55} stroke="#63be73">
+          <DemoVideo
+            label="Moiz and Codex playing tic-tac-toe on one live Excalidraw canvas"
+            poster="/videos/tic-tac-toe-poster.jpg"
+            src="/videos/tic-tac-toe.mp4"
+          />
+          <div className="game-video-facts">
+            <span><strong>Human</strong> Excalidraw keyboard and pointer</span>
+            <span><strong>Agent</strong> seven page-native tools</span>
+            <span><strong>State</strong> one revision and native Undo</span>
+          </div>
+        </DrawablyCard>
+        <div className="game-actions">
+          <DrawablyLink href="/canvas?demo=tic-tac-toe" tone="paper">
+            Play against the agent <span aria-hidden="true">↗</span>
+          </DrawablyLink>
         </div>
       </div>
     </section>
 
-    <section className="measurement-section section-shell">
+    <section className="speed-section section-shell">
       <div className="section-heading split-heading">
         <div>
-          <p className="section-kicker">Performance, with boundaries</p>
-          <h2>Measure the path, not just the stopwatch.</h2>
+          <p className="section-kicker">Live production benchmark</p>
+          <h2>{speedup.toFixed(2)}× faster on the task we measured.</h2>
         </div>
         <p>
-          We separate model decision time, transport, tool execution, and UI
-          stabilization so the eventual comparison remains reproducible.
+          Twenty randomized pairs. DrawMCP finished two page calls and changed
+          the visible canvas before the official public MCP returned its
+          checkpoint. The official widget had not rendered yet.
         </p>
       </div>
-
-      <div className="measurement-board">
-        <DrawablyCard className="metric-callout" roughness={0.65} stroke="#2f9e44">
-          <p>WebMCP controlled task p50</p>
-          <strong>{webMcpP50.toFixed(2)} ms</strong>
-          <span>{webWarm.attempts} warm local runs · add, fit, and visible mutation</span>
+      <div className="speed-grid">
+        <DrawablyCard className="speed-card speed-card-web" roughness={0.65} stroke="#2f9e44">
+          <p>DrawMCP WebMCP</p>
+          <strong>{liveP50.webmcp_ms.toFixed(2)} <small>ms p50</small></strong>
+          <span>add + fit + rendered pixel change</span>
         </DrawablyCard>
-        <DrawablyCard
-          className="metric-visual"
-          role="img"
-          aria-label="Benchmark collection status"
-          roughness={0.55}
-          stroke="#77736a"
-        >
-          <div className="metric-row">
-            <span>WebMCP mounted-page task</span>
-            <div className="metric-track"><i className="metric-fill" /></div>
-            <strong>{webMcpP50.toFixed(2)} ms</strong>
-          </div>
-          <div className="metric-row metric-row-official">
-            <span>Official MCP direct transport</span>
-            <div className="metric-track"><i className="metric-fill-official" /></div>
-            <strong>{officialP50.toFixed(2)} ms</strong>
-          </div>
-          <div className="metric-note">
-            Both lanes completed {webWarm.semantic_successes}/{webWarm.attempts} and {officialWarm.semantic_successes}/{officialWarm.attempts} warm scenes correctly. Their component
-            boundaries include different work, so no end-to-end winner is claimed.
-          </div>
+        <DrawablyCard className="speed-card" roughness={0.65} stroke="#6c5ce7">
+          <p>Official public MCP</p>
+          <strong>{liveP50.official_mcp_ms.toFixed(2)} <small>ms p50</small></strong>
+          <span>create_view checkpoint response, before widget render</span>
         </DrawablyCard>
-        <a className="text-link" href="/benchmarks">
+        <DrawablyCard className="speed-card speed-card-proof" roughness={0.65} stroke="#77736a">
+          <p>Evidence</p>
+          <strong>{liveBenchmarkEvidence.counts.semantic_successes}/{liveBenchmarkEvidence.counts.total_trials}</strong>
+          <span>{liveP90.webmcp_speedup.toFixed(2)}× faster at p90 · p95 withheld</span>
+        </DrawablyCard>
+        <a className="speed-link" href="/benchmarks">
           <DrawablyUnderline roughness={0.7} stroke="#6c5ce7">
-            Open the benchmark room
+            Inspect the method and raw trials
           </DrawablyUnderline>{" "}<span aria-hidden="true">→</span>
         </a>
       </div>

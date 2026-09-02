@@ -7,6 +7,7 @@ import {
 } from "drawably/react";
 import { SiteHeader } from "../components/SiteHeader";
 import { releaseEvidence } from "../data/release-evidence";
+import { TIC_TAC_TOE_AGENT_PROMPT } from "../demos/tic-tac-toe";
 import { TOOL_NAMES, type ToolName } from "../webmcp/tool-names";
 
 const toolDescriptions: Record<ToolName, string> = {
@@ -28,6 +29,7 @@ export const DocsPage = () => (
       <aside className="docs-sidebar">
         <p>Get started</p>
         <a href="#why"><DrawablyUnderline>Why we built this</DrawablyUnderline></a>
+        <a href="#game"><DrawablyUnderline>Play tic-tac-toe</DrawablyUnderline></a>
         <a href="#judge-path"><DrawablyUnderline>Verify in 90 seconds</DrawablyUnderline></a>
         <a href="#webmcp"><DrawablyUnderline>Use WebMCP</DrawablyUnderline></a>
         <a href="#official-mcp"><DrawablyUnderline>Connect official MCP</DrawablyUnderline></a>
@@ -106,6 +108,24 @@ export const DocsPage = () => (
           </DrawablyCard>
         </section>
 
+        <section id="game">
+          <p className="doc-step">Live human-agent demo</p>
+          <h2>Play one board with the agent</h2>
+          <p>
+            Open the seeded board, place X with the normal Excalidraw text tool,
+            then give the prompt below to the browser agent. The agent reads
+            your move from the current canvas and places O through WebMCP.
+          </p>
+          <pre className="code-block"><code>{TIC_TAC_TOE_AGENT_PROMPT}</code></pre>
+          <DrawablyCard className="callout callout-green" roughness={0.65} stroke="#2f9e44">
+            <strong>The game uses the same seven canvas tools.</strong>
+            <span>Your move and the agent move share one revision history and native Undo.</span>
+          </DrawablyCard>
+          <a className="text-link" href="/canvas?demo=tic-tac-toe">
+            Open the tic-tac-toe board <span aria-hidden="true">→</span>
+          </a>
+        </section>
+
         <section id="webmcp">
           <p className="doc-step">01 · WebMCP</p>
           <h2>Use DrawMCP in ChatGPT</h2>
@@ -164,7 +184,7 @@ export const DocsPage = () => (
             The canvas takes focus on load and uses Excalidraw’s global keyboard
             handler. Tool keys, editing commands, zoom, clipboard operations,
             grouping, history, and the built-in shortcut reference therefore
-            come from the installed editor—not a partial DrawMCP reimplementation.
+            come from the installed editor, rather than a partial DrawMCP reimplementation.
           </p>
           <div className="revision-flow" aria-label="Common Excalidraw shortcuts">
             <DrawablyBadge stroke="#6c5ce7">R · rectangle</DrawablyBadge>

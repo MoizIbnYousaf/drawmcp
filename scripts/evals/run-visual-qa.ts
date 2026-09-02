@@ -18,7 +18,7 @@ const cases: VisualCase[] = [
     path: "/",
     width: 1440,
     height: 1000,
-    heading: "The shortest path from an agent to the canvas is the page itself.",
+    heading: "You draw. The agent answers on the same canvas.",
   },
   {
     name: "docs-desktop",
@@ -32,7 +32,7 @@ const cases: VisualCase[] = [
     path: "/benchmarks",
     width: 1440,
     height: 1000,
-    heading: "Fast is only useful when we say what the clock includes.",
+    heading: "WebMCP was 6.58× faster.",
   },
   {
     name: "canvas-desktop",
@@ -47,7 +47,7 @@ const cases: VisualCase[] = [
     path: "/",
     width: 390,
     height: 844,
-    heading: "The shortest path from an agent to the canvas is the page itself.",
+    heading: "You draw. The agent answers on the same canvas.",
   },
   {
     name: "docs-mobile",
@@ -61,7 +61,7 @@ const cases: VisualCase[] = [
     path: "/benchmarks",
     width: 390,
     height: 844,
-    heading: "Fast is only useful when we say what the clock includes.",
+    heading: "WebMCP was 6.58× faster.",
   },
   {
     name: "canvas-mobile",

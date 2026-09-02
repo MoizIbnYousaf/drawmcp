@@ -16,6 +16,7 @@ Verified against the [challenge overview](https://webmcp.devpost.com/) and
 
 - [x] Working public app: <https://drawmcp.dev>
 - [x] Direct judge path: <https://drawmcp.dev/docs#judge-path>
+- [x] Shared game path: <https://drawmcp.dev/canvas?demo=tic-tac-toe>
 - [x] No authentication or test credentials required
 - [x] MIT `LICENSE` committed and detected by GitHub
 - [x] Source, assets, submodule pins, setup instructions, and WebMCP tests exist
@@ -27,7 +28,7 @@ Verified against the [challenge overview](https://webmcp.devpost.com/) and
 - [ ] Complete every required Devpost field and submit before the deadline
 - [ ] Freeze the submitted repository and deployment after submission closes
 
-The two silent homepage videos are website explainers. They are not the
+The silent tic-tac-toe homepage video is a website explainer. It is not the
 required narrated submission video.
 
 ## Submission description draft
@@ -54,6 +55,11 @@ Revision guards reject stale writes instead of silently overwriting a human
 edit. This continuous mixed-initiative loop was difficult when the browser UI
 and agent tool state lived in different documents.
 
+The playable tic-tac-toe demo makes this concrete. A person places X with the
+normal Excalidraw keyboard and pointer. The agent reads that exact board and
+places O through WebMCP. Both moves remain in one revision history with native
+Undo.
+
 ### How WebMCP is implemented
 
 The `/canvas` page registers seven closed-schema tools through
@@ -69,7 +75,7 @@ is unavailable.
 | Criterion | Evidence a judge can inspect |
 | --- | --- |
 | WebMCP leverage | Seven non-trivial page tools, closed schemas, runtime validation, cancellation, revision guards, and visible mutation receipts |
-| Execution | Deployed no-login product, normal editor fallback, 112 deterministic tests, 17/17 semantic browser steps, and 11/11 Chrome Labs smoke calls |
+| Execution | Deployed no-login product, normal editor fallback, 113 deterministic tests, 17/17 semantic browser steps, 11/11 Chrome Labs smoke calls, and a 40/40 live benchmark |
 | Potential impact | A concrete shared-state workflow for anyone who diagrams systems, plans, or ideas with an agent |
 | Creativity and ambition | The human editor itself becomes the agent tool server while preserving selection, revisions, viewport, and native history |
 
@@ -78,9 +84,9 @@ is unavailable.
 Record these exact proof levels independently:
 
 1. Git commit and public repository revision.
-2. Green local lint, 112 deterministic tests, 17 browser proof steps, 125 local-model decisions, eval-fixture, build, audit, and HyperFrames checks.
+2. Green local lint, 113 deterministic tests, 17 browser proof steps, 125 local-model decisions, live benchmark verification, game journey, build, audit, and HyperFrames checks.
 3. Successful Vercel production deployment for that exact revision.
 4. Live `drawmcp.dev` WebMCP enumeration and the 11-step smoke suite.
-5. A manual human edit → agent read/write → Undo/Redo continuation journey.
+5. A manual human edit → agent read/write → Undo/Redo continuation journey, plus the playable tic-tac-toe path.
 6. Public YouTube playback with audible narration and a duration below 3:00.
 7. Saved and submitted Devpost project with all required URLs.

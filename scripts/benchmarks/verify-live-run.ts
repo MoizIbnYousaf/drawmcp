@@ -3,8 +3,17 @@ import { resolve } from "node:path";
 import { verifyLiveBenchmark } from "../../benchmarks/verify";
 
 const requestedPath = process.argv[2];
-if (!requestedPath) throw new Error("Pass a live benchmark raw JSON file.");
-const sourcePath = resolve(requestedPath);
+const sourcePath = requestedPath
+  ? resolve(requestedPath)
+  : (() => {
+      const summary = JSON.parse(
+        readFileSync(resolve("public/benchmarks/live-latest.json"), "utf8"),
+      ) as { raw?: { path?: string } };
+      if (!summary.raw?.path) {
+        throw new Error("Accepted live benchmark summary omitted its raw path.");
+      }
+      return resolve(`public${summary.raw.path}`);
+    })();
 const result = verifyLiveBenchmark(
   JSON.parse(readFileSync(sourcePath, "utf8")),
 );

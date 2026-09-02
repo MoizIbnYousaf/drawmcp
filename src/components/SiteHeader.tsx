@@ -8,7 +8,7 @@ type SiteHeaderProps = {
 };
 
 const links = [
-  { href: "/#comparison", label: "Compare", id: "home" },
+  { href: "/#play", label: "Demo", id: "home" },
   { href: "/benchmarks", label: "Benchmarks", id: "benchmarks" },
   { href: "/docs", label: "Docs", id: "docs" },
 ] as const;

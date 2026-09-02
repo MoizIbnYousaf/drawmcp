@@ -18,6 +18,7 @@ export const createReleaseManifest = () => {
   const ticTacToe = readJson(".evals/tic-tac-toe-latest.json");
   const visual = readJson(".evals/visual-qa-latest.json");
   const benchmark = readJson("public/benchmarks/latest.json");
+  const liveBenchmark = readJson("public/benchmarks/live-latest.json");
   const evalRun = readdirSync(resolve("evidence/evals"), {
     withFileTypes: true,
   })
@@ -36,7 +37,11 @@ export const createReleaseManifest = () => {
     ticTacToe.passed !== true ||
     visual.passed !== true ||
     probabilistic.passed !== true ||
-    benchmark.counts?.semantic_failures !== 0
+    benchmark.counts?.semantic_failures !== 0 ||
+    liveBenchmark.counts?.semantic_successes !==
+      liveBenchmark.counts?.total_trials ||
+    liveBenchmark.counts?.rendered_webmcp_successes !==
+      liveBenchmark.counts?.pairs
   ) {
     throw new Error("One or more release evidence inputs did not pass.");
   }
@@ -83,6 +88,13 @@ export const createReleaseManifest = () => {
       semantic_passed:
         benchmark.counts.total_trials - benchmark.counts.semantic_failures,
       total: benchmark.counts.total_trials,
+    },
+    live_benchmark: {
+      semantic_passed: liveBenchmark.counts.semantic_successes,
+      total: liveBenchmark.counts.total_trials,
+      rendered_webmcp: liveBenchmark.counts.rendered_webmcp_successes,
+      pairs: liveBenchmark.counts.pairs,
+      p50_speedup: liveBenchmark.comparison.p50.webmcp_speedup,
     },
   };
   const assertClaims = (path: string, claims: string[]) => {
@@ -157,6 +169,7 @@ export const createReleaseManifest = () => {
       visual_qa: visualArtifact,
       probabilistic: `evidence/evals/${evalRun}/summary.json`,
       benchmark: "public/benchmarks/latest.json",
+      live_benchmark: "public/benchmarks/live-latest.json",
     },
     production: {
       status: "pending-deployment-verification",
