@@ -77,7 +77,7 @@ const DemoVideo = ({
         className="comparison-video-poster"
         decoding="async"
         height="720"
-        loading="lazy"
+        loading="eager"
         src={poster}
         width="1280"
       />
