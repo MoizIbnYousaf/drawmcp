@@ -53,9 +53,12 @@ const projectAppState = (value: Record<string, unknown>): PersistedAppState => {
   return appState;
 };
 
-export const clearLocalScene = (storage: StorageLike): void => {
+export const clearLocalScene = (
+  storage: StorageLike,
+  storageKey = LOCAL_SCENE_STORAGE_KEY,
+): void => {
   try {
-    storage.removeItem(LOCAL_SCENE_STORAGE_KEY);
+    storage.removeItem(storageKey);
   } catch {
     // Local recovery is optional and must never break the editor.
   }
@@ -65,12 +68,13 @@ export const saveLocalScene = (
   storage: StorageLike,
   elements: readonly CanvasElement[],
   appState: Record<string, unknown>,
+  storageKey = LOCAL_SCENE_STORAGE_KEY,
 ): boolean => {
   const live = elements.filter(
     (element) => !element.isDeleted && isPersistableElement(element),
   );
   if (live.length === 0) {
-    clearLocalScene(storage);
+    clearLocalScene(storage, storageKey);
     return true;
   }
   if (live.length > MAX_PERSISTED_ELEMENTS) return false;
@@ -83,17 +87,20 @@ export const saveLocalScene = (
   });
   if (Array.from(serialized).length > LOCAL_SCENE_MAX_CHARACTERS) return false;
   try {
-    storage.setItem(LOCAL_SCENE_STORAGE_KEY, serialized);
+    storage.setItem(storageKey, serialized);
     return true;
   } catch {
     return false;
   }
 };
 
-export const loadLocalScene = (storage: StorageLike): LocalScene | null => {
+export const loadLocalScene = (
+  storage: StorageLike,
+  storageKey = LOCAL_SCENE_STORAGE_KEY,
+): LocalScene | null => {
   let serialized: string | null;
   try {
-    serialized = storage.getItem(LOCAL_SCENE_STORAGE_KEY);
+    serialized = storage.getItem(storageKey);
   } catch {
     return null;
   }

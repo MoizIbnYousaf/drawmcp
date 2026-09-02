@@ -148,6 +148,27 @@ describe("DrawMcpCanvas", () => {
     await waitFor(() => expect(registerTool).toHaveBeenCalledTimes(7));
   });
 
+  it("seeds an isolated demo canvas when its scene namespace is empty", () => {
+    render(
+      <DrawMcpCanvas
+        initialElements={[
+          {
+            id: "demo_grid",
+            type: "line",
+            x: 0,
+            y: 0,
+            points: [[0, 0], [100, 0]],
+          },
+        ]}
+        storageKey="drawmcp:test-demo:v1"
+      />,
+    );
+    expect(suppliedExcalidrawProps.initialData).toMatchObject({
+      elements: [expect.objectContaining({ id: "demo_grid" })],
+      scrollToContent: true,
+    });
+  });
+
   it("persists editor changes and removes storage after the canvas is cleared", () => {
     vi.useFakeTimers();
     const view = render(<DrawMcpCanvas />);

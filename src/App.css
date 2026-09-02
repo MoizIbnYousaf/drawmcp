@@ -661,12 +661,49 @@
 
 /* Canvas */
 .canvas-page {
+  position: relative;
   height: 100vh;
   min-height: 600px;
   display: grid;
   grid-template-rows: auto minmax(0, 1fr);
   background: var(--paper);
 }
+
+.game-guide {
+  position: absolute;
+  z-index: 8;
+  top: 78px;
+  left: 16px;
+  max-width: min(620px, calc(100% - 32px));
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 12px;
+  border: 1px solid #b8ddc0;
+  border-radius: 12px 10px 13px 9px;
+  background: rgba(245, 255, 247, 0.94);
+  box-shadow: 0 8px 28px rgba(48, 45, 38, 0.1);
+  color: #315e39;
+  backdrop-filter: blur(8px);
+}
+
+.game-guide > div { display: grid; gap: 2px; }
+.game-guide strong { font-size: 0.78rem; }
+.game-guide span { color: #5d715f; font-size: 0.66rem; }
+.game-guide button,
+.game-guide a {
+  flex: 0 0 auto;
+  padding: 7px 9px;
+  border: 1px solid #89bd92;
+  border-radius: 8px;
+  background: #fff;
+  color: #315e39;
+  font: 700 0.63rem "Inter", sans-serif;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.game-guide a { border-color: transparent; background: transparent; }
 
 .canvas-shell,
 .drawmcp-workspace,
@@ -1160,6 +1197,8 @@
   .observation-note { flex-direction: column; }
   .site-footer { align-items: flex-start; flex-direction: column; justify-content: center; }
   .webmcp-status { right: 8px; bottom: 8px; max-width: calc(100% - 16px); }
+  .game-guide { right: 8px; left: 8px; flex-wrap: wrap; }
+  .game-guide > div { flex: 1 1 100%; }
 }
 
 @media (prefers-reduced-motion: reduce) {

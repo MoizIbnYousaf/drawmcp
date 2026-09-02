@@ -71,6 +71,19 @@ const readCanvas = async (page: Page) => {
   return elements;
 };
 
+const readStaticCanvasDigest = async (page: Page) =>
+  page.evaluate(async () => {
+    const canvas = document.querySelector<HTMLCanvasElement>(
+      "canvas.excalidraw__canvas.static",
+    );
+    if (!canvas) return null;
+    const bytes = new TextEncoder().encode(canvas.toDataURL());
+    const digest = await crypto.subtle.digest("SHA-256", bytes);
+    return Array.from(new Uint8Array(digest), (byte) =>
+      byte.toString(16).padStart(2, "0"),
+    ).join("");
+  });
+
 export class WebMcpLane {
   private vite?: ViteDevServer;
   private browser?: Browser;
@@ -161,6 +174,7 @@ export class WebMcpLane {
 
   private async executeTask(page: Page, scenario: Scenario, coldStart: boolean) {
     await page.evaluate(() => performance.clearMeasures());
+    const canvasBefore = await readStaticCanvasDigest(page);
     const addInput = {
       expected_revision: 0,
       elements: scenario.webmcp_elements,
@@ -170,6 +184,9 @@ export class WebMcpLane {
     const addResult = await callTool(page, "add_elements", addInput);
     const fitResult = await callTool(page, "fit_to_content", fitInput);
     const taskDuration = performance.now() - started;
+    const canvasAfter = await readStaticCanvasDigest(page);
+    const visualChangeDetected =
+      canvasBefore !== null && canvasAfter !== null && canvasBefore !== canvasAfter;
     const measures = await page.evaluate(() =>
       performance
         .getEntriesByType("measure")
@@ -180,7 +197,7 @@ export class WebMcpLane {
     const evaluation = evaluateScene(elements, scenario.expected_scene);
     return {
       completed: true,
-      semantic_pass: evaluation.ok,
+      semantic_pass: evaluation.ok && visualChangeDetected,
       task_duration_ms: taskDuration,
       component_duration_ms: measures.reduce(
         (total, measure) => total + measure.duration_ms,
@@ -195,6 +212,7 @@ export class WebMcpLane {
         Buffer.byteLength(JSON.stringify(addResult)) +
         Buffer.byteLength(JSON.stringify(fitResult)),
       semantic_evaluation: evaluation,
+      visual_change_detected: visualChangeDetected,
       measures,
     };
   }

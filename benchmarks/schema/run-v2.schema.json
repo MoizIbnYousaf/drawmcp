@@ -33,6 +33,7 @@
           "checkpoint_id": { "type": "string" },
           "semantic_evaluation": { "type": "object" },
           "measures": { "type": "array" },
+          "visual_change_detected": { "type": "boolean" },
           "failure": { "type": ["string", "null"] }
         }
       }

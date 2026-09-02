@@ -13,7 +13,7 @@ artifact paths in that manifest.
 | Proof level | Status | Authoritative evidence |
 | --- | --- | --- |
 | Static contract | Passed locally | Generated `evals/tools.json`, lint, TypeScript build, and closed-schema tests |
-| Unit and component behavior | Passed locally | 109/109 tests; durable unit summary linked by the release manifest |
+| Unit and component behavior | Passed locally | 112/112 tests; durable unit summary linked by the release manifest |
 | Real Chrome WebMCP behavior | Passed locally | 17/17 development-server steps, 17/17 production-build CSP steps, and 11/11 Chrome Labs smoke calls |
 | Responsive product rendering | Passed locally | 8/8 desktop/mobile route checks with screenshots, asset checks, clipping detection, and zero console errors |
 | Repeated model decisions | Passed locally | 125/125 accepted Qwen decisions, five runs per case, exact production-schema argument validation, and zero safety violations |

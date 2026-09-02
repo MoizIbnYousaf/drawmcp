@@ -108,3 +108,16 @@ video/comparison/
 
 Reviewed web assets are copied to `public/videos/` with static posters for the
 reduced-motion experience.
+
+## TIC-TAC-TOE LOOP — 0:00–0:13
+
+The browser opens on one oversized game board. Moiz’s UI move draws X in the
+top-left cell. Codex reads the live canvas and answers with O in the center.
+The tool receipt records the actual local move timing and revision change.
+
+- 0.20–1.90s: browser, players, and board draw in.
+- 2.05–3.20s: Moiz’s turn card and X appear.
+- 4.00–5.75s: Codex reads the board and moves the cursor to center.
+- 5.08–6.75s: O, tool receipt, and revision 2 appear.
+- 7.15–11.20s: no connector, no second canvas, and native Undo hold on screen.
+- 11.55–12.85s: “Your move.” resolves the loop back to paper.

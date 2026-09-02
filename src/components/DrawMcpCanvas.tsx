@@ -9,6 +9,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { CanvasService, type CanvasApi } from "../excalidraw/canvas-service";
 import type { CanvasElement } from "../excalidraw/element-projection";
 import {
+  LOCAL_SCENE_STORAGE_KEY,
   loadLocalScene,
   saveLocalScene,
   type StorageLike,
@@ -24,9 +25,15 @@ import { WebMcpStatus } from "./WebMcpStatus";
 
 type DrawMcpCanvasProps = {
   onServiceReady?: (service: CanvasService) => void;
+  initialElements?: Array<Record<string, unknown> & { id: string; type: string }>;
+  storageKey?: string;
 };
 
-export const DrawMcpCanvas = ({ onServiceReady }: DrawMcpCanvasProps) => {
+export const DrawMcpCanvas = ({
+  initialElements,
+  onServiceReady,
+  storageKey = LOCAL_SCENE_STORAGE_KEY,
+}: DrawMcpCanvasProps) => {
   const [sceneStorage] = useState<StorageLike | null>(() => {
     try {
       return window.localStorage;
@@ -34,9 +41,18 @@ export const DrawMcpCanvas = ({ onServiceReady }: DrawMcpCanvasProps) => {
       return null;
     }
   });
-  const [initialScene] = useState(() =>
-    sceneStorage ? loadLocalScene(sceneStorage) : null,
-  );
+  const [initialScene] = useState(() => {
+    const stored = sceneStorage
+      ? loadLocalScene(sceneStorage, storageKey)
+      : null;
+    if (stored || !initialElements) return stored;
+    return {
+      elements: convertToExcalidrawElements(initialElements as never, {
+        regenerateIds: false,
+      }) as never,
+      appState: {},
+    };
+  });
   const [service] = useState(
     () =>
       new CanvasService({
@@ -49,9 +65,7 @@ export const DrawMcpCanvas = ({ onServiceReady }: DrawMcpCanvasProps) => {
           newElementWith(element as never, changes as never) as never,
         waitForEditorSettle: () =>
           new Promise((resolve) =>
-            requestAnimationFrame(() =>
-              requestAnimationFrame(() => resolve()),
-            ),
+            requestAnimationFrame(() => setTimeout(resolve, 0)),
           ),
       }),
   );
@@ -92,11 +106,12 @@ export const DrawMcpCanvas = ({ onServiceReady }: DrawMcpCanvasProps) => {
             sceneStorage,
             sceneElements,
             appState as Record<string, unknown>,
+            storageKey,
           );
         }
       }, 500);
     },
-    [onServiceReady, sceneStorage, service],
+    [onServiceReady, sceneStorage, service, storageKey],
   );
 
   useEffect(() => {
@@ -127,6 +142,7 @@ export const DrawMcpCanvas = ({ onServiceReady }: DrawMcpCanvasProps) => {
               ? {
                   elements: initialScene.elements,
                   appState: initialScene.appState,
+                  scrollToContent: Boolean(initialElements),
                 }
               : undefined) as never
           }

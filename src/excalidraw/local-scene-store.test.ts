@@ -84,4 +84,17 @@ describe("local scene recovery", () => {
     clearLocalScene(localStorage);
     expect(localStorage.getItem(LOCAL_SCENE_STORAGE_KEY)).toBeNull();
   });
+
+  it("supports an isolated scene namespace", () => {
+    const gameKey = "drawmcp:test-game:v1";
+    expect(saveLocalScene(localStorage, [rectangle("game")], {}, gameKey)).toBe(
+      true,
+    );
+    expect(localStorage.getItem(LOCAL_SCENE_STORAGE_KEY)).toBeNull();
+    expect(loadLocalScene(localStorage, gameKey)?.elements).toEqual([
+      rectangle("game"),
+    ]);
+    clearLocalScene(localStorage, gameKey);
+    expect(localStorage.getItem(gameKey)).toBeNull();
+  });
 });

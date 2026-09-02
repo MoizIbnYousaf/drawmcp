@@ -13,6 +13,7 @@ export type BenchmarkTrial = {
   tool_calls: number;
   input_bytes: number;
   output_bytes: number;
+  visual_change_detected?: boolean;
   failure?: string | null;
 };
 

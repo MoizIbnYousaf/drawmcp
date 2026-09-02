@@ -8,6 +8,7 @@
     "render": "npx --yes hyperframes@0.8.25 render",
     "render:official": "npx --yes hyperframes@0.8.25 render . --composition compositions/official-mcp.html --output renders/official-mcp.mp4 --fps 30 --quality high --strict",
     "render:webmcp": "npx --yes hyperframes@0.8.25 render . --composition compositions/drawmcp-webmcp.html --output renders/drawmcp-webmcp.mp4 --fps 30 --quality high --strict",
+    "render:game": "npx --yes hyperframes@0.8.25 render . --composition compositions/tic-tac-toe.html --output renders/tic-tac-toe.mp4 --fps 30 --quality high --strict",
     "render:all": "npm run render:official && npm run render:webmcp",
     "publish": "npx --yes hyperframes@0.8.25 publish"
   }

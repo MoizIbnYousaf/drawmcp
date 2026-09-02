@@ -62,7 +62,7 @@ The live tool surface is:
 - `fit_to_content`
 - `organize_diagram`
 
-The current candidate has passed 109 deterministic tests, 17/17 project-owned
+The current candidate has passed 112 deterministic tests, 17/17 project-owned
 browser proof steps, the Chrome Labs runner's 11/11 authored smoke calls, and
 125/125 repeated local-model decisions. The accepted controlled benchmark has
 220/220 semantically correct trials across 100 warm and 10 cold pairs per lane.

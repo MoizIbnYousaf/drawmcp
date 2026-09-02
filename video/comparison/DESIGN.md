@@ -8,6 +8,10 @@ underlines, and marks carry a controlled wobble. The comparison videos use the
 same frame, pacing, and information density so the protocol boundary—not
 production style—remains the only meaningful difference.
 
+The tic-tac-toe video uses the same browser frame to show a human move through
+the normal editor followed by an agent move through WebMCP. The game board is
+the focal point; the tool receipt is proof, not decoration.
+
 ## Colors
 
 - **Paper**: `#E3E3E1` — global canvas and empty loop frame.
@@ -44,6 +48,7 @@ canvas sits visibly above the paper with a restrained 12px offset shadow.
 - **Progress Rail** — four labeled phases that fill as the demo advances.
 - **Lane Stamp** — indigo MCP App or green WebMCP badge.
 - **Performance Receipt** — one boundary-qualified p50 with its warm-run count.
+- **Game Board** — an oversized hand-drawn grid with Moiz as X and Codex as O.
 
 ## Do's and Don'ts
 
