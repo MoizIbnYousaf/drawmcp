@@ -34,7 +34,15 @@ const acceptedReports: Record<string, string> = {};
 for (const [category, reportPath] of Object.entries(summary.reports)) {
   const report = JSON.parse(readFileSync(resolve(reportPath), "utf8"));
   const acceptedPath = resolve(outputRoot, `${category}.json`);
-  writeFileSync(acceptedPath, `${JSON.stringify(sanitize(report), null, 2)}\n`);
+  const acceptedReport = sanitize(report) as Record<string, any>;
+  if (acceptedReport.config) {
+    acceptedReport.config.toolSchemaFile =
+      `evidence/evals/${summary.run_id}/tools-model-ollama.json`;
+  }
+  writeFileSync(
+    acceptedPath,
+    `${JSON.stringify(acceptedReport, null, 2)}\n`,
+  );
   acceptedReports[category] = acceptedPath.replace(`${process.cwd()}/`, "");
 }
 

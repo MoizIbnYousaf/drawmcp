@@ -1,6 +1,6 @@
 {
   "config": {
-    "toolSchemaFile": ".evals/probabilistic/2026-09-02T08-37-45-793Z/tools-model-ollama.json",
+    "toolSchemaFile": "evidence/evals/2026-09-02T08-37-45-793Z/tools-model-ollama.json",
     "evalsFile": "evals/cases/recovery.json",
     "backend": "ollama",
     "model": "qwen3:4b-instruct",
