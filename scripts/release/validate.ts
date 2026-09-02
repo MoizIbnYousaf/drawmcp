@@ -19,6 +19,7 @@ run("npm", ["run", "evals:smoke"]);
 run("npm", ["run", "evals:visual"]);
 run("npm", ["run", "video:check"]);
 run("npm", ["run", "build"]);
+run("npm", ["run", "evals:csp"]);
 const buildMetadata = JSON.parse(readFileSync(resolve("dist/release.json"), "utf8"));
 const manifestSource = readFileSync(resolve("public/evidence/latest.json"), "utf8");
 const manifest = JSON.parse(manifestSource);

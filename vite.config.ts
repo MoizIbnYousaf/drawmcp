@@ -1,6 +1,7 @@
 import { createHash } from "node:crypto";
 import { execFileSync } from "node:child_process";
-import { readFileSync } from "node:fs";
+import { cpSync, readFileSync } from "node:fs";
+import { resolve } from "node:path";
 import react from "@vitejs/plugin-react";
 import { defineConfig, type Plugin } from "vite";
 
@@ -30,6 +31,13 @@ const buildMetadataPlugin = (): Plugin => ({
       fileName: "release.json",
       source: `${JSON.stringify(metadata, null, 2)}\n`,
     });
+  },
+  closeBundle() {
+    cpSync(
+      resolve("node_modules/@excalidraw/excalidraw/dist/prod/fonts"),
+      resolve("dist/fonts"),
+      { recursive: true },
+    );
   },
 });
 

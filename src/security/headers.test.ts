@@ -13,6 +13,9 @@ describe("production security headers", () => {
     expect(headers["Permissions-Policy"]).toBe("tools=(self)");
     expect(headers["Content-Security-Policy"]).toContain("default-src 'self'");
     expect(headers["Content-Security-Policy"]).toContain("connect-src 'self'");
+    expect(headers["Content-Security-Policy"]).toContain(
+      "font-src 'self' data: https://esm.sh",
+    );
     expect(headers["X-Content-Type-Options"]).toBe("nosniff");
     expect(headers["Referrer-Policy"]).toBe("no-referrer");
   });

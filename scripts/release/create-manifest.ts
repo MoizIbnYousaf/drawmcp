@@ -13,6 +13,7 @@ export const createReleaseManifest = () => {
   }
   const unit = readJson(".evals/unit-tests.json");
   const deterministic = readJson(".evals/deterministic-latest.json");
+  const cspDeterministic = readJson(".evals/csp-deterministic-latest.json");
   const smoke = readJson(".evals/smoke-latest.json");
   const visual = readJson(".evals/visual-qa-latest.json");
   const benchmark = readJson("public/benchmarks/latest.json");
@@ -29,6 +30,7 @@ export const createReleaseManifest = () => {
   if (
     unit.success !== true ||
     deterministic.passed !== true ||
+    cspDeterministic.passed !== true ||
     smoke.passed !== true ||
     visual.passed !== true ||
     probabilistic.passed !== true ||
@@ -45,6 +47,12 @@ export const createReleaseManifest = () => {
         (step: { passed: boolean }) => step.passed,
       ).length,
       total: deterministic.steps.length,
+    },
+    csp_production_build: {
+      passed: cspDeterministic.steps.filter(
+        (step: { passed: boolean }) => step.passed,
+      ).length,
+      total: cspDeterministic.steps.length,
     },
     local_model: {
       passed: Object.values(probabilistic.categories).reduce(
@@ -118,6 +126,10 @@ export const createReleaseManifest = () => {
     "deterministic-browser.json",
     deterministic,
   );
+  const cspArtifact = writeReleaseJson(
+    "csp-production-build.json",
+    cspDeterministic,
+  );
   const smokeArtifact = writeReleaseJson("chrome-smoke.json", smoke);
   const visualArtifact = writeReleaseJson("visual-qa.json", {
     ...visual,
@@ -135,6 +147,7 @@ export const createReleaseManifest = () => {
     artifacts: {
       unit_tests: unitArtifact,
       deterministic_browser: deterministicArtifact,
+      csp_production_build: cspArtifact,
       chrome_smoke: smokeArtifact,
       visual_qa: visualArtifact,
       probabilistic: `evidence/evals/${evalRun}/summary.json`,

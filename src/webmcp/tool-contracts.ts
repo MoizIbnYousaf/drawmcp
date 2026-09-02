@@ -1,5 +1,6 @@
-import Ajv2020, { type ErrorObject } from "ajv/dist/2020.js";
-import { TOOL_NAMES, type ToolName } from "./tool-names";
+import type { ErrorObject, ValidateFunction } from "ajv";
+import * as standaloneValidators from "./generated-validators";
+import type { ToolName } from "./tool-names";
 
 export { TOOL_NAMES, type ToolName } from "./tool-names";
 
@@ -368,13 +369,10 @@ export const TOOL_DEFINITIONS = {
   },
 } as const;
 
-const ajv = new Ajv2020({ allErrors: true, strict: true });
-const validators = Object.fromEntries(
-  TOOL_NAMES.map((name) => [
-    name,
-    ajv.compile(TOOL_DEFINITIONS[name].inputSchema),
-  ]),
-) as Record<ToolName, ReturnType<typeof ajv.compile>>;
+const validators = standaloneValidators as unknown as Record<
+  ToolName,
+  ValidateFunction
+>;
 
 export type InputValidationResult =
   | { ok: true; value: Record<string, unknown> }
