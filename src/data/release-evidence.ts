@@ -8,6 +8,10 @@ export const releaseEvidence = {
     "passed": 17,
     "total": 17
   },
+  "csp_production_build": {
+    "passed": 17,
+    "total": 17
+  },
   "local_model": {
     "passed": 125,
     "total": 125
