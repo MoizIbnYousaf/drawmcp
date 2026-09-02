@@ -71,6 +71,23 @@ describe("RevisionController", () => {
     });
   });
 
+  it("accepts Excalidraw-normalized state after the agent commit starts", async () => {
+    const controller = new RevisionController();
+    controller.observe(scene(0));
+    const pending = controller.expectAgentChange("move_node", scene(20));
+    controller.markAgentCommitStarted();
+    controller.observe([{ ...scene(20)[0], roundness: { type: 3 } }]);
+    await expect(pending).resolves.toMatchObject({
+      revision: 1,
+      actor: "agent",
+    });
+    expect(controller.getSnapshot()).toMatchObject({
+      revision: 1,
+      lastActor: "agent",
+      lastOperation: "move_node",
+    });
+  });
+
   it("rejects a pending agent change when a different human edit wins", async () => {
     const controller = new RevisionController();
     controller.observe(scene(0));

@@ -19,6 +19,7 @@ coverage
 playwright-report
 test-results
 .firecrawl
+.evals
 work
 
 # Editor directories and files

@@ -1,0 +1,115 @@
+{
+  "schema_version": 1,
+  "cases": [
+    {
+      "name": "unknown read argument",
+      "tool": "get_canvas_summary",
+      "arguments": { "surprise": true },
+      "expected_code": "INVALID_INPUT"
+    },
+    {
+      "name": "empty add array",
+      "tool": "add_elements",
+      "arguments": { "elements": [] },
+      "expected_code": "INVALID_INPUT"
+    },
+    {
+      "name": "cursor past the scene",
+      "tool": "get_canvas_summary",
+      "arguments": { "cursor": "0:999", "limit": 1 },
+      "expected_code": "INVALID_INPUT"
+    },
+    {
+      "name": "oversized coordinate",
+      "tool": "add_elements",
+      "arguments": {
+        "elements": [
+          {
+            "id": "far_text",
+            "type": "text",
+            "x": 1000001,
+            "y": 0,
+            "text": "Too far"
+          }
+        ]
+      },
+      "expected_code": "INVALID_INPUT"
+    },
+    {
+      "name": "oversized text",
+      "tool": "add_elements",
+      "arguments": {
+        "elements": [
+          {
+            "id": "long_text",
+            "type": "text",
+            "x": 0,
+            "y": 0,
+            "text": "__DRAW_MCP_OVERSIZED_TEXT__"
+          }
+        ]
+      },
+      "expand": { "path": "elements.0.text", "repeat": "x", "count": 2001 },
+      "expected_code": "INVALID_INPUT"
+    },
+    {
+      "name": "missing update target",
+      "tool": "update_elements",
+      "arguments": { "patches": [{ "id": "missing", "changes": { "x": 20 } }] },
+      "expected_code": "NOT_FOUND"
+    },
+    {
+      "name": "missing delete target",
+      "tool": "delete_elements",
+      "arguments": { "ids": ["missing"] },
+      "expected_code": "NOT_FOUND"
+    },
+    {
+      "name": "empty selection focus",
+      "tool": "fit_to_content",
+      "arguments": { "scope": "selection" },
+      "expected_code": "NOT_FOUND"
+    },
+    {
+      "name": "empty scene organization",
+      "tool": "organize_diagram",
+      "arguments": { "scope": "all", "layout": "grid", "spacing": 20 },
+      "expected_code": "NOT_FOUND"
+    },
+    {
+      "name": "URL-shaped unsupported element",
+      "tool": "add_elements",
+      "arguments": {
+        "elements": [
+          {
+            "id": "external",
+            "type": "iframe",
+            "x": 0,
+            "y": 0,
+            "width": 100,
+            "height": 100,
+            "link": "https://example.com"
+          }
+        ]
+      },
+      "expected_code": "INVALID_INPUT"
+    },
+    {
+      "name": "missing binding target",
+      "tool": "add_elements",
+      "arguments": {
+        "elements": [
+          {
+            "id": "edge",
+            "type": "arrow",
+            "x": 0,
+            "y": 0,
+            "points": [[0, 0], [100, 0]],
+            "start": { "id": "missing" }
+          }
+        ]
+      },
+      "expected_code": "INVALID_INPUT"
+    }
+  ]
+}

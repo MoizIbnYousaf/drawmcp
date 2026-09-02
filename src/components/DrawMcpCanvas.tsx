@@ -47,6 +47,12 @@ export const DrawMcpCanvas = ({ onServiceReady }: DrawMcpCanvasProps) => {
           }) as never,
         updateElement: (element, changes) =>
           newElementWith(element as never, changes as never) as never,
+        waitForEditorSettle: () =>
+          new Promise((resolve) =>
+            requestAnimationFrame(() =>
+              requestAnimationFrame(() => resolve()),
+            ),
+          ),
       }),
   );
   const [canvasReady, setCanvasReady] = useState(false);

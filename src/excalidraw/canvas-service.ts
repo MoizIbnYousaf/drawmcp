@@ -117,7 +117,11 @@ const bindingIdFromInput = (value: unknown): string | undefined => {
 };
 
 type MutationComputation =
-  | { elements: CanvasElement[]; affectedIds: string[] }
+  | {
+      elements: CanvasElement[];
+      affectedIds: string[];
+      isApplied?: (actual: CanvasElement[]) => boolean;
+    }
   | ToolFailure;
 
 export type UpdateCanvasElement = (
@@ -147,6 +151,7 @@ export class CanvasService {
   ) => CanvasElement[];
   private readonly updateElement: UpdateCanvasElement;
   private readonly settleTimeoutMs: number;
+  private readonly waitForEditorSettle: () => Promise<void>;
   private api?: CanvasApi;
   private readonly revisions = new RevisionController();
   private mutationTail: Promise<unknown> = Promise.resolve();
@@ -160,6 +165,7 @@ export class CanvasService {
       ) => CanvasElement[];
       updateElement?: UpdateCanvasElement;
       settleTimeoutMs?: number;
+      waitForEditorSettle?: () => Promise<void>;
     } = {},
   ) {
     this.captureUpdateImmediately =
@@ -169,6 +175,7 @@ export class CanvasService {
       ((elements) => elements as unknown as CanvasElement[]);
     this.updateElement = options.updateElement ?? fallbackUpdateElement;
     this.settleTimeoutMs = options.settleTimeoutMs ?? 2_000;
+    this.waitForEditorSettle = options.waitForEditorSettle ?? (() => Promise.resolve());
   }
 
   attach(api: CanvasApi): void {
@@ -284,6 +291,15 @@ export class CanvasService {
         return {
           elements: [...current, ...converted],
           affectedIds: converted.map(({ id }) => id),
+          isApplied: (actual) =>
+            converted.every((expected) =>
+              actual.some(
+                (element) =>
+                  element.id === expected.id &&
+                  element.type === expected.type &&
+                  !element.isDeleted,
+              ),
+            ),
         };
       },
     });
@@ -315,6 +331,19 @@ export class CanvasService {
               : element;
           }),
           affectedIds: input.patches.map(({ id }) => id),
+          isApplied: (actual) =>
+            input.patches.every((patch) => {
+              const element = actual.find(
+                (candidate) => candidate.id === patch.id && !candidate.isDeleted,
+              );
+              return (
+                element !== undefined &&
+                Object.entries(patch.changes).every(
+                  ([key, value]) =>
+                    JSON.stringify(element[key]) === JSON.stringify(value),
+                )
+              );
+            }),
         };
       },
     });
@@ -336,18 +365,68 @@ export class CanvasService {
         const missing = input.ids.find((id) => !liveIds.has(id));
         if (missing) return notFoundResult(`Element not found: ${missing}`);
         const targets = new Set(input.ids);
-        const affectedIds: string[] = [];
+        const ownedTextIds = new Set(
+          current
+            .filter(
+              (element) =>
+                typeof element.containerId === "string" &&
+                targets.has(element.containerId),
+            )
+            .map(({ id }) => id),
+        );
+        const deletedIds = new Set([...targets, ...ownedTextIds]);
+        const affectedIds = new Set<string>();
         const elements = current.map((element) => {
-          const ownedText =
-            typeof element.containerId === "string" &&
-            targets.has(element.containerId);
-          if (targets.has(element.id) || ownedText) {
-            affectedIds.push(element.id);
+          if (deletedIds.has(element.id)) {
+            affectedIds.add(element.id);
             return this.updateElement(element, { isDeleted: true });
+          }
+          const changes: Record<string, unknown> = {};
+          if (Array.isArray(element.boundElements)) {
+            const boundElements = element.boundElements.filter((binding) => {
+              if (!binding || typeof binding !== "object") return true;
+              const id = (binding as { id?: unknown }).id;
+              return typeof id !== "string" || !deletedIds.has(id);
+            });
+            if (boundElements.length !== element.boundElements.length) {
+              changes.boundElements = boundElements;
+            }
+          }
+          const startBindingId = bindingIdFromInput(
+            element.startBinding && typeof element.startBinding === "object"
+              ? {
+                  id: (element.startBinding as { elementId?: unknown })
+                    .elementId,
+                }
+              : undefined,
+          );
+          const endBindingId = bindingIdFromInput(
+            element.endBinding && typeof element.endBinding === "object"
+              ? {
+                  id: (element.endBinding as { elementId?: unknown }).elementId,
+                }
+              : undefined,
+          );
+          if (startBindingId && deletedIds.has(startBindingId)) {
+            changes.startBinding = null;
+          }
+          if (endBindingId && deletedIds.has(endBindingId)) {
+            changes.endBinding = null;
+          }
+          if (Object.keys(changes).length > 0) {
+            affectedIds.add(element.id);
+            return this.updateElement(element, changes);
           }
           return element;
         });
-        return { elements, affectedIds };
+        return {
+          elements,
+          affectedIds: [...affectedIds],
+          isApplied: (actual) =>
+            [...deletedIds].every((id) =>
+              actual.some((element) => element.id === id && element.isDeleted),
+            ),
+        };
       },
     });
   }
@@ -446,6 +525,22 @@ export class CanvasService {
             });
           }),
           affectedIds: organized.movedIds,
+          isApplied: (actual) =>
+            organized.movedIds.every((id) => {
+              const expected = organized.elements.find(
+                (element) => element.id === id,
+              );
+              const observed = actual.find((element) => element.id === id);
+              return (
+                expected !== undefined &&
+                observed !== undefined &&
+                expected.x === observed.x &&
+                expected.y === observed.y &&
+                (!Array.isArray(expected.points) ||
+                  JSON.stringify(expected.points) ===
+                    JSON.stringify(observed.points))
+              );
+            }),
         };
       },
     }).then((result) =>
@@ -471,6 +566,9 @@ export class CanvasService {
       compute: () => ({
         elements: request.elements,
         affectedIds: request.affectedIds,
+        isApplied: (actual) =>
+          sceneSemanticFingerprint(actual) ===
+          sceneSemanticFingerprint(request.elements),
       }),
     });
   }
@@ -524,6 +622,7 @@ export class CanvasService {
         pendingStarted = true;
         void pending.catch(() => undefined);
         commitStarted = true;
+        this.revisions.markAgentCommitStarted();
         api.updateScene({
           elements: computed.elements,
           captureUpdate: this.captureUpdateImmediately,
@@ -539,13 +638,25 @@ export class CanvasService {
             );
           }),
         ]);
+        await this.waitForEditorSettle();
+        const actual = [...api.getSceneElementsIncludingDeleted()];
+        this.revisions.observe(actual);
+        if (computed.isApplied && !computed.isApplied(actual)) {
+          this.revisions.reclassifyLastChangeAsHuman();
+          this.emitStatus();
+          return staleResult(this.revisions.getSnapshot().revision);
+        }
+        const revisionAfter = Math.max(
+          settled.revision,
+          this.revisions.getSnapshot().revision,
+        );
         this.emitStatus();
         return {
           ok: true,
           operation: input.operation,
           changed: true,
           revision_before: before,
-          revision_after: settled.revision,
+          revision_after: revisionAfter,
           affected_element_count: computed.affectedIds.length,
           affected_element_ids: computed.affectedIds.slice(
             0,

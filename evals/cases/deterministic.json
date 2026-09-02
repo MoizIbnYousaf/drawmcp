@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "expected_tools": [
+    "get_canvas_summary",
+    "get_selection",
+    "add_elements",
+    "update_elements",
+    "delete_elements",
+    "fit_to_content",
+    "organize_diagram"
+  ],
+  "journeys": [
+    "empty reads and validation failures",
+    "connected diagram creation and semantic oracle",
+    "update, no-op, organization, viewport, delete, and stale recovery",
+    "native Undo and Redo followed by reload recovery"
+  ]
+}

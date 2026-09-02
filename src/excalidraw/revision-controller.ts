@@ -11,6 +11,7 @@ export type RevisionSnapshot = {
 type PendingChange = {
   operation: string;
   expectedFingerprint: string;
+  commitStarted: boolean;
   resolve: (snapshot: { revision: number; actor: "agent" }) => void;
   reject: (error: Error) => void;
 };
@@ -38,12 +39,11 @@ const canonicalize = (
   );
 };
 
-export const sceneFingerprint = (elements: CanvasElement[]): string =>
-  JSON.stringify(canonicalize(elements));
-
 export const sceneSemanticFingerprint = (
   elements: CanvasElement[],
 ): string => JSON.stringify(canonicalize(elements, VOLATILE_ELEMENT_KEYS));
+
+export const sceneFingerprint = sceneSemanticFingerprint;
 
 export class RevisionController {
   private revision = 0;
@@ -62,7 +62,11 @@ export class RevisionController {
 
     this.fingerprint = nextFingerprint;
     this.revision += 1;
-    if (this.pending?.expectedFingerprint === nextFingerprint) {
+    if (
+      this.pending &&
+      (this.pending.commitStarted ||
+        this.pending.expectedFingerprint === nextFingerprint)
+    ) {
       const pending = this.pending;
       this.pending = undefined;
       this.lastActor = "agent";
@@ -90,10 +94,24 @@ export class RevisionController {
       this.pending = {
         operation,
         expectedFingerprint: sceneFingerprint(elements),
+        commitStarted: false,
         resolve,
         reject,
       };
     });
+  }
+
+  markAgentCommitStarted(): void {
+    if (!this.pending) {
+      throw new Error("No agent operation is pending.");
+    }
+    this.pending.commitStarted = true;
+  }
+
+  reclassifyLastChangeAsHuman(): void {
+    if (this.lastActor !== "agent") return;
+    this.lastActor = "human";
+    this.lastOperation = "human_edit";
   }
 
   cancelPending(reason: string | Error): void {

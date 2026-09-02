@@ -35,5 +35,8 @@ jobs:
       - name: Check generated WebMCP eval schemas
         run: npm run evals:check
 
+      - name: Deterministic WebMCP browser proof
+        run: npm run evals:deterministic
+
       - name: Build
         run: npm run build
