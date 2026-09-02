@@ -2,6 +2,7 @@ import { organizeDiagram } from "../layout/organize-diagram";
 import {
   TOOL_LIMITS,
   type AddElementsInput,
+  type CanvasReadInput,
   type DeleteElementsInput,
   type FitToContentInput,
   type OrganizeDiagramInput,
@@ -11,6 +12,8 @@ import type { ToolFailure, ToolResult } from "../webmcp/tool-results";
 import {
   canceledResult,
   internalErrorResult,
+  MAX_TOOL_RESULT_CHARACTERS,
+  serializedToolResultLength,
   timeoutResult,
 } from "../webmcp/tool-results";
 import {
@@ -58,7 +61,9 @@ export type MutationReceipt = {
   changed: boolean;
   revision_before: number;
   revision_after: number;
+  affected_element_count: number;
   affected_element_ids: string[];
+  affected_ids_truncated: boolean;
   element_count: number;
 };
 
@@ -95,6 +100,21 @@ const notFoundResult = (message: string): ToolFailure => ({
   code: "NOT_FOUND",
   message,
 });
+
+const outputTooLargeResult = (): ToolFailure => ({
+  ok: false,
+  code: "OUTPUT_TOO_LARGE",
+  message:
+    "The requested canvas page exceeded the DrawMCP output budget. Request a smaller page and retry.",
+});
+
+const BINDABLE_TOOL_TYPES = new Set(["rectangle", "ellipse", "diamond"]);
+
+const bindingIdFromInput = (value: unknown): string | undefined => {
+  if (!value || typeof value !== "object") return undefined;
+  const id = (value as { id?: unknown }).id;
+  return typeof id === "string" ? id : undefined;
+};
 
 type MutationComputation =
   | { elements: CanvasElement[]; affectedIds: string[] }
@@ -185,20 +205,22 @@ export class CanvasService {
     };
   }
 
-  getCanvasSummary(): ToolResult<Record<string, unknown>> {
+  getCanvasSummary(
+    input: CanvasReadInput = {},
+  ): ToolResult<Record<string, unknown>> {
     const api = this.getAvailableApi();
     if (!api) return unavailableResult();
     const elements = [...api.getSceneElements()];
     const selection = api.getAppState().selectedElementIds ?? {};
-    return {
-      ok: true,
-      revision: this.revisions.getSnapshot().revision,
+    const { elements: _elements, truncated: _truncated, ...summary } =
+      summarizeElements(elements, 0);
+    return this.pageElements(elements, input, {
       selected_count: Object.values(selection).filter(Boolean).length,
-      ...summarizeElements(elements, TOOL_LIMITS.maxSummaryElements),
-    };
+      ...summary,
+    });
   }
 
-  getSelection(): ToolResult<Record<string, unknown>> {
+  getSelection(input: CanvasReadInput = {}): ToolResult<Record<string, unknown>> {
     const api = this.getAvailableApi();
     if (!api) return unavailableResult();
     const selected = api.getAppState().selectedElementIds ?? {};
@@ -206,16 +228,10 @@ export class CanvasService {
     const selectedSet = new Set(selectedIds);
     const elements = api
       .getSceneElements()
-      .filter((element) => selectedSet.has(element.id))
-      .slice(0, TOOL_LIMITS.maxSelectionElements)
-      .map(projectElement);
-    return {
-      ok: true,
-      revision: this.revisions.getSnapshot().revision,
-      selected_ids: selectedIds,
-      elements,
-      truncated: selectedIds.length > TOOL_LIMITS.maxSelectionElements,
-    };
+      .filter((element) => selectedSet.has(element.id));
+    return this.pageElements(elements, input, {
+      selected_count: selectedIds.length,
+    });
   }
 
   addElements(
@@ -238,6 +254,31 @@ export class CanvasService {
         const duplicate = requestedIds.find((id) => currentIds.has(id));
         if (duplicate) {
           return invalidResult(`Element ID already exists: ${duplicate}`);
+        }
+        const requested = new Map(
+          input.elements.map((element) => [element.id, element]),
+        );
+        const currentLive = new Map(
+          current
+            .filter(({ isDeleted }) => !isDeleted)
+            .map((element) => [element.id, element]),
+        );
+        for (const element of input.elements) {
+          if (element.type !== "arrow" && element.type !== "line") continue;
+          for (const side of ["start", "end"] as const) {
+            const referenceId = bindingIdFromInput(element[side]);
+            if (!referenceId) continue;
+            const target = requested.get(referenceId) ?? currentLive.get(referenceId);
+            if (
+              referenceId === element.id ||
+              !target ||
+              !BINDABLE_TOOL_TYPES.has(target.type)
+            ) {
+              return invalidResult(
+                `Invalid ${side} binding target for ${element.id}: ${referenceId}`,
+              );
+            }
+          }
         }
         const converted = this.convertElements(input.elements);
         return {
@@ -334,7 +375,11 @@ export class CanvasService {
     return {
       ok: true,
       revision: this.revisions.getSnapshot().revision,
-      focused_ids: target.map(({ id }) => id),
+      focused_element_count: target.length,
+      focused_element_ids: target
+        .slice(0, TOOL_LIMITS.maxReceiptIds)
+        .map(({ id }) => id),
+      focused_ids_truncated: target.length > TOOL_LIMITS.maxReceiptIds,
       scope: input.scope,
     };
   }
@@ -342,7 +387,15 @@ export class CanvasService {
   organize(
     input: OrganizeDiagramInput,
     signal: AbortSignal,
-  ): Promise<ToolResult<MutationReceipt & { skipped_element_ids: string[] }>> {
+  ): Promise<
+    ToolResult<
+      MutationReceipt & {
+        skipped_element_count: number;
+        skipped_element_ids: string[];
+        skipped_ids_truncated: boolean;
+      }
+    >
+  > {
     let skippedIds: string[] = [];
     return this.enqueueMutation({
       operation: "organize_diagram",
@@ -377,20 +430,34 @@ export class CanvasService {
             "No supported nodes were available to organize.",
           );
         }
+        const movedIds = new Set(organized.movedIds);
         return {
           elements: current.map((element, index) => {
-            if (!organized.movedIds.includes(element.id)) return element;
+            if (!movedIds.has(element.id)) return element;
             const organizedElement = organized.elements[index];
             return this.updateElement(element, {
               x: organizedElement.x,
               y: organizedElement.y,
+              width: organizedElement.width,
+              height: organizedElement.height,
+              ...(Array.isArray(organizedElement.points)
+                ? { points: organizedElement.points }
+                : {}),
             });
           }),
           affectedIds: organized.movedIds,
         };
       },
     }).then((result) =>
-      result.ok ? { ...result, skipped_element_ids: skippedIds } : result,
+      result.ok
+        ? {
+            ...result,
+            skipped_element_count: skippedIds.length,
+            skipped_element_ids: skippedIds.slice(0, TOOL_LIMITS.maxReceiptIds),
+            skipped_ids_truncated:
+              skippedIds.length > TOOL_LIMITS.maxReceiptIds,
+          }
+        : result,
     );
   }
 
@@ -444,7 +511,9 @@ export class CanvasService {
             changed: false,
             revision_before: before,
             revision_after: before,
+            affected_element_count: 0,
             affected_element_ids: [],
+            affected_ids_truncated: false,
             element_count: api.getSceneElements().length,
           };
         }
@@ -477,7 +546,13 @@ export class CanvasService {
           changed: true,
           revision_before: before,
           revision_after: settled.revision,
-          affected_element_ids: computed.affectedIds,
+          affected_element_count: computed.affectedIds.length,
+          affected_element_ids: computed.affectedIds.slice(
+            0,
+            TOOL_LIMITS.maxReceiptIds,
+          ),
+          affected_ids_truncated:
+            computed.affectedIds.length > TOOL_LIMITS.maxReceiptIds,
           element_count: api.getSceneElements().length,
         };
       } catch (error) {
@@ -511,6 +586,58 @@ export class CanvasService {
 
   private getAvailableApi(): CanvasApi | undefined {
     return this.api && !this.api.isDestroyed ? this.api : undefined;
+  }
+
+  private pageElements(
+    elements: CanvasElement[],
+    input: CanvasReadInput,
+    payload: Record<string, unknown>,
+  ): ToolResult<Record<string, unknown>> {
+    const revision = this.revisions.getSnapshot().revision;
+    let offset = 0;
+    if (input.cursor) {
+      const [cursorRevision, cursorOffset] = input.cursor
+        .split(":")
+        .map((value) => Number(value));
+      if (cursorRevision !== revision) return staleResult(revision);
+      if (!Number.isSafeInteger(cursorOffset) || cursorOffset < 0) {
+        return invalidResult("The canvas cursor offset is invalid.");
+      }
+      offset = cursorOffset;
+    }
+    if (offset > elements.length) {
+      return invalidResult("The canvas cursor is past the end of the scene.");
+    }
+
+    const limit = input.limit ?? TOOL_LIMITS.maxReadPageSize;
+    const available = Math.min(limit, elements.length - offset);
+    let accepted: ReturnType<typeof projectElement>[] = [];
+    let acceptedResult: Record<string, unknown> | undefined;
+    for (let count = 0; count <= available; count += 1) {
+      const candidate = elements
+        .slice(offset, offset + count)
+        .map(projectElement);
+      const nextOffset = offset + candidate.length;
+      const hasMore = nextOffset < elements.length;
+      const result = {
+        ok: true,
+        revision,
+        ...payload,
+        elements: candidate,
+        truncated: hasMore,
+        ...(hasMore ? { next_cursor: `${revision}:${nextOffset}` } : {}),
+      };
+      if (serializedToolResultLength(result) > MAX_TOOL_RESULT_CHARACTERS) {
+        break;
+      }
+      accepted = candidate;
+      acceptedResult = result;
+    }
+
+    if (!acceptedResult || (available > 0 && accepted.length === 0)) {
+      return outputTooLargeResult();
+    }
+    return acceptedResult as ToolResult<Record<string, unknown>>;
   }
 
   private emitStatus(): void {

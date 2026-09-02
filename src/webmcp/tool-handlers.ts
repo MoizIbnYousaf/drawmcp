@@ -6,6 +6,7 @@ import {
   TOOL_NAMES,
   validateToolInput,
   type AddElementsInput,
+  type CanvasReadInput,
   type DeleteElementsInput,
   type FitToContentInput,
   type OrganizeDiagramInput,
@@ -14,6 +15,7 @@ import {
 } from "./tool-contracts";
 import {
   canceledResult,
+  finalizeToolResult,
   internalErrorResult,
   type ToolFailure,
 } from "./tool-results";
@@ -23,7 +25,17 @@ const invalidInputResult = (name: ToolName, errors: unknown): ToolFailure =>
     ok: false,
     code: "INVALID_INPUT",
     message: `The ${name} arguments did not match the declared schema.`,
-    details: errors,
+    details: Array.isArray(errors)
+      ? errors.slice(0, 3).map((error) => {
+          if (!error || typeof error !== "object") return String(error);
+          const item = error as Record<string, unknown>;
+          return {
+            path: item.instancePath,
+            keyword: item.keyword,
+            message: item.message,
+          };
+        })
+      : errors,
   }) as ToolFailure & { details: unknown };
 
 const executeTool = async (
@@ -39,9 +51,9 @@ const executeTool = async (
   try {
     switch (name) {
       case "get_canvas_summary":
-        return service.getCanvasSummary();
+        return service.getCanvasSummary(validation.value as CanvasReadInput);
       case "get_selection":
-        return service.getSelection();
+        return service.getSelection(validation.value as CanvasReadInput);
       case "add_elements":
         return service.addElements(
           validation.value as AddElementsInput,
@@ -83,11 +95,13 @@ export const createDrawMcpTools = (
       annotations: definition.annotations,
       execute: async (input, options) => {
         const startedAt = performance.now();
-        const result = await executeTool(
-          name,
-          service,
-          input,
-          options?.signal ?? new AbortController().signal,
+        const result = finalizeToolResult(
+          await executeTool(
+            name,
+            service,
+            input,
+            options?.signal ?? new AbortController().signal,
+          ),
         );
         recordToolMetric(
           name,

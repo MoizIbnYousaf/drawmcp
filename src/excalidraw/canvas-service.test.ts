@@ -15,7 +15,7 @@ const rectangle = (id: string, x = 0) => ({
 });
 
 const createHarness = () => {
-  let elements = [rectangle("node_1")];
+  let elements: any[] = [rectangle("node_1")];
   let appState: { selectedElementIds: Record<string, boolean> } = {
     selectedElementIds: { node_1: true },
   };
@@ -39,6 +39,10 @@ const createHarness = () => {
     api,
     service,
     getElements: () => elements,
+    setElements: (next: any[]) => {
+      elements = next;
+      service.observeEditorChange(elements, appState, {});
+    },
     humanMove: (x: number) => {
       elements = [rectangle("node_1", x)];
       service.observeEditorChange(elements, appState, {});
@@ -58,13 +62,15 @@ describe("CanvasService", () => {
     expect(harness.service.getSelection()).toMatchObject({
       ok: true,
       revision: 0,
-      selected_ids: ["node_1"],
+      selected_count: 1,
+      elements: [expect.objectContaining({ id: "node_1" })],
     });
     harness.select([]);
     expect(harness.service.getSelection()).toMatchObject({
       ok: true,
       revision: 0,
-      selected_ids: [],
+      selected_count: 0,
+      elements: [],
     });
   });
 
@@ -343,11 +349,95 @@ describe("CanvasService", () => {
     ).resolves.toMatchObject({ ok: false, code: "NOT_FOUND" });
   });
 
+  it("rejects missing or unsupported binding targets before conversion", async () => {
+    const harness = createHarness();
+    const signal = new AbortController().signal;
+    await expect(
+      harness.service.addElements(
+        {
+          elements: [
+            {
+              id: "edge",
+              type: "arrow",
+              x: 0,
+              y: 0,
+              points: [
+                [0, 0],
+                [100, 0],
+              ],
+              start: { id: "missing" },
+              end: { id: "node_1" },
+            },
+          ],
+        },
+        signal,
+      ),
+    ).resolves.toMatchObject({ ok: false, code: "INVALID_INPUT" });
+    expect(harness.api.updateScene).not.toHaveBeenCalled();
+  });
+
+  it("paginates large summaries within the result budget", () => {
+    const harness = createHarness();
+    const large = Array.from({ length: 20 }, (_, index) => ({
+      ...rectangle(`node_${index}`, index * 120),
+      type: "text",
+      text: "x".repeat(2_000),
+    }));
+    harness.setElements(large);
+
+    const first = harness.service.getCanvasSummary({ limit: 8 });
+    expect(Array.from(JSON.stringify(first)).length).toBeLessThanOrEqual(1_536);
+    expect(first).toMatchObject({
+      ok: true,
+      element_count: 20,
+      truncated: true,
+      next_cursor: expect.any(String),
+    });
+    if (!first.ok) throw new Error("expected summary success");
+    const second = harness.service.getCanvasSummary({
+      cursor: String(first.next_cursor),
+      limit: 8,
+    });
+    expect(second).toMatchObject({ ok: true });
+
+    harness.humanMove(40);
+    expect(
+      harness.service.getCanvasSummary({
+        cursor: String(first.next_cursor),
+        limit: 8,
+      }),
+    ).toMatchObject({ ok: false, code: "STALE_REVISION" });
+  });
+
+  it("caps identifier samples in mutation receipts", async () => {
+    const harness = createHarness();
+    const elements = Array.from({ length: 20 }, (_, index) =>
+      rectangle(`added_${index}`, (index + 1) * 120),
+    );
+    const result = await harness.service.addElements(
+      { elements: elements as never },
+      new AbortController().signal,
+    );
+    expect(result).toMatchObject({
+      ok: true,
+      affected_element_count: 20,
+      affected_ids_truncated: true,
+    });
+    if (!result.ok) throw new Error("expected mutation success");
+    expect(result.affected_element_ids).toHaveLength(8);
+    expect(Array.from(JSON.stringify(result)).length).toBeLessThanOrEqual(1_536);
+  });
+
   it("focuses the current selection without advancing revision", () => {
     const harness = createHarness();
     expect(
       harness.service.fitToContent({ scope: "selection", animate: false }),
-    ).toMatchObject({ ok: true, revision: 0, focused_ids: ["node_1"] });
+    ).toMatchObject({
+      ok: true,
+      revision: 0,
+      focused_element_count: 1,
+      focused_element_ids: ["node_1"],
+    });
     expect(harness.api.scrollToContent).toHaveBeenCalledWith(
       [expect.objectContaining({ id: "node_1" })],
       { fitToContent: true, animate: false },
@@ -377,10 +467,10 @@ describe("CanvasService", () => {
     expect(result).toMatchObject({
       ok: true,
       revision_after: 2,
-      affected_element_ids: ["node_1", "node_2"],
+      affected_element_ids: ["node_2"],
     });
     expect(harness.getElements().map(({ version }) => version)).toEqual([
-      2, 2,
+      1, 2,
     ]);
   });
 

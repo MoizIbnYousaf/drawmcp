@@ -15,7 +15,8 @@ const createService = () =>
 
 describe("DrawMCP tool handlers", () => {
   it("creates the complete ordered tool surface", () => {
-    expect(createDrawMcpTools(createService()).map(({ name }) => name)).toEqual(
+    const tools = createDrawMcpTools(createService());
+    expect(tools.map(({ name }) => name)).toEqual(
       [
         "get_canvas_summary",
         "get_selection",
@@ -25,6 +26,9 @@ describe("DrawMCP tool handlers", () => {
         "fit_to_content",
         "organize_diagram",
       ],
+    );
+    expect(tools.every(({ annotations }) => annotations?.untrustedContentHint)).toBe(
+      true,
     );
   });
 
@@ -37,6 +41,29 @@ describe("DrawMCP tool handlers", () => {
       revision: 3,
     });
     expect(service.getCanvasSummary).toHaveBeenCalledOnce();
+  });
+
+  it("passes validated pagination arguments to read services", async () => {
+    const service = createService();
+    const tool = createDrawMcpTools(service)[0];
+    await tool.execute(
+      { cursor: "3:2", limit: 2 },
+      { signal: new AbortController().signal },
+    );
+    expect(service.getCanvasSummary).toHaveBeenCalledWith({
+      cursor: "3:2",
+      limit: 2,
+    });
+  });
+
+  it("fails safely when a handler exceeds the result budget", async () => {
+    const service = createService();
+    vi.mocked(service.getCanvasSummary).mockReturnValue({
+      ok: true,
+      content: "x".repeat(4_000),
+    });
+    const result = await createDrawMcpTools(service)[0].execute({});
+    expect(result).toMatchObject({ ok: false, code: "OUTPUT_TOO_LARGE" });
   });
 
   it("rejects invalid arguments before calling the service", async () => {

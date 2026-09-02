@@ -2,6 +2,7 @@ export type ToolErrorCode =
   | "CANCELED"
   | "INVALID_INPUT"
   | "NOT_FOUND"
+  | "OUTPUT_TOO_LARGE"
   | "STALE_REVISION"
   | "TIMEOUT"
   | "UNAVAILABLE"
@@ -12,6 +13,28 @@ export type ToolFailure = {
   code: ToolErrorCode;
   message: string;
   current_revision?: number;
+};
+
+export const MAX_TOOL_RESULT_CHARACTERS = 1_536;
+
+export const serializedToolResultLength = (value: unknown): number => {
+  try {
+    return Array.from(JSON.stringify(value)).length;
+  } catch {
+    return Number.POSITIVE_INFINITY;
+  }
+};
+
+export const finalizeToolResult = <T>(value: T): T | ToolFailure => {
+  if (serializedToolResultLength(value) <= MAX_TOOL_RESULT_CHARACTERS) {
+    return value;
+  }
+  return {
+    ok: false,
+    code: "OUTPUT_TOO_LARGE",
+    message:
+      "The tool result exceeded the DrawMCP output budget. Request a smaller page and retry.",
+  };
 };
 
 export type ToolSuccess<T extends Record<string, unknown>> = { ok: true } & T;

@@ -1,7 +1,11 @@
 import { describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { TOOL_DEFINITIONS, validateToolInput } from "./tool-contracts";
+import {
+  TOOL_DEFINITIONS,
+  TOOL_LIMITS,
+  validateToolInput,
+} from "./tool-contracts";
 
 describe("WebMCP tool contracts", () => {
   it("defines the complete stable tool surface", () => {
@@ -34,6 +38,23 @@ describe("WebMCP tool contracts", () => {
     expect(result.ok).toBe(false);
   });
 
+  it("accepts bounded revision cursors on read tools", () => {
+    expect(
+      validateToolInput("get_canvas_summary", {
+        cursor: "4:8",
+        limit: TOOL_LIMITS.maxReadPageSize,
+      }).ok,
+    ).toBe(true);
+    expect(
+      validateToolInput("get_selection", { cursor: "broken", limit: 1 }).ok,
+    ).toBe(false);
+    expect(
+      validateToolInput("get_selection", {
+        limit: TOOL_LIMITS.maxReadPageSize + 1,
+      }).ok,
+    ).toBe(false);
+  });
+
   it("accepts a bounded add-elements request", () => {
     const result = validateToolInput("add_elements", {
       expected_revision: 3,
@@ -50,6 +71,43 @@ describe("WebMCP tool contracts", () => {
       ],
     });
     expect(result.ok).toBe(true);
+  });
+
+  it("accepts published skeleton bindings on linear elements", () => {
+    expect(
+      validateToolInput("add_elements", {
+        elements: [
+          {
+            id: "node_a",
+            type: "rectangle",
+            x: 0,
+            y: 0,
+            width: 100,
+            height: 60,
+          },
+          {
+            id: "node_b",
+            type: "rectangle",
+            x: 240,
+            y: 0,
+            width: 100,
+            height: 60,
+          },
+          {
+            id: "edge_a_b",
+            type: "arrow",
+            x: 100,
+            y: 30,
+            points: [
+              [0, 0],
+              [140, 0],
+            ],
+            start: { id: "node_a" },
+            end: { id: "node_b" },
+          },
+        ],
+      }).ok,
+    ).toBe(true);
   });
 
   it.each([

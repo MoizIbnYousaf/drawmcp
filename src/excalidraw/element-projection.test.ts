@@ -73,4 +73,33 @@ describe("element projections", () => {
     expect(summary.truncated).toBe(true);
     expect(summary.counts).toEqual({ rectangle: 205 });
   });
+
+  it("truncates text and summarizes long linear point arrays", () => {
+    const projectedText = projectElement({
+      ...elements[1],
+      text: "x".repeat(500),
+    });
+    expect(projectedText.text?.length).toBeLessThanOrEqual(120);
+    expect(projectedText).toMatchObject({ text_truncated: true });
+
+    const projectedArrow = projectElement({
+      id: "edge",
+      type: "arrow",
+      x: 0,
+      y: 0,
+      width: 100,
+      height: 100,
+      points: Array.from({ length: 20 }, (_, index) => [index, index]),
+      startBinding: { elementId: "node_1" },
+      endBinding: { elementId: "node_2" },
+    });
+    expect(projectedArrow).toMatchObject({
+      point_count: 20,
+      start_point: [0, 0],
+      end_point: [19, 19],
+      start_binding_id: "node_1",
+      end_binding_id: "node_2",
+    });
+    expect(projectedArrow).not.toHaveProperty("points");
+  });
 });

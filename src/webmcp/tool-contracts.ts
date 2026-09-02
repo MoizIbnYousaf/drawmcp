@@ -12,6 +12,11 @@ export const TOOL_NAMES = [
 
 export type ToolName = (typeof TOOL_NAMES)[number];
 
+export type CanvasReadInput = {
+  cursor?: string;
+  limit?: number;
+};
+
 export type AddElementsInput = {
   expected_revision?: number;
   elements: Array<Record<string, unknown> & { id: string; type: string }>;
@@ -45,10 +50,13 @@ export type OrganizeDiagramInput = {
 export const TOOL_LIMITS = {
   maxSummaryElements: 200,
   maxSelectionElements: 100,
+  maxReadPageSize: 8,
   maxAddElements: 50,
   maxPatches: 100,
   maxDeleteIds: 100,
   maxTextLength: 2_000,
+  maxProjectedTextLength: 120,
+  maxReceiptIds: 8,
   maxIdLength: 128,
   maxCoordinate: 1_000_000,
   maxDimension: 100_000,
@@ -141,6 +149,13 @@ const textSchema = {
   },
 } as const;
 
+const bindingReferenceSchema = {
+  type: "object",
+  additionalProperties: false,
+  required: ["id"],
+  properties: { id: idSchema },
+} as const;
+
 const linearSchema = (type: "arrow" | "line") => ({
   type: "object",
   additionalProperties: false,
@@ -164,6 +179,8 @@ const linearSchema = (type: "arrow" | "line") => ({
     },
     startArrowhead: { enum: [null, "arrow", "bar", "dot", "triangle"] },
     endArrowhead: { enum: [null, "arrow", "bar", "dot", "triangle"] },
+    start: bindingReferenceSchema,
+    end: bindingReferenceSchema,
     label: labelSchema,
     ...styleProperties,
   },
@@ -182,16 +199,30 @@ const skeletonSchema = {
 
 const expectedRevision = { type: "integer", minimum: 0 } as const;
 
+const readProperties = {
+  cursor: {
+    type: "string",
+    minLength: 3,
+    maxLength: 64,
+    pattern: "^[0-9]+:[0-9]+$",
+  },
+  limit: {
+    type: "integer",
+    minimum: 1,
+    maximum: TOOL_LIMITS.maxReadPageSize,
+  },
+} as const;
+
 const schemas = {
   get_canvas_summary: {
     type: "object",
     additionalProperties: false,
-    properties: {},
+    properties: readProperties,
   },
   get_selection: {
     type: "object",
     additionalProperties: false,
-    properties: {},
+    properties: readProperties,
   },
   add_elements: {
     type: "object",
@@ -306,34 +337,34 @@ export const TOOL_DEFINITIONS = {
     description:
       "Add validated Excalidraw elements to the current canvas as one undoable action.",
     inputSchema: schemas.add_elements,
-    annotations: { readOnlyHint: false, untrustedContentHint: false },
+    annotations: { readOnlyHint: false, untrustedContentHint: true },
   },
   update_elements: {
     title: "Update canvas elements",
     description:
       "Update allowlisted fields on current elements as one undoable action.",
     inputSchema: schemas.update_elements,
-    annotations: { readOnlyHint: false, untrustedContentHint: false },
+    annotations: { readOnlyHint: false, untrustedContentHint: true },
   },
   delete_elements: {
     title: "Delete canvas elements",
     description: "Delete current elements by stable ID as one undoable action.",
     inputSchema: schemas.delete_elements,
-    annotations: { readOnlyHint: false, untrustedContentHint: false },
+    annotations: { readOnlyHint: false, untrustedContentHint: true },
   },
   fit_to_content: {
     title: "Focus canvas content",
     description:
       "Move the visible viewport to the current selection or all canvas elements.",
     inputSchema: schemas.fit_to_content,
-    annotations: { readOnlyHint: false, untrustedContentHint: false },
+    annotations: { readOnlyHint: false, untrustedContentHint: true },
   },
   organize_diagram: {
     title: "Organize diagram",
     description:
       "Arrange supported current nodes with a deterministic local layout as one undoable action.",
     inputSchema: schemas.organize_diagram,
-    annotations: { readOnlyHint: false, untrustedContentHint: false },
+    annotations: { readOnlyHint: false, untrustedContentHint: true },
   },
 } as const;
 

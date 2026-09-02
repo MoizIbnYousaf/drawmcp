@@ -106,4 +106,44 @@ describe("organizeDiagram", () => {
     expect(result.skippedIds).not.toContain("label_b");
     expect(result.movedIds).toContain("label_b");
   });
+
+  it("keeps a bound straight connector attached to moved nodes", () => {
+    const elements = [
+      node("a", 100, 100),
+      node("b", 500, 300),
+      {
+        id: "edge",
+        type: "arrow",
+        x: 200,
+        y: 130,
+        width: 300,
+        height: 200,
+        points: [
+          [0, 0],
+          [300, 200],
+        ],
+        startBinding: { elementId: "a" },
+        endBinding: { elementId: "b" },
+      },
+    ];
+    const result = organizeDiagram(
+      elements,
+      new Set(elements.map(({ id }) => id)),
+      "horizontal",
+      50,
+    );
+    const edge = result.elements.find(({ id }) => id === "edge")!;
+    expect(edge).toMatchObject({
+      x: 200,
+      y: 130,
+      width: 50,
+      height: 0,
+      points: [
+        [0, 0],
+        [50, 0],
+      ],
+    });
+    expect(result.movedIds).toContain("edge");
+    expect(result.skippedIds).not.toContain("edge");
+  });
 });

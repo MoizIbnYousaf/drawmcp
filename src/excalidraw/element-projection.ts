@@ -19,6 +19,7 @@ export type ProjectedElement = {
   height: number;
   angle?: number;
   text?: string;
+  text_truncated?: boolean;
   stroke_color?: string;
   background_color?: string;
   opacity?: number;
@@ -26,7 +27,9 @@ export type ProjectedElement = {
   container_id?: string | null;
   start_binding_id?: string | null;
   end_binding_id?: string | null;
-  points?: unknown;
+  point_count?: number;
+  start_point?: unknown;
+  end_point?: unknown;
 };
 
 export type SceneBounds = {
@@ -60,8 +63,12 @@ export const projectElement = (element: CanvasElement): ProjectedElement => {
 
   if (typeof element.angle === "number") projected.angle = element.angle;
   const text = optionalString(element.text);
-  if (text !== undefined)
-    projected.text = text.slice(0, TOOL_LIMITS.maxTextLength);
+  if (text !== undefined) {
+    projected.text = text.slice(0, TOOL_LIMITS.maxProjectedTextLength);
+    if (text.length > TOOL_LIMITS.maxProjectedTextLength) {
+      projected.text_truncated = true;
+    }
+  }
   const strokeColor = optionalString(element.strokeColor);
   if (strokeColor !== undefined) projected.stroke_color = strokeColor;
   const backgroundColor = optionalString(element.backgroundColor);
@@ -76,7 +83,11 @@ export const projectElement = (element: CanvasElement): ProjectedElement => {
   if (startBindingId !== undefined) projected.start_binding_id = startBindingId;
   const endBindingId = bindingId(element.endBinding);
   if (endBindingId !== undefined) projected.end_binding_id = endBindingId;
-  if (Array.isArray(element.points)) projected.points = element.points;
+  if (Array.isArray(element.points) && element.points.length > 0) {
+    projected.point_count = element.points.length;
+    projected.start_point = element.points[0];
+    projected.end_point = element.points.at(-1);
+  }
   return projected;
 };
 
