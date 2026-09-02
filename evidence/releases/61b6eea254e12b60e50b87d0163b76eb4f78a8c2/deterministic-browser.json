@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-09-02T09:39:24.147Z",
+  "target_url": "http://127.0.0.1:56829/canvas",
+  "expected_tools": [
+    "get_canvas_summary",
+    "get_selection",
+    "add_elements",
+    "update_elements",
+    "delete_elements",
+    "fit_to_content",
+    "organize_diagram"
+  ],
+  "steps": [
+    {
+      "name": "empty canvas and selection reads",
+      "passed": true,
+      "duration_ms": 2.325708000000077
+    },
+    {
+      "name": "security: unknown read argument",
+      "passed": true,
+      "duration_ms": 0.8138340000000426
+    },
+    {
+      "name": "security: empty add array",
+      "passed": true,
+      "duration_ms": 2.3508750000000873
+    },
+    {
+      "name": "security: cursor past the scene",
+      "passed": true,
+      "duration_ms": 0.7293340000001081
+    },
+    {
+      "name": "security: oversized coordinate",
+      "passed": true,
+      "duration_ms": 1.5965419999999995
+    },
+    {
+      "name": "security: oversized text",
+      "passed": true,
+      "duration_ms": 0.9274589999999989
+    },
+    {
+      "name": "security: missing update target",
+      "passed": true,
+      "duration_ms": 1.2319170000000668
+    },
+    {
+      "name": "security: missing delete target",
+      "passed": true,
+      "duration_ms": 0.9678750000000491
+    },
+    {
+      "name": "security: empty selection focus",
+      "passed": true,
+      "duration_ms": 0.5724170000000868
+    },
+    {
+      "name": "security: empty scene organization",
+      "passed": true,
+      "duration_ms": 0.6176249999998618
+    },
+    {
+      "name": "security: URL-shaped unsupported element",
+      "passed": true,
+      "duration_ms": 0.5378330000000915
+    },
+    {
+      "name": "security: missing binding target",
+      "passed": true,
+      "duration_ms": 0.8619579999999587
+    },
+    {
+      "name": "connected diagram creation",
+      "passed": true,
+      "duration_ms": 29.16358299999979
+    },
+    {
+      "name": "update, no-op, organize, and focus",
+      "passed": true,
+      "duration_ms": 65.78166699999997
+    },
+    {
+      "name": "delete and stale-write recovery",
+      "passed": true,
+      "duration_ms": 234.46858399999996
+    },
+    {
+      "name": "prompt-injection text remains bounded data",
+      "passed": true,
+      "duration_ms": 233.24454200000014
+    },
+    {
+      "name": "native Undo, Redo, and reload recovery",
+      "passed": true,
+      "duration_ms": 962.0205000000001
+    }
+  ],
+  "console_errors": [],
+  "passed": true
+}
