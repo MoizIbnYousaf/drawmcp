@@ -31,7 +31,9 @@ export class WebMcpRegistry {
   private readonly maxPollAttempts: number;
   private registrationController?: AbortController;
   private pollTimer?: ReturnType<typeof setTimeout>;
+  private settlePoll?: () => void;
   private disposed = false;
+  private lifecycle = 0;
   private state: RegistryState = { status: "detecting", registeredCount: 0 };
 
   constructor(options: RegistryOptions = {}) {
@@ -43,11 +45,14 @@ export class WebMcpRegistry {
   }
 
   async start(tools: ModelContextTool[]): Promise<RegistryState> {
+    this.registrationController?.abort();
+    this.settlePoll?.();
+    const lifecycle = ++this.lifecycle;
     this.disposed = false;
     this.updateState({ status: "detecting", registeredCount: 0 });
-    const context = await this.detectModelContext();
-    if (!context || this.disposed) {
-      const next = this.disposed
+    const context = await this.detectModelContext(lifecycle);
+    if (!context || this.disposed || lifecycle !== this.lifecycle) {
+      const next = this.disposed || lifecycle !== this.lifecycle
         ? { status: "disposed" as const, registeredCount: 0 }
         : { status: "unsupported" as const, registeredCount: 0 };
       this.updateState(next);
@@ -55,18 +60,30 @@ export class WebMcpRegistry {
     }
 
     this.registrationController = new AbortController();
+    const registrationController = this.registrationController;
     this.updateState({ status: "registering", registeredCount: 0 });
     try {
-      await Promise.all(
+      const registrations = Promise.all(
         tools.map((tool) =>
           Promise.resolve(
             context.registerTool(tool, {
-              signal: this.registrationController?.signal,
+              signal: registrationController.signal,
             }),
           ),
         ),
       );
-      if (this.disposed) {
+      void registrations.catch(() => undefined);
+      await Promise.race([
+        registrations,
+        new Promise<void>((resolve) =>
+          registrationController.signal.addEventListener(
+            "abort",
+            () => resolve(),
+            { once: true },
+          ),
+        ),
+      ]);
+      if (this.disposed || lifecycle !== this.lifecycle) {
         return this.state;
       }
       const next = {
@@ -76,7 +93,8 @@ export class WebMcpRegistry {
       this.updateState(next);
       return next;
     } catch (error) {
-      this.registrationController.abort();
+      registrationController.abort();
+      if (this.disposed || lifecycle !== this.lifecycle) return this.state;
       const next = {
         status: "error" as const,
         registeredCount: 0,
@@ -89,10 +107,8 @@ export class WebMcpRegistry {
 
   dispose(): void {
     this.disposed = true;
-    if (this.pollTimer) {
-      clearTimeout(this.pollTimer);
-      this.pollTimer = undefined;
-    }
+    this.lifecycle += 1;
+    this.settlePoll?.();
     this.registrationController?.abort();
     this.registrationController = undefined;
     this.updateState({ status: "disposed", registeredCount: 0 });
@@ -107,20 +123,29 @@ export class WebMcpRegistry {
     this.onStateChange?.(state);
   }
 
-  private async detectModelContext(): Promise<ModelContext | undefined> {
+  private async detectModelContext(
+    lifecycle: number,
+  ): Promise<ModelContext | undefined> {
     const immediate = this.getModelContext();
     if (immediate) {
       return immediate;
     }
 
     for (let attempt = 0; attempt < this.maxPollAttempts; attempt += 1) {
-      if (this.disposed) {
+      if (this.disposed || lifecycle !== this.lifecycle) {
         return undefined;
       }
       await new Promise<void>((resolve) => {
-        this.pollTimer = setTimeout(resolve, this.pollIntervalMs);
+        const finish = () => {
+          if (this.pollTimer) clearTimeout(this.pollTimer);
+          this.pollTimer = undefined;
+          this.settlePoll = undefined;
+          resolve();
+        };
+        this.settlePoll = finish;
+        this.pollTimer = setTimeout(finish, this.pollIntervalMs);
       });
-      this.pollTimer = undefined;
+      if (this.disposed || lifecycle !== this.lifecycle) return undefined;
       const context = this.getModelContext();
       if (context) {
         return context;

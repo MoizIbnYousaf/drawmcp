@@ -28,7 +28,7 @@ export type ModelContext = {
   registerTool: (
     tool: ModelContextTool,
     options?: ToolRegistrationOptions,
-  ) => void | Promise<void>;
+  ) => Promise<void>;
 };
 
 declare global {

@@ -84,6 +84,25 @@ describe("WebMcpRegistry", () => {
     vi.useRealTimers();
   });
 
+  it("settles detection promptly when disposed during a poll", async () => {
+    const registry = new WebMcpRegistry({
+      getModelContext: () => undefined,
+      pollIntervalMs: 10_000,
+      maxPollAttempts: 2,
+    });
+    const started = registry.start([createTool()]);
+    await Promise.resolve();
+    registry.dispose();
+    await expect(
+      Promise.race([
+        started,
+        new Promise((resolve) =>
+          setTimeout(() => resolve({ status: "timed_out" }), 100),
+        ),
+      ]),
+    ).resolves.toMatchObject({ status: "disposed" });
+  });
+
   it("reports synchronous and asynchronous registration failures", async () => {
     const syncRegistry = new WebMcpRegistry({
       getModelContext: () => ({

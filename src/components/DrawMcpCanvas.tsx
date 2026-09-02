@@ -5,9 +5,14 @@ import {
   newElementWith,
 } from "@excalidraw/excalidraw";
 import "@excalidraw/excalidraw/index.css";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { CanvasService, type CanvasApi } from "../excalidraw/canvas-service";
 import type { CanvasElement } from "../excalidraw/element-projection";
+import {
+  loadLocalScene,
+  saveLocalScene,
+  type StorageLike,
+} from "../excalidraw/local-scene-store";
 import {
   subscribeToolMetrics,
   type ToolMetric,
@@ -22,6 +27,16 @@ type DrawMcpCanvasProps = {
 };
 
 export const DrawMcpCanvas = ({ onServiceReady }: DrawMcpCanvasProps) => {
+  const [sceneStorage] = useState<StorageLike | null>(() => {
+    try {
+      return window.localStorage;
+    } catch {
+      return null;
+    }
+  });
+  const [initialScene] = useState(() =>
+    sceneStorage ? loadLocalScene(sceneStorage) : null,
+  );
   const [service] = useState(
     () =>
       new CanvasService({
@@ -41,14 +56,14 @@ export const DrawMcpCanvas = ({ onServiceReady }: DrawMcpCanvasProps) => {
     registeredCount: 0,
   });
   const [lastMetric, setLastMetric] = useState<ToolMetric | null>(null);
+  const serviceReady = useRef(false);
+  const persistenceTimer = useRef<ReturnType<typeof setTimeout>>();
 
   const handleApi = useCallback(
     (api: CanvasApi) => {
       service.attach(api);
-      setCanvasReady(true);
-      onServiceReady?.(service);
     },
-    [onServiceReady, service],
+    [service],
   );
 
   const handleChange = useCallback(
@@ -56,13 +71,33 @@ export const DrawMcpCanvas = ({ onServiceReady }: DrawMcpCanvasProps) => {
       elements: unknown,
       appState: { selectedElementIds?: Record<string, boolean> },
       files: Record<string, unknown>,
-    ) =>
-      service.observeEditorChange(elements as CanvasElement[], appState, files),
-    [service],
+    ) => {
+      const sceneElements = elements as CanvasElement[];
+      service.observeEditorChange(sceneElements, appState, files);
+      if (!serviceReady.current) {
+        serviceReady.current = true;
+        setCanvasReady(true);
+        onServiceReady?.(service);
+      }
+      if (persistenceTimer.current) clearTimeout(persistenceTimer.current);
+      persistenceTimer.current = setTimeout(() => {
+        if (sceneStorage) {
+          saveLocalScene(
+            sceneStorage,
+            sceneElements,
+            appState as Record<string, unknown>,
+          );
+        }
+      }, 500);
+    },
+    [onServiceReady, sceneStorage, service],
   );
 
   useEffect(() => {
-    return () => service.detach();
+    return () => {
+      if (persistenceTimer.current) clearTimeout(persistenceTimer.current);
+      service.detach();
+    };
   }, [service]);
 
   useEffect(() => service.subscribe(setCanvasStatus), [service]);
@@ -81,6 +116,14 @@ export const DrawMcpCanvas = ({ onServiceReady }: DrawMcpCanvasProps) => {
         <Excalidraw
           autoFocus
           handleKeyboardGlobally
+          initialData={
+            (initialScene
+              ? {
+                  elements: initialScene.elements,
+                  appState: initialScene.appState,
+                }
+              : undefined) as never
+          }
           name="DrawMCP"
           excalidrawAPI={handleApi as never}
           onChange={handleChange as never}
