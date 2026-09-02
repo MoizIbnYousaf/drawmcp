@@ -86,48 +86,65 @@
   color: var(--ink);
 }
 
-.button {
+.drawably-link-card {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  font-size: 0.86rem;
+  font-weight: 700;
+  transition: transform 150ms ease;
+}
+
+.drawably-link-card a {
   min-height: 44px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 11px;
   padding: 0 18px;
-  border: 1px solid transparent;
-  border-radius: 12px;
-  font-size: 0.86rem;
-  font-weight: 700;
+  color: inherit;
   text-decoration: none;
-  transition: transform 150ms ease, box-shadow 150ms ease, background 150ms ease;
 }
 
-.button:hover {
+.drawably-link-card:hover {
   transform: translateY(-1px);
 }
 
-.button-dark {
-  background: var(--ink);
+.drawably-link-card-dark {
   color: #fff;
-  box-shadow: 0 8px 20px rgba(28, 28, 25, 0.16);
 }
 
-.button-dark:hover {
-  background: #30302c;
-  box-shadow: 0 10px 24px rgba(28, 28, 25, 0.22);
+.drawably-link-card-dark .drawably-svg .drawably-outline {
+  fill: var(--ink);
 }
 
-.button-ghost {
-  border-color: #cfcdc4;
-  background: rgba(255, 255, 255, 0.44);
+.drawably-link-card-paper {
   color: var(--ink);
+}
+
+.drawably-link-card-paper .drawably-svg .drawably-outline {
+  fill: rgba(255, 255, 255, 0.48);
+}
+
+.drawably-link-card-green .drawably-svg .drawably-outline {
+  fill: var(--green-soft);
+}
+
+.button-dark {
+  color: #fff;
 }
 
 .button-small {
   min-height: 38px;
   margin-left: 8px;
-  padding-inline: 14px;
-  border-radius: 10px;
   font-size: 0.79rem;
+}
+
+.button-small a {
+  min-height: 38px;
+  padding-inline: 14px;
 }
 
 .canvas-live-label {
@@ -238,7 +255,7 @@
   position: relative;
   min-height: 570px;
   overflow: hidden;
-  border: 1px solid #d7d4ca;
+  padding: 0;
   border-radius: 31px 26px 34px 25px;
   background: var(--paper-bright);
   box-shadow: 0 36px 70px rgba(52, 48, 36, 0.11);
@@ -261,7 +278,6 @@
   display: grid;
   gap: 8px;
   padding: 25px 26px;
-  border: 2px solid #2b2a26;
   font-family: "Comic Sans MS", "Bradley Hand", cursive;
   box-shadow: 5px 7px 0 rgba(37, 36, 32, 0.08);
 }
@@ -413,7 +429,6 @@
   display: grid;
   grid-template-rows: auto auto 1fr auto;
   padding: clamp(26px, 4vw, 44px);
-  border: 1px solid rgba(255, 255, 255, 0.13);
   border-radius: var(--radius);
   background: #2b2b27;
 }
@@ -533,7 +548,6 @@
 
 .metric-callout,
 .metric-visual {
-  border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--paper-bright);
 }
@@ -636,6 +650,11 @@
   font-size: 0.68rem;
 }
 
+.site-footer a {
+  color: inherit;
+  font-weight: 700;
+}
+
 /* Canvas */
 .canvas-page {
   height: 100vh;
@@ -693,6 +712,12 @@
   font-size: 0.72rem;
   font-weight: 600;
   backdrop-filter: blur(8px);
+}
+
+.webmcp-status-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #d59f24; }
@@ -800,6 +825,7 @@
 }
 
 .tool-reference {
+  padding: 0;
   overflow: hidden;
   margin: 30px 0;
   border: 1px solid var(--line);
@@ -859,6 +885,7 @@
 }
 
 .observed-table {
+  padding: 0;
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: 18px;
@@ -960,9 +987,9 @@
 .protocol-copy h2 { font-size: clamp(2.5rem, 4vw, 4rem); }
 .protocol-copy > p:last-child { margin-top: 26px; }
 .protocol-checks { overflow: hidden; border: 1px solid var(--line); border-radius: 18px; background: var(--paper-bright); }
-.protocol-checks div { display: flex; align-items: center; gap: 12px; padding: 18px 20px; color: #57554e; font-size: 0.79rem; }
-.protocol-checks div + div { border-top: 1px solid var(--line); }
-.protocol-checks span { width: 23px; height: 23px; display: grid; place-items: center; border-radius: 50%; background: var(--green-soft); color: var(--green); font-weight: 900; }
+.protocol-checks { margin: 0; padding: 0; list-style: none; }
+.protocol-checks li { min-height: 58px; display: flex; align-items: center; padding: 18px 20px 18px 42px; color: #57554e; font-size: 0.79rem; }
+.protocol-checks li + li { border-top: 1px solid var(--line); }
 
 .boundary-grid {
   display: grid;
@@ -974,7 +1001,7 @@
   overflow: hidden;
 }
 
-.boundary-grid article { min-height: 220px; padding: 27px; background: #2a2a26; }
+.boundary-grid > .drawably-card { min-height: 220px; padding: 27px; background: #2a2a26; }
 .boundary-grid span { color: #77746d; font-family: ui-monospace, monospace; font-size: 0.66rem; }
 .boundary-grid h3 { margin: 62px 0 10px; font-size: 1.12rem; }
 .boundary-grid p { margin: 0; color: #aaa79e; font-size: 0.76rem; line-height: 1.6; }
