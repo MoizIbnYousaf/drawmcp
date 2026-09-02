@@ -14,7 +14,7 @@ export const BenchmarksPage = () => (
   <main className="site-page benchmark-page">
     <SiteHeader current="benchmarks" />
 
-    <section className="benchmark-hero section-shell">
+    <section className="benchmark-hero section-shell" id="main-content" tabIndex={-1}>
       <p className="section-kicker">Verified live result</p>
       <h1>
         WebMCP was{" "}

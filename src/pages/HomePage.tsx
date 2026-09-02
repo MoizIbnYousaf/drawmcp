@@ -5,6 +5,7 @@ import {
   DrawablyHighlight,
   DrawablyUnderline,
 } from "drawably/react";
+import { useRef, useState } from "react";
 import { DrawablyLink } from "../components/DrawablyLink";
 import { SiteHeader } from "../components/SiteHeader";
 import { liveBenchmarkEvidence } from "../data/live-benchmark-evidence";
@@ -38,32 +39,66 @@ const DemoVideo = ({
   label: string;
   poster: string;
   src: string;
-}) => (
-  <figure className="comparison-video">
-    <video
-      aria-label={label}
-      autoPlay
-      data-testid="comparison-video"
-      disablePictureInPicture
-      loop
-      muted
-      playsInline
-      poster={poster}
-      preload="metadata"
-    >
-      <source src={src} type="video/mp4" />
-    </video>
-    <img aria-hidden="true" className="comparison-video-poster" src={poster} alt="" />
-    <a href={src}>Watch the comparison video.</a>
-    <figcaption className="visually-hidden">{label}.</figcaption>
-  </figure>
-);
+}) => {
+  const video = useRef<HTMLVideoElement>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const togglePlayback = () => {
+    if (!video.current) return;
+    if (video.current.paused) {
+      void video.current.play().catch(() => setIsPlaying(false));
+      return;
+    }
+    video.current.pause();
+  };
+
+  return (
+    <figure className="comparison-video">
+      <video
+        aria-label={label}
+        autoPlay
+        data-testid="comparison-video"
+        disablePictureInPicture
+        loop
+        muted
+        onPause={() => setIsPlaying(false)}
+        onPlay={() => setIsPlaying(true)}
+        playsInline
+        poster={poster}
+        preload="metadata"
+        ref={video}
+      >
+        <source src={src} type="video/mp4" />
+        <a href={src}>Watch the comparison video.</a>
+      </video>
+      <img
+        alt=""
+        aria-hidden="true"
+        className="comparison-video-poster"
+        decoding="async"
+        height="720"
+        loading="lazy"
+        src={poster}
+        width="1280"
+      />
+      <button
+        aria-label={isPlaying ? "Pause comparison video" : "Play comparison video"}
+        className="comparison-video-toggle"
+        onClick={togglePlayback}
+        type="button"
+      >
+        {isPlaying ? "Pause" : "Play"}
+      </button>
+      <figcaption className="visually-hidden">{label}.</figcaption>
+    </figure>
+  );
+};
 
 export const HomePage = () => (
   <main className="site-page home-page">
     <SiteHeader current="home" />
 
-    <section className="hero section-shell">
+    <section className="hero section-shell" id="main-content" tabIndex={-1}>
       <div className="hero-copy">
         <p className="section-kicker">
           <span className="live-dot" aria-hidden="true" />

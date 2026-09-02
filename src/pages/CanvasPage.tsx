@@ -10,7 +10,12 @@ const DrawMcpCanvas = lazy(() =>
 export const CanvasPage = () => (
   <main className="canvas-page">
     <SiteHeader current="canvas" compact />
-    <section className="canvas-shell" aria-label="DrawMCP canvas">
+    <section
+      aria-label="DrawMCP canvas"
+      className="canvas-shell"
+      id="main-content"
+      tabIndex={-1}
+    >
       <Suspense
         fallback={
           <div className="canvas-loading" role="status">

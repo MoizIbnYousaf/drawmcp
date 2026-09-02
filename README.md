@@ -53,7 +53,7 @@ The live tool surface is:
 - `fit_to_content`
 - `organize_diagram`
 
-The current candidate has passed 115 deterministic tests, 17/17 project-owned
+The current candidate has passed 116 deterministic tests, 17/17 project-owned
 browser proof steps, the Chrome Labs runner's 11/11 authored smoke calls, and
 125/125 repeated local-model decisions. In 20 randomized live production pairs,
 DrawMCP completed its two-call rendered task in 13.71 ms p50 while the official

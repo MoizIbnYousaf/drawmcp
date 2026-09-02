@@ -27,6 +27,17 @@ body::after {
   box-sizing: border-box;
 }
 
+a,
+button {
+  touch-action: manipulation;
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
 html,
 body,
 #root {
@@ -50,4 +61,22 @@ textarea:focus-visible,
 select:focus-visible {
   outline: 3px solid rgba(108, 92, 231, 0.45);
   outline-offset: 3px;
+}
+
+.skip-link {
+  position: fixed;
+  z-index: 1001;
+  top: 12px;
+  left: 12px;
+  padding: 10px 14px;
+  border-radius: 9px;
+  background: #18181b;
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+  transform: translateY(-160%);
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
 }

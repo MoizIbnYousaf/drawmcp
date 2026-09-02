@@ -583,6 +583,23 @@
 
 .comparison-video-poster { display: none; }
 
+.comparison-video-toggle {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  padding: 8px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
+  background: rgba(24, 24, 27, 0.86);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+}
+
+.comparison-video-toggle:hover { background: #18181b; }
+
 .lane-summary {
   max-width: 500px;
   margin: 0;
@@ -1249,4 +1266,5 @@
 
   .comparison-video video { display: none; }
   .comparison-video-poster { display: block; }
+  .comparison-video-toggle { display: none; }
 }

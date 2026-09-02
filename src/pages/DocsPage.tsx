@@ -38,7 +38,7 @@ export const DocsPage = () => (
         <a href="#ui-system"><DrawablyUnderline>UI system</DrawablyUnderline></a>
       </aside>
 
-      <article className="docs-content">
+      <article className="docs-content" id="main-content" tabIndex={-1}>
         <header className="docs-hero">
           <p className="section-kicker">DrawMCP documentation</p>
           <h1>

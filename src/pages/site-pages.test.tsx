@@ -1,8 +1,10 @@
-import { render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { fireEvent, render, screen } from "@testing-library/react";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { BenchmarksPage } from "./BenchmarksPage";
 import { DocsPage } from "./DocsPage";
 import { HomePage } from "./HomePage";
+
+afterEach(() => vi.restoreAllMocks());
 
 describe("DrawMCP site pages", () => {
   it("uses Moiz's approved copy and the verified protocol comparison", () => {
@@ -42,8 +44,42 @@ describe("DrawMCP site pages", () => {
         source.getAttribute("src"),
       ),
     ).toEqual(["/videos/mcp-vs-webmcp.mp4"]);
+    expect(
+      screen.getByRole("button", { name: "Play comparison video" }),
+    ).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Skip to content" })).toHaveAttribute(
+      "href",
+      "#main-content",
+    );
+    expect(container.querySelector("#main-content")).toHaveAttribute(
+      "tabindex",
+      "-1",
+    );
     expect(screen.getAllByRole("link", { name: /Results/ })).not.toHaveLength(0);
     expect(screen.queryByText(/tic-tac-toe/i)).not.toBeInTheDocument();
+  });
+
+  it("lets the viewer pause and resume the autoplay comparison", () => {
+    const play = vi
+      .spyOn(HTMLMediaElement.prototype, "play")
+      .mockResolvedValue();
+    const pause = vi
+      .spyOn(HTMLMediaElement.prototype, "pause")
+      .mockImplementation(() => undefined);
+    render(<HomePage />);
+    const video = screen.getByTestId("comparison-video");
+
+    Object.defineProperty(video, "paused", { configurable: true, value: false });
+    fireEvent.click(
+      screen.getByRole("button", { name: "Play comparison video" }),
+    );
+    expect(pause).toHaveBeenCalledOnce();
+
+    Object.defineProperty(video, "paused", { configurable: true, value: true });
+    fireEvent.click(
+      screen.getByRole("button", { name: "Play comparison video" }),
+    );
+    expect(play).toHaveBeenCalledOnce();
   });
 
   it("documents both the page-native and official MCP setup", () => {

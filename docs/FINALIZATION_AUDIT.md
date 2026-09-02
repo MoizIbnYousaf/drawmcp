@@ -13,7 +13,7 @@ artifact paths in that manifest.
 | Proof level | Status | Authoritative evidence |
 | --- | --- | --- |
 | Static contract | Passed locally | Generated `evals/tools.json`, lint, TypeScript build, and closed-schema tests |
-| Unit and component behavior | Passed locally | 115/115 tests; durable unit summary linked by the release manifest |
+| Unit and component behavior | Passed locally | 116/116 tests; durable unit summary linked by the release manifest |
 | Real Chrome WebMCP behavior | Passed locally | 17/17 development-server steps, 17/17 production-build CSP steps, and 11/11 Chrome Labs smoke calls |
 | Responsive product rendering | Passed locally | 9/9 desktop/mobile route checks, including the retired game query, with screenshots, asset checks, clipping detection, and zero console errors |
 | Repeated model decisions | Passed locally | 125/125 accepted Qwen decisions, five runs per case, exact production-schema argument validation, and zero safety violations |
@@ -35,7 +35,7 @@ artifact paths in that manifest.
 | R5-R8: mutation liveness, Excalidraw API, revisions, stale guards | Proven across no-op, abort, editor failure, timeout, detach, competing edit, queue recovery, real browser mutations, and Undo/Redo |
 | R9: local reload recovery | Proven for the versioned non-file scene subset; prior-session Undo/Redo is explicitly excluded |
 | R10: connected supported diagrams | Proven for labeled nodes and bound connectors through add, update, organize, human continuation, Undo, and Redo; unsupported types are reported rather than claimed as parity |
-| R11: deterministic coverage | Proven by 115 tests plus the 17-step semantic browser journey under both development and production CSP, the external 11-step smoke layer, and a generic shared-canvas continuity journey |
+| R11: deterministic coverage | Proven by 116 tests plus the 17-step semantic browser journey under both development and production CSP, the external 11-step smoke layer, and a generic shared-canvas continuity journey |
 | R12: probabilistic and adversarial coverage | Proven locally for direct, ambiguous, recovery, no-tool, and injection cases; judged-host confirmation remains a production gate |
 | R13: production verification | Executed against the optimized production runtime; the same exact-revision checks are repeated after the final presentation deployment |
 | R14-R17: benchmark boundaries, controls, statistics, oracle | Proven for controlled local and live production strata; the live task speedup is published separately from unmeasured model decision time |
