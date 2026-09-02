@@ -74,7 +74,7 @@ Before any push or Vercel deployment, present the user with:
 4. the exact Git push and Vercel production actions proposed; and
 5. a clear yes/no approval request.
 
-After approval, verify the deployed commit, deployment ID, domain alias, TLS and
+After approval, verify `/release.json`, the deployed commit, deployment ID, domain alias, TLS and
 security headers, seven-tool inventory, 17-step semantic journey, 11-step smoke
 run, 8-route visual run, small throttled live-service observation, and the manual
 human-edit continuation. Repository-public visibility and final Devpost submit
