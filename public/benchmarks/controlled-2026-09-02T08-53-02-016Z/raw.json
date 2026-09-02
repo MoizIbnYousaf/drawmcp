@@ -1,0 +1,6358 @@
+{
+  "schema_version": 2,
+  "run_id": "controlled-2026-09-02T08-53-02-016Z",
+  "recorded_at": "2026-09-02T08:53:02.016Z",
+  "environment": {
+    "machine": "darwin arm64",
+    "os_release": "25.6.0",
+    "node": "v22.23.1",
+    "chrome": "Chrome/152.0.7977.65",
+    "drawmcp_commit": "8a2eb7fd26407c5382d018f49ffde6c7f5fe2a8c",
+    "drawmcp_dirty": false,
+    "excalidraw_mcp_commit": "157aa23ceb1976008aadc89eb05e3444060f09d6"
+  },
+  "method": {
+    "stratum": "controlled-local",
+    "random_seed": 20260902,
+    "warm_pairs": 100,
+    "cold_pairs": 10,
+    "discarded_warmup_pairs": 1,
+    "order": "seeded randomized AB/BA",
+    "webmcp_task_boundary": "Puppeteer WebMCP add_elements plus fit_to_content completion on a mounted local page; component time is the sum of page PerformanceMeasure entries.",
+    "official_mcp_task_boundary": "Streamable HTTP create_view completion on the pinned local server; checkpoint read is an untimed semantic oracle and widget render is excluded.",
+    "comparability": "Task semantics and local machine are controlled. Component durations contain different work and are not an end-to-end protocol ranking."
+  },
+  "scenario": {
+    "path": "benchmarks/scenarios/architecture-diagram.json",
+    "name": "Browser-Agent-Canvas architecture",
+    "required_nodes": 3,
+    "required_edges": 2,
+    "official_registered_tools": [
+      "read_me",
+      "create_view",
+      "export_to_excalidraw",
+      "save_checkpoint",
+      "read_checkpoint"
+    ],
+    "official_model_visible_tools": [
+      "read_me",
+      "create_view"
+    ]
+  },
+  "trials": [
+    {
+      "stratum": "controlled-local",
+      "trial": 1,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 24.233166999999867,
+      "component_duration_ms": 22.700000002980232,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 22.600000008940697
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.09999999403953552
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 1,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 4.5808750000001055,
+      "component_duration_ms": 4.5808750000001055,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 2,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 2.746708000000126,
+      "component_duration_ms": 2.746708000000126,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 2,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 31.573249999999916,
+      "component_duration_ms": 29.599999994039536,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 29.400000005960464
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.19999998807907104
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 3,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 4.682667000000038,
+      "component_duration_ms": 4.682667000000038,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 3,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 33.50141699999995,
+      "component_duration_ms": 31.700000002980232,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 31.5
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 4,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 33.64591699999983,
+      "component_duration_ms": 32,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 31.700000002980232
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.29999999701976776
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 4,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.650000000000091,
+      "component_duration_ms": 3.650000000000091,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 5,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.533541000000241,
+      "component_duration_ms": 3.533541000000241,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 5,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 33.903915999999754,
+      "component_duration_ms": 32.30000001192093,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 32
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.30000001192092896
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 6,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 32.07875000000013,
+      "component_duration_ms": 29.899999991059303,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 29.700000002980232
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.19999998807907104
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 6,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 5.020790999999917,
+      "component_duration_ms": 5.020790999999917,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 7,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 19.690750000000207,
+      "component_duration_ms": 17.299999997019768,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 17.099999994039536
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 7,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.6193750000002183,
+      "component_duration_ms": 3.6193750000002183,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 8,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.786750000000211,
+      "component_duration_ms": 3.786750000000211,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 8,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 32.95225000000028,
+      "component_duration_ms": 31.100000008940697,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 30.900000005960464
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 9,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.7007909999997537,
+      "component_duration_ms": 3.7007909999997537,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 9,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 24.75354100000004,
+      "component_duration_ms": 22.899999991059303,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 22.799999997019768
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.09999999403953552
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 10,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 32.74929199999997,
+      "component_duration_ms": 30.799999997019768,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 30.700000002980232
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.09999999403953552
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 10,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.689542000000074,
+      "component_duration_ms": 3.689542000000074,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 11,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 25.10654199999999,
+      "component_duration_ms": 23.700000002980232,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 23.400000005960464
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.29999999701976776
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 11,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 4.139208999999937,
+      "component_duration_ms": 4.139208999999937,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 12,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 21.005540999999994,
+      "component_duration_ms": 19.099999994039536,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 19
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.09999999403953552
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 12,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.822708000000148,
+      "component_duration_ms": 3.822708000000148,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 13,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 2.1435419999997976,
+      "component_duration_ms": 2.1435419999997976,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 13,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 20.959124999999858,
+      "component_duration_ms": 18.600000008940697,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 18.400000005960464
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 14,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 31.552542000000358,
+      "component_duration_ms": 29.49999998509884,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 29.19999998807907
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.29999999701976776
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 14,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.6681250000001455,
+      "component_duration_ms": 3.6681250000001455,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 15,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 20.504957999999988,
+      "component_duration_ms": 19.099999994039536,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 18.899999991059303
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 15,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.625916999999845,
+      "component_duration_ms": 3.625916999999845,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 16,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 25.585124999999607,
+      "component_duration_ms": 23.600000008940697,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 23.400000005960464
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 16,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.8522499999999127,
+      "component_duration_ms": 3.8522499999999127,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 17,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.0477499999997235,
+      "component_duration_ms": 3.0477499999997235,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 17,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 35.21708299999955,
+      "component_duration_ms": 32.80000001192093,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 32.6000000089407
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 18,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 30.87366699999984,
+      "component_duration_ms": 29.19999998807907,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 29
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.19999998807907104
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 18,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.6287499999998545,
+      "component_duration_ms": 3.6287499999998545,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 19,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.3654169999999795,
+      "component_duration_ms": 3.3654169999999795,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 19,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 32.949791000000005,
+      "component_duration_ms": 31,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 30.799999997019768
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 20,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.4934170000005906,
+      "component_duration_ms": 3.4934170000005906,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 20,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 25.009250000000065,
+      "component_duration_ms": 23.200000002980232,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 23.100000008940697
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.09999999403953552
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 21,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 48.20133299999998,
+      "component_duration_ms": 39.400000005960464,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 39.20000000298023
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 21,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.892541000000165,
+      "component_duration_ms": 3.892541000000165,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 22,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 25.413250000000517,
+      "component_duration_ms": 23.900000005960464,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 23.700000002980232
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 22,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 2.1487919999999576,
+      "component_duration_ms": 2.1487919999999576,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 23,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 29.390166999999565,
+      "component_duration_ms": 27.700000002980232,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 27.5
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 23,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.4380419999997684,
+      "component_duration_ms": 3.4380419999997684,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 24,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 28.318583000000217,
+      "component_duration_ms": 26.30000001192093,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 26.100000008940697
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 24,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.4988750000002256,
+      "component_duration_ms": 3.4988750000002256,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 25,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.172165999999379,
+      "component_duration_ms": 3.172165999999379,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 25,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 35.30662500000017,
+      "component_duration_ms": 33.400000005960464,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 33.20000000298023
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 26,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 32.59320800000023,
+      "component_duration_ms": 30.799999997019768,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 30.5
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.29999999701976776
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 26,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.7519579999998314,
+      "component_duration_ms": 3.7519579999998314,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 27,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.594708999999966,
+      "component_duration_ms": 3.594708999999966,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 27,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 32.73112500000025,
+      "component_duration_ms": 31.100000008940697,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 30.900000005960464
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 28,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 31.02112500000021,
+      "component_duration_ms": 29.100000008940697,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 28.900000005960464
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 28,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.5045420000005834,
+      "component_duration_ms": 3.5045420000005834,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 29,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.2182089999996606,
+      "component_duration_ms": 3.2182089999996606,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 29,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 21.683207999999468,
+      "component_duration_ms": 20.099999994039536,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 20
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.09999999403953552
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 30,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.6764579999999114,
+      "component_duration_ms": 3.6764579999999114,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 30,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 26.160124999999425,
+      "component_duration_ms": 24.399999991059303,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 24.299999997019768
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.09999999403953552
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 31,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 4.126749999999447,
+      "component_duration_ms": 4.126749999999447,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 31,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 21.675959000000148,
+      "component_duration_ms": 19.799999997019768,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 19.700000002980232
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.09999999403953552
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 32,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.6986249999999927,
+      "component_duration_ms": 3.6986249999999927,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 32,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 35.616250000000036,
+      "component_duration_ms": 33.5,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 33.400000005960464
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.09999999403953552
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 33,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 26.83129199999985,
+      "component_duration_ms": 24.899999976158142,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 24.69999998807907
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.19999998807907104
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 33,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.6304580000005444,
+      "component_duration_ms": 3.6304580000005444,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 34,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 33.10624999999982,
+      "component_duration_ms": 31.299999997019768,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 31
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.29999999701976776
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 34,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.7378329999992275,
+      "component_duration_ms": 3.7378329999992275,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 35,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.2549589999998716,
+      "component_duration_ms": 3.2549589999998716,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 35,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 28.425125000000662,
+      "component_duration_ms": 26.5,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 26.400000005960464
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.09999999403953552
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 36,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 30.018207999999504,
+      "component_duration_ms": 26,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 25.799999997019768
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 36,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.593499999999949,
+      "component_duration_ms": 3.593499999999949,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 37,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 22.59729199999947,
+      "component_duration_ms": 20.399999991059303,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 20.200000002980232
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.19999998807907104
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 37,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.58391599999959,
+      "component_duration_ms": 3.58391599999959,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 38,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.3548749999999927,
+      "component_duration_ms": 3.3548749999999927,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 38,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 25.475875000000087,
+      "component_duration_ms": 23.700000002980232,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 23.5
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 39,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.593499999999949,
+      "component_duration_ms": 3.593499999999949,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 39,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 20.548666999999114,
+      "component_duration_ms": 18.099999994039536,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 17.899999991059303
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 40,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.608624999999847,
+      "component_duration_ms": 3.608624999999847,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 40,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 23.290667000000212,
+      "component_duration_ms": 21.299999997019768,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 21.099999994039536
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 41,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 31.72570900000028,
+      "component_duration_ms": 29.69999998807907,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 29.5
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.19999998807907104
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 41,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.619959000000563,
+      "component_duration_ms": 3.619959000000563,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 42,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 34.38933300000008,
+      "component_duration_ms": 31,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 30.799999997019768
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 42,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.5043329999998605,
+      "component_duration_ms": 3.5043329999998605,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 43,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.403291999999965,
+      "component_duration_ms": 3.403291999999965,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 43,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 28.81483399999979,
+      "component_duration_ms": 26.80000001192093,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 26.600000008940697
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 44,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 25.964708999999857,
+      "component_duration_ms": 24,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 23.799999997019768
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 44,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.496000000001004,
+      "component_duration_ms": 3.496000000001004,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 45,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.465750000001208,
+      "component_duration_ms": 3.465750000001208,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 45,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 37.80333400000018,
+      "component_duration_ms": 34.69999998807907,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 34.599999994039536
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.09999999403953552
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 46,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.493333000000348,
+      "component_duration_ms": 3.493333000000348,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 46,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 22.703709000001254,
+      "component_duration_ms": 20.799999997019768,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 20.700000002980232
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.09999999403953552
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 47,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 20.700208000000202,
+      "component_duration_ms": 18.30000001192093,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 18.100000008940697
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 47,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.627249999999549,
+      "component_duration_ms": 3.627249999999549,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 48,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 26.56999999999971,
+      "component_duration_ms": 24.399999991059303,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 24.299999997019768
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.09999999403953552
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 48,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.532583000000159,
+      "component_duration_ms": 3.532583000000159,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 49,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 97.5406669999993,
+      "component_duration_ms": 90.6000000089407,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 90.40000000596046
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 49,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 4.194166999999652,
+      "component_duration_ms": 4.194166999999652,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 50,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 35.543541999999434,
+      "component_duration_ms": 32.30000001192093,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 32.1000000089407
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 50,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 2.253375000000233,
+      "component_duration_ms": 2.253375000000233,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 51,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 34.17079199999898,
+      "component_duration_ms": 32.400000005960464,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 32.20000000298023
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 51,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.6939170000005106,
+      "component_duration_ms": 3.6939170000005106,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 52,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 2.23504099999991,
+      "component_duration_ms": 2.23504099999991,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 52,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 35.496666999999434,
+      "component_duration_ms": 32.400000005960464,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 32.20000000298023
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 53,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 33.56775000000016,
+      "component_duration_ms": 31.69999998807907,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 31.5
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.19999998807907104
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 53,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.649208999999246,
+      "component_duration_ms": 3.649208999999246,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 54,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.642042000001311,
+      "component_duration_ms": 3.642042000001311,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 54,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 31.526834000000235,
+      "component_duration_ms": 29.50000001490116,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 29.200000002980232
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.30000001192092896
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 55,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.7376249999997526,
+      "component_duration_ms": 3.7376249999997526,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 55,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 31.23883299999943,
+      "component_duration_ms": 29.30000001192093,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 29.100000008940697
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 56,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.632792000000336,
+      "component_duration_ms": 3.632792000000336,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 56,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 25.540250000000015,
+      "component_duration_ms": 23.400000005960464,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 23.299999997019768
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.10000000894069672
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 57,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 31.098833000000013,
+      "component_duration_ms": 29.099999994039536,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 29
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.09999999403953552
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 57,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.634541999999783,
+      "component_duration_ms": 3.634541999999783,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 58,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.346958000000086,
+      "component_duration_ms": 3.346958000000086,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 58,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 26.073833000000377,
+      "component_duration_ms": 24.30000001192093,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 24
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.30000001192092896
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 59,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 25.01158299999952,
+      "component_duration_ms": 22.30000001192093,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 22.200000002980232
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.10000000894069672
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 59,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.78595900000073,
+      "component_duration_ms": 3.78595900000073,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 60,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 1.948499999998603,
+      "component_duration_ms": 1.948499999998603,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 60,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 30.787125000000742,
+      "component_duration_ms": 28.899999991059303,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 28.69999998807907
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 61,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 26.75120799999968,
+      "component_duration_ms": 24.799999982118607,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 24.69999998807907
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.09999999403953552
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 61,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.4188340000000608,
+      "component_duration_ms": 3.4188340000000608,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 62,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 32.844084000000294,
+      "component_duration_ms": 30.900000005960464,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 30.700000002980232
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 62,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.8676250000007713,
+      "component_duration_ms": 3.8676250000007713,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 63,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 28.18883300000016,
+      "component_duration_ms": 26.299999997019768,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 26.099999994039536
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 63,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.547959000001356,
+      "component_duration_ms": 3.547959000001356,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 64,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.1637080000000424,
+      "component_duration_ms": 3.1637080000000424,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 64,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 27.4598330000008,
+      "component_duration_ms": 25.5,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 25.299999997019768
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 65,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 31.144000000000233,
+      "component_duration_ms": 29.5,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 29.299999997019768
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 65,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.559709000001021,
+      "component_duration_ms": 3.559709000001021,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 66,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 33.13558399999965,
+      "component_duration_ms": 31.19999998807907,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 31
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.19999998807907104
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 66,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.486750000000029,
+      "component_duration_ms": 3.486750000000029,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 67,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.212416000000303,
+      "component_duration_ms": 3.212416000000303,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 67,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 24.44091599999956,
+      "component_duration_ms": 22.400000005960464,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 22.299999997019768
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.10000000894069672
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 68,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.4315000000005966,
+      "component_duration_ms": 3.4315000000005966,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 68,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 29.166833000001134,
+      "component_duration_ms": 27.30000001192093,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 27.100000008940697
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 69,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 22.46220799999901,
+      "component_duration_ms": 20.599999994039536,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 20.5
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.09999999403953552
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 69,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 4.024999999999636,
+      "component_duration_ms": 4.024999999999636,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 70,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 30.10699999999997,
+      "component_duration_ms": 28.200000002980232,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 28
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 70,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.659750000000713,
+      "component_duration_ms": 3.659750000000713,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 71,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.2207500000004075,
+      "component_duration_ms": 3.2207500000004075,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 71,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 27.36608299999898,
+      "component_duration_ms": 25.599999994039536,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 25.399999991059303
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 72,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 24.5552919999991,
+      "component_duration_ms": 22.49999998509884,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 22.299999997019768
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.19999998807907104
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 72,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.4711669999996957,
+      "component_duration_ms": 3.4711669999996957,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 73,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.1702079999995476,
+      "component_duration_ms": 3.1702079999995476,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 73,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 26.254625000001397,
+      "component_duration_ms": 24.299999997019768,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 24.099999994039536
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 74,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.4392920000009326,
+      "component_duration_ms": 3.4392920000009326,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 74,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 30.37554199999977,
+      "component_duration_ms": 28.399999991059303,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 28.19999998807907
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 75,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 19.58837499999936,
+      "component_duration_ms": 17.299999997019768,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 17
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.29999999701976776
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 75,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.732708999999886,
+      "component_duration_ms": 3.732708999999886,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 76,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.333875000000262,
+      "component_duration_ms": 3.333875000000262,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 76,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 24.518082999999024,
+      "component_duration_ms": 22.5,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 22.299999997019768
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 77,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.6407080000008136,
+      "component_duration_ms": 3.6407080000008136,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 77,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 35.9287089999998,
+      "component_duration_ms": 34.29999999701977,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 34.099999994039536
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 78,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 34.07887499999924,
+      "component_duration_ms": 32.099999994039536,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 31.899999991059303
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 78,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.5390840000000026,
+      "component_duration_ms": 3.5390840000000026,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 79,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 35.373875000001135,
+      "component_duration_ms": 32.79999999701977,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 32.70000000298023
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.09999999403953552
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 79,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.492166999998517,
+      "component_duration_ms": 3.492166999998517,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 80,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 31.652291000000332,
+      "component_duration_ms": 29.5,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 29.399999991059303
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.10000000894069672
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 80,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.485833000000639,
+      "component_duration_ms": 3.485833000000639,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 81,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.138582999999926,
+      "component_duration_ms": 3.138582999999926,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 81,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 25.935459000000264,
+      "component_duration_ms": 23.80000001192093,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 23.600000008940697
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 82,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 22.181375000000116,
+      "component_duration_ms": 20,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 19.900000005960464
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.09999999403953552
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 82,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 5.144749999999476,
+      "component_duration_ms": 5.144749999999476,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 83,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.125917000001209,
+      "component_duration_ms": 3.125917000001209,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 83,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 21.910791000000245,
+      "component_duration_ms": 19.900000005960464,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 19.700000002980232
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 84,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.4174999999995634,
+      "component_duration_ms": 3.4174999999995634,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 84,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 21.46008299999994,
+      "component_duration_ms": 19,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 18.799999997019768
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 85,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 21.082291000000623,
+      "component_duration_ms": 18.5,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 18.299999997019768
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 85,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.579834000000119,
+      "component_duration_ms": 3.579834000000119,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 86,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.0951249999998254,
+      "component_duration_ms": 3.0951249999998254,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 86,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 19.901832999999897,
+      "component_duration_ms": 17.399999991059303,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 17.299999997019768
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.09999999403953552
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 87,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 22.023291999999856,
+      "component_duration_ms": 20.400000005960464,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 20.200000002980232
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 87,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.3898340000014286,
+      "component_duration_ms": 3.3898340000014286,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 88,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.0232080000005226,
+      "component_duration_ms": 3.0232080000005226,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 88,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 25.30383299999994,
+      "component_duration_ms": 23.200000002980232,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 23
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 89,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 25.4028330000001,
+      "component_duration_ms": 23.600000008940697,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 23.400000005960464
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 89,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.4445839999989403,
+      "component_duration_ms": 3.4445839999989403,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 90,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.192917000000307,
+      "component_duration_ms": 3.192917000000307,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 90,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 20.208542000000307,
+      "component_duration_ms": 17.700000002980232,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 17.5
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 91,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.76995800000077,
+      "component_duration_ms": 3.76995800000077,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 91,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 32.607083000000785,
+      "component_duration_ms": 30.700000002980232,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 30.5
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 92,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 24.568916000000172,
+      "component_duration_ms": 22.600000008940697,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 22.400000005960464
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 92,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.585584000000381,
+      "component_duration_ms": 3.585584000000381,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 93,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 3.467500000000655,
+      "component_duration_ms": 3.467500000000655,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 93,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 21.930083999999624,
+      "component_duration_ms": 19.700000002980232,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 19.599999994039536
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.10000000894069672
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 94,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 4.057542000000467,
+      "component_duration_ms": 4.057542000000467,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 94,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 25.176790999999866,
+      "component_duration_ms": 23.200000002980232,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 23
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 95,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 23.906582999999955,
+      "component_duration_ms": 22.5,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 22.299999997019768
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 95,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 4.935540999998921,
+      "component_duration_ms": 4.935540999998921,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 96,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 248.27712500000052,
+      "component_duration_ms": 26.600000008940697,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 26.400000005960464
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 96,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 5.789709000000585,
+      "component_duration_ms": 5.789709000000585,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 97,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 4.580292000002373,
+      "component_duration_ms": 4.580292000002373,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 97,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 32.015542000001005,
+      "component_duration_ms": 30.099999994039536,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 29.899999991059303
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 98,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 4.558167000002868,
+      "component_duration_ms": 4.558167000002868,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 98,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 28.519916000001103,
+      "component_duration_ms": 26.400000005960464,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 26.200000002980232
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 99,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 4.78729100000055,
+      "component_duration_ms": 4.78729100000055,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 99,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 31.32116600000154,
+      "component_duration_ms": 29.49999998509884,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 29.299999997019768
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.19999998807907104
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 100,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 28.683000000000902,
+      "component_duration_ms": 26.200000002980232,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 26
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.20000000298023224
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 100,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": false,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 4.276582999998936,
+      "component_duration_ms": 4.276582999998936,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 1,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": true,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 155.0683330000029,
+      "component_duration_ms": 24.074000000000524,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 1,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": true,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 332.6678749999992,
+      "component_duration_ms": 21.19999998807907,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 20.599999994039536
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.5999999940395355
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 2,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": true,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 156.3867910000008,
+      "component_duration_ms": 23.33379100000093,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 2,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": true,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 314.65962500000023,
+      "component_duration_ms": 21.5,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 20.799999997019768
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.7000000029802322
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 3,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": true,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 157.66533400000117,
+      "component_duration_ms": 23.934957999998005,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 3,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": true,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 317.5998330000002,
+      "component_duration_ms": 21.299999982118607,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 20.69999998807907
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.5999999940395355
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 4,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": true,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 333.3529579999995,
+      "component_duration_ms": 30.200000002980232,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 29.5
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.7000000029802322
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 4,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": true,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 152.66170899999997,
+      "component_duration_ms": 23.770917000001646,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 5,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": true,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 332.502916999998,
+      "component_duration_ms": 26.799999997019768,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 26.099999994039536
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.7000000029802322
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 5,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": true,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 154.10499999999956,
+      "component_duration_ms": 22.987458000003244,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 6,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": true,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 153.30187500000102,
+      "component_duration_ms": 23.874417000002722,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 6,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": true,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 325.6815420000021,
+      "component_duration_ms": 31.799999997019768,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 31.200000002980232
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.5999999940395355
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 7,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": true,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 325.48854199999914,
+      "component_duration_ms": 32.20000000298023,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 31.700000002980232
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.5
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 7,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": true,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 156.24979200000234,
+      "component_duration_ms": 23.374041999999463,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 8,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": true,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 314.3665409999994,
+      "component_duration_ms": 21.200000002980232,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 20.599999994039536
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.6000000089406967
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 8,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": true,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 157.3165829999998,
+      "component_duration_ms": 23.618540999999823,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 9,
+      "lane": "official-mcp",
+      "order": "A",
+      "cold_start": true,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 152.71091700000034,
+      "component_duration_ms": 22.588291000000027,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 9,
+      "lane": "webmcp",
+      "order": "B",
+      "cold_start": true,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 329.13733299999876,
+      "component_duration_ms": 32.70000000298023,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 32
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.7000000029802322
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 10,
+      "lane": "webmcp",
+      "order": "A",
+      "cold_start": true,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 324.692708999999,
+      "component_duration_ms": 32.3999999910593,
+      "tool_calls": 2,
+      "input_bytes": 744,
+      "output_bytes": 571,
+      "failure": null,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      },
+      "measures": [
+        {
+          "name": "drawmcp:add_elements",
+          "duration_ms": 31.700000002980232
+        },
+        {
+          "name": "drawmcp:fit_to_content",
+          "duration_ms": 0.699999988079071
+        }
+      ]
+    },
+    {
+      "stratum": "controlled-local",
+      "trial": 10,
+      "lane": "official-mcp",
+      "order": "B",
+      "cold_start": true,
+      "completed": true,
+      "semantic_pass": true,
+      "task_duration_ms": 157.3286659999976,
+      "component_duration_ms": 24.261708000001818,
+      "tool_calls": 1,
+      "input_bytes": 1181,
+      "output_bytes": 897,
+      "failure": null,
+      "oracle_calls": 1,
+      "semantic_evaluation": {
+        "ok": true,
+        "score": 1,
+        "checks": 5,
+        "passed": 5,
+        "failures": []
+      }
+    }
+  ],
+  "summary": {
+    "controlled-local": {
+      "webmcp": {
+        "warm": {
+          "attempts": 100,
+          "completed": 100,
+          "semantic_successes": 100,
+          "completion": {
+            "rate": 1,
+            "low": 0.9630065017930143,
+            "high": 1
+          },
+          "task_duration_ms": {
+            "samples": 100,
+            "min": 19.58837499999936,
+            "max": 248.27712500000052,
+            "p50": {
+              "value": 28.37185400000044,
+              "ci95": {
+                "low": 26.018905375000124,
+                "high": 30.582415275000237,
+                "resamples": 2000
+              }
+            },
+            "p90": {
+              "value": 35.22603719999961,
+              "ci95": {
+                "low": 33.50141699999995,
+                "high": 35.616250000000036,
+                "resamples": 2000
+              }
+            },
+            "p95": {
+              "value": 35.63187295000002,
+              "ci95": {
+                "low": 34.43508567250008,
+                "high": 50.6682996999998,
+                "resamples": 2000
+              }
+            }
+          },
+          "component_duration_ms": {
+            "samples": 100,
+            "min": 17.299999997019768,
+            "max": 90.6000000089407,
+            "p50": {
+              "value": 26.25,
+              "ci95": {
+                "low": 24.149999998509884,
+                "high": 28.74999999254942,
+                "resamples": 2000
+              }
+            },
+            "p90": {
+              "value": 32.31000001132488,
+              "ci95": {
+                "low": 31.19899998858571,
+                "high": 33.400000005960464,
+                "resamples": 2000
+              }
+            },
+            "p95": {
+              "value": 33.405000005662444,
+              "ci95": {
+                "low": 32.30000001192093,
+                "high": 34.934999988973125,
+                "resamples": 2000
+              }
+            }
+          },
+          "total_tool_calls": 200,
+          "total_input_bytes": 74400,
+          "total_output_bytes": 57100
+        },
+        "cold": {
+          "attempts": 10,
+          "completed": 10,
+          "semantic_successes": 10,
+          "completion": {
+            "rate": 1,
+            "low": 0.7224672001371107,
+            "high": 0.9999999999999999
+          },
+          "task_duration_ms": {
+            "samples": 10,
+            "min": 314.3665409999994,
+            "max": 333.3529579999995,
+            "p50": {
+              "value": 325.5850420000006,
+              "ci95": {
+                "low": 317.5998330000002,
+                "high": 332.502916999998,
+                "resamples": 2000
+              }
+            },
+            "p90": {
+              "value": 332.7363832999992,
+              "ci95": {
+                "low": 326.3636795000017,
+                "high": 333.3529579999995,
+                "resamples": 2000
+              }
+            },
+            "p95": null
+          },
+          "component_duration_ms": {
+            "samples": 10,
+            "min": 21.19999998807907,
+            "max": 32.70000000298023,
+            "p50": {
+              "value": 28.5,
+              "ci95": {
+                "low": 21.299999982118607,
+                "high": 32.20000000298023,
+                "resamples": 2000
+              }
+            },
+            "p90": {
+              "value": 32.429999992251396,
+              "ci95": {
+                "low": 30.40000000298023,
+                "high": 32.70000000298023,
+                "resamples": 2000
+              }
+            },
+            "p95": null
+          },
+          "total_tool_calls": 20,
+          "total_input_bytes": 7440,
+          "total_output_bytes": 5710
+        }
+      },
+      "official-mcp": {
+        "warm": {
+          "attempts": 100,
+          "completed": 100,
+          "semantic_successes": 100,
+          "completion": {
+            "rate": 1,
+            "low": 0.9630065017930143,
+            "high": 1
+          },
+          "task_duration_ms": {
+            "samples": 100,
+            "min": 1.948499999998603,
+            "max": 5.789709000000585,
+            "p50": {
+              "value": 3.5847499999999854,
+              "ci95": {
+                "low": 3.4988750000002256,
+                "high": 3.6288540000000467,
+                "resamples": 2000
+              }
+            },
+            "p90": {
+              "value": 4.202408599999581,
+              "ci95": {
+                "low": 3.853787499999999,
+                "high": 4.69312940000009,
+                "resamples": 2000
+              }
+            },
+            "p95": {
+              "value": 4.687898200000063,
+              "ci95": {
+                "low": 4.1460776999998865,
+                "high": 5.026988949999895,
+                "resamples": 2000
+              }
+            }
+          },
+          "component_duration_ms": {
+            "samples": 100,
+            "min": 1.948499999998603,
+            "max": 5.789709000000585,
+            "p50": {
+              "value": 3.5847499999999854,
+              "ci95": {
+                "low": 3.4988750000002256,
+                "high": 3.6288540000000467,
+                "resamples": 2000
+              }
+            },
+            "p90": {
+              "value": 4.202408599999581,
+              "ci95": {
+                "low": 3.853787499999999,
+                "high": 4.682667000000038,
+                "resamples": 2000
+              }
+            },
+            "p95": {
+              "value": 4.687898200000063,
+              "ci95": {
+                "low": 4.15988865500007,
+                "high": 5.026988949999895,
+                "resamples": 2000
+              }
+            }
+          },
+          "total_tool_calls": 100,
+          "total_input_bytes": 118100,
+          "total_output_bytes": 89700
+        },
+        "cold": {
+          "attempts": 10,
+          "completed": 10,
+          "semantic_successes": 10,
+          "completion": {
+            "rate": 1,
+            "low": 0.7224672001371107,
+            "high": 0.9999999999999999
+          },
+          "task_duration_ms": {
+            "samples": 10,
+            "min": 152.66170899999997,
+            "max": 157.66533400000117,
+            "p50": {
+              "value": 155.65906250000262,
+              "ci95": {
+                "low": 153.30187500000102,
+                "high": 157.3165829999998,
+                "resamples": 2000
+              }
+            },
+            "p90": {
+              "value": 157.36233279999797,
+              "ci95": {
+                "low": 156.26349190000218,
+                "high": 157.66533400000117,
+                "resamples": 2000
+              }
+            },
+            "p95": null
+          },
+          "component_duration_ms": {
+            "samples": 10,
+            "min": 22.588291000000027,
+            "max": 24.261708000001818,
+            "p50": {
+              "value": 23.694729000000734,
+              "ci95": {
+                "low": 23.302999500001533,
+                "high": 23.934957999998005,
+                "resamples": 2000
+              }
+            },
+            "p90": {
+              "value": 24.092770800000654,
+              "ci95": {
+                "low": 23.787321100001282,
+                "high": 24.261708000001818,
+                "resamples": 2000
+              }
+            },
+            "p95": null
+          },
+          "total_tool_calls": 10,
+          "total_input_bytes": 11810,
+          "total_output_bytes": 8970
+        }
+      }
+    }
+  }
+}

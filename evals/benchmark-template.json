@@ -1,32 +1,35 @@
 {
-  "schema_version": 1,
-  "benchmark": "drawmcp-vs-excalidraw-mcp",
-  "recorded_at": "YYYY-MM-DDTHH:mm:ssZ",
+  "schema_version": 2,
+  "run_id": "controlled-YYYY-MM-DDTHH-mm-ss-sssZ",
+  "recorded_at": "YYYY-MM-DDTHH:mm:ss.sssZ",
   "environment": {
     "machine": "",
-    "network": "",
-    "host_application": "",
-    "model": "",
+    "os_release": "",
+    "node": "",
+    "chrome": "",
     "drawmcp_commit": "",
-    "drawmcp_deployment_id": "",
-    "excalidraw_mcp_endpoint": "https://mcp.excalidraw.com/mcp"
+    "drawmcp_dirty": false,
+    "excalidraw_mcp_commit": ""
   },
-  "runs": [
-    {
-      "lane": "webmcp",
-      "run": 1,
-      "cold_start": false,
-      "completed": true,
-      "time_to_visible_result_ms": 0,
-      "agent_decision_ms": 0,
-      "tool_execution_ms": [],
-      "tool_calls": 0,
-      "input_bytes": 0,
-      "output_bytes": 0,
-      "handoffs": 0,
-      "retries": 0,
-      "state_preserved": true,
-      "failure": null
-    }
-  ]
+  "method": {
+    "stratum": "controlled-local",
+    "random_seed": 0,
+    "warm_pairs": 100,
+    "cold_pairs": 10,
+    "discarded_warmup_pairs": 1,
+    "order": "seeded randomized AB/BA",
+    "webmcp_task_boundary": "",
+    "official_mcp_task_boundary": "",
+    "comparability": ""
+  },
+  "scenario": {
+    "path": "benchmarks/scenarios/architecture-diagram.json",
+    "name": "",
+    "required_nodes": 0,
+    "required_edges": 0,
+    "official_registered_tools": [],
+    "official_model_visible_tools": []
+  },
+  "trials": [],
+  "summary": {}
 }

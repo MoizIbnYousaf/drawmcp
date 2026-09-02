@@ -20,6 +20,7 @@
     "benchmark:prepare": "pnpm --dir vendor/excalidraw-mcp install --frozen-lockfile && pnpm --dir vendor/excalidraw-mcp run build",
     "benchmark:run": "npm run benchmark:prepare && npx -y tsx@4.23.13 scripts/benchmarks/run-paired.ts",
     "benchmark:verify": "npx -y tsx@4.23.13 scripts/benchmarks/verify-run.ts",
+    "benchmark:accept": "npx -y tsx@4.23.13 scripts/benchmarks/accept-run.ts",
     "video:check": "npm --prefix video/comparison run check",
     "preview": "vite preview"
   },
