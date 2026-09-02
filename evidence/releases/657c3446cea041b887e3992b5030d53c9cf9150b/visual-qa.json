@@ -1,0 +1,214 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-09-02T09:36:39.764Z",
+  "target": "isolated-local-vite",
+  "cases": [
+    {
+      "name": "home-desktop",
+      "url": "http://127.0.0.1:56517/",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "screenshot": ".evals/visual-qa-screenshots/home-desktop.png",
+      "inspection": {
+        "heading_found": true,
+        "main_count": 1,
+        "horizontal_overflow": 0,
+        "clipped_text_elements": 0,
+        "images": {
+          "total": 2,
+          "failed": 0
+        },
+        "videos": {
+          "total": 2,
+          "not_ready": 0
+        }
+      },
+      "errors": [],
+      "passed": true
+    },
+    {
+      "name": "docs-desktop",
+      "url": "http://127.0.0.1:56517/docs",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "screenshot": ".evals/visual-qa-screenshots/docs-desktop.png",
+      "inspection": {
+        "heading_found": true,
+        "main_count": 1,
+        "horizontal_overflow": 0,
+        "clipped_text_elements": 0,
+        "images": {
+          "total": 0,
+          "failed": 0
+        },
+        "videos": {
+          "total": 0,
+          "not_ready": 0
+        }
+      },
+      "errors": [],
+      "passed": true
+    },
+    {
+      "name": "benchmarks-desktop",
+      "url": "http://127.0.0.1:56517/benchmarks",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "screenshot": ".evals/visual-qa-screenshots/benchmarks-desktop.png",
+      "inspection": {
+        "heading_found": true,
+        "main_count": 1,
+        "horizontal_overflow": 0,
+        "clipped_text_elements": 0,
+        "images": {
+          "total": 0,
+          "failed": 0
+        },
+        "videos": {
+          "total": 0,
+          "not_ready": 0
+        }
+      },
+      "errors": [],
+      "passed": true
+    },
+    {
+      "name": "canvas-desktop",
+      "url": "http://127.0.0.1:56517/canvas",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "screenshot": ".evals/visual-qa-screenshots/canvas-desktop.png",
+      "inspection": {
+        "heading_found": true,
+        "main_count": 1,
+        "horizontal_overflow": 0,
+        "clipped_text_elements": 0,
+        "images": {
+          "total": 0,
+          "failed": 0
+        },
+        "videos": {
+          "total": 0,
+          "not_ready": 0
+        },
+        "excalidraw_mounted": true,
+        "webmcp_tools": 7
+      },
+      "errors": [],
+      "passed": true
+    },
+    {
+      "name": "home-mobile",
+      "url": "http://127.0.0.1:56517/",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "screenshot": ".evals/visual-qa-screenshots/home-mobile.png",
+      "inspection": {
+        "heading_found": true,
+        "main_count": 1,
+        "horizontal_overflow": 0,
+        "clipped_text_elements": 0,
+        "images": {
+          "total": 2,
+          "failed": 0
+        },
+        "videos": {
+          "total": 2,
+          "not_ready": 0
+        }
+      },
+      "errors": [],
+      "passed": true
+    },
+    {
+      "name": "docs-mobile",
+      "url": "http://127.0.0.1:56517/docs",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "screenshot": ".evals/visual-qa-screenshots/docs-mobile.png",
+      "inspection": {
+        "heading_found": true,
+        "main_count": 1,
+        "horizontal_overflow": 0,
+        "clipped_text_elements": 0,
+        "images": {
+          "total": 0,
+          "failed": 0
+        },
+        "videos": {
+          "total": 0,
+          "not_ready": 0
+        }
+      },
+      "errors": [],
+      "passed": true
+    },
+    {
+      "name": "benchmarks-mobile",
+      "url": "http://127.0.0.1:56517/benchmarks",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "screenshot": ".evals/visual-qa-screenshots/benchmarks-mobile.png",
+      "inspection": {
+        "heading_found": true,
+        "main_count": 1,
+        "horizontal_overflow": 0,
+        "clipped_text_elements": 0,
+        "images": {
+          "total": 0,
+          "failed": 0
+        },
+        "videos": {
+          "total": 0,
+          "not_ready": 0
+        }
+      },
+      "errors": [],
+      "passed": true
+    },
+    {
+      "name": "canvas-mobile",
+      "url": "http://127.0.0.1:56517/canvas",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "screenshot": ".evals/visual-qa-screenshots/canvas-mobile.png",
+      "inspection": {
+        "heading_found": true,
+        "main_count": 1,
+        "horizontal_overflow": 0,
+        "clipped_text_elements": 0,
+        "images": {
+          "total": 0,
+          "failed": 0
+        },
+        "videos": {
+          "total": 0,
+          "not_ready": 0
+        },
+        "excalidraw_mounted": true,
+        "webmcp_tools": 7
+      },
+      "errors": [],
+      "passed": true
+    }
+  ],
+  "passed_cases": 8,
+  "total_cases": 8,
+  "passed": true
+}

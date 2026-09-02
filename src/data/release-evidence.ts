@@ -16,6 +16,10 @@ export const releaseEvidence = {
     "passed": 11,
     "total": 11
   },
+  "visual_routes": {
+    "passed": 8,
+    "total": 8
+  },
   "unit_tests": {
     "passed": 107,
     "total": 107
