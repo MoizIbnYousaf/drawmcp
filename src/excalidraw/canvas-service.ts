@@ -8,13 +8,21 @@ import {
   type UpdateElementsInput,
 } from "../webmcp/tool-contracts";
 import type { ToolFailure, ToolResult } from "../webmcp/tool-results";
-import { canceledResult, internalErrorResult } from "../webmcp/tool-results";
+import {
+  canceledResult,
+  internalErrorResult,
+  timeoutResult,
+} from "../webmcp/tool-results";
 import {
   projectElement,
   summarizeElements,
   type CanvasElement,
 } from "./element-projection";
-import { RevisionController, type RevisionActor } from "./revision-controller";
+import {
+  RevisionController,
+  sceneSemanticFingerprint,
+  type RevisionActor,
+} from "./revision-controller";
 
 type CanvasAppState = {
   selectedElementIds?: Record<string, boolean>;
@@ -47,6 +55,7 @@ export type CanvasStatus = {
 
 export type MutationReceipt = {
   operation: string;
+  changed: boolean;
   revision_before: number;
   revision_after: number;
   affected_element_ids: string[];
@@ -109,12 +118,15 @@ const fallbackUpdateElement: UpdateCanvasElement = (element, changes) => ({
 const isToolFailure = (value: MutationComputation): value is ToolFailure =>
   "ok" in value && value.ok === false;
 
+class MutationSettleTimeoutError extends Error {}
+
 export class CanvasService {
   private readonly captureUpdateImmediately: unknown;
   private readonly convertElements: (
     elements: AddElementsInput["elements"],
   ) => CanvasElement[];
   private readonly updateElement: UpdateCanvasElement;
+  private readonly settleTimeoutMs: number;
   private api?: CanvasApi;
   private readonly revisions = new RevisionController();
   private mutationTail: Promise<unknown> = Promise.resolve();
@@ -127,6 +139,7 @@ export class CanvasService {
         elements: AddElementsInput["elements"],
       ) => CanvasElement[];
       updateElement?: UpdateCanvasElement;
+      settleTimeoutMs?: number;
     } = {},
   ) {
     this.captureUpdateImmediately =
@@ -135,6 +148,7 @@ export class CanvasService {
       options.convertElements ??
       ((elements) => elements as unknown as CanvasElement[]);
     this.updateElement = options.updateElement ?? fallbackUpdateElement;
+    this.settleTimeoutMs = options.settleTimeoutMs ?? 2_000;
   }
 
   attach(api: CanvasApi): void {
@@ -412,32 +426,69 @@ export class CanvasService {
         return staleResult(before);
       }
 
+      let pendingStarted = false;
+      let commitStarted = false;
+      let settleTimer: ReturnType<typeof setTimeout> | undefined;
       try {
         const computed = input.compute(api);
         if (isToolFailure(computed)) return computed;
         if (input.signal.aborted) return canceledResult();
+        const current = [...api.getSceneElementsIncludingDeleted()];
+        if (
+          sceneSemanticFingerprint(current) ===
+          sceneSemanticFingerprint(computed.elements)
+        ) {
+          return {
+            ok: true,
+            operation: input.operation,
+            changed: false,
+            revision_before: before,
+            revision_after: before,
+            affected_element_ids: [],
+            element_count: api.getSceneElements().length,
+          };
+        }
         const pending = this.revisions.expectAgentChange(
           input.operation,
           computed.elements,
         );
+        pendingStarted = true;
+        void pending.catch(() => undefined);
+        commitStarted = true;
         api.updateScene({
           elements: computed.elements,
           captureUpdate: this.captureUpdateImmediately,
         });
         await Promise.resolve();
         this.revisions.observe([...api.getSceneElementsIncludingDeleted()]);
-        const settled = await pending;
+        const settled = await Promise.race([
+          pending,
+          new Promise<never>((_, reject) => {
+            settleTimer = setTimeout(
+              () => reject(new MutationSettleTimeoutError()),
+              this.settleTimeoutMs,
+            );
+          }),
+        ]);
         this.emitStatus();
         return {
           ok: true,
           operation: input.operation,
+          changed: true,
           revision_before: before,
           revision_after: settled.revision,
           affected_element_ids: computed.affectedIds,
           element_count: api.getSceneElements().length,
         };
       } catch (error) {
-        if (input.signal.aborted) return canceledResult();
+        if (pendingStarted) {
+          this.revisions.cancelPending(
+            error instanceof Error ? error : new Error(String(error)),
+          );
+        }
+        if (!commitStarted && input.signal.aborted) return canceledResult();
+        if (!this.getAvailableApi()) return unavailableResult();
+        if (error instanceof MutationSettleTimeoutError) return timeoutResult();
         if (
           error instanceof Error &&
           error.message.includes("canvas changed")
@@ -445,6 +496,8 @@ export class CanvasService {
           return staleResult(this.revisions.getSnapshot().revision);
         }
         return internalErrorResult();
+      } finally {
+        if (settleTimer) clearTimeout(settleTimer);
       }
     };
 

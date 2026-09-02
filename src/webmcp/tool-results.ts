@@ -3,6 +3,7 @@ export type ToolErrorCode =
   | "INVALID_INPUT"
   | "NOT_FOUND"
   | "STALE_REVISION"
+  | "TIMEOUT"
   | "UNAVAILABLE"
   | "INTERNAL_ERROR";
 
@@ -29,4 +30,11 @@ export const internalErrorResult = (): ToolFailure => ({
   ok: false,
   code: "INTERNAL_ERROR",
   message: "The canvas operation could not be completed.",
+});
+
+export const timeoutResult = (): ToolFailure => ({
+  ok: false,
+  code: "TIMEOUT",
+  message:
+    "The canvas did not confirm the requested change before the operation timed out.",
 });

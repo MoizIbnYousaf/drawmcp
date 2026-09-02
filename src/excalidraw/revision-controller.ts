@@ -15,32 +15,35 @@ type PendingChange = {
   reject: (error: Error) => void;
 };
 
-const semanticElement = (element: CanvasElement) => ({
-  id: element.id,
-  type: element.type,
-  isDeleted: Boolean(element.isDeleted),
-  x: element.x,
-  y: element.y,
-  width: element.width,
-  height: element.height,
-  angle: element.angle,
-  text: element.text,
-  points: element.points,
-  strokeColor: element.strokeColor,
-  backgroundColor: element.backgroundColor,
-  fillStyle: element.fillStyle,
-  strokeWidth: element.strokeWidth,
-  strokeStyle: element.strokeStyle,
-  roughness: element.roughness,
-  opacity: element.opacity,
-  locked: element.locked,
-  containerId: element.containerId,
-  startBinding: element.startBinding,
-  endBinding: element.endBinding,
-});
+const VOLATILE_ELEMENT_KEYS = new Set([
+  "seed",
+  "updated",
+  "version",
+  "versionNonce",
+]);
+
+const canonicalize = (
+  value: unknown,
+  omittedKeys?: ReadonlySet<string>,
+): unknown => {
+  if (Array.isArray(value)) {
+    return value.map((item) => canonicalize(item, omittedKeys));
+  }
+  if (!value || typeof value !== "object") return value;
+  return Object.fromEntries(
+    Object.entries(value as Record<string, unknown>)
+      .filter(([key, item]) => !omittedKeys?.has(key) && item !== undefined)
+      .sort(([left], [right]) => left.localeCompare(right))
+      .map(([key, item]) => [key, canonicalize(item, omittedKeys)]),
+  );
+};
 
 export const sceneFingerprint = (elements: CanvasElement[]): string =>
-  JSON.stringify(elements.map(semanticElement));
+  JSON.stringify(canonicalize(elements));
+
+export const sceneSemanticFingerprint = (
+  elements: CanvasElement[],
+): string => JSON.stringify(canonicalize(elements, VOLATILE_ELEMENT_KEYS));
 
 export class RevisionController {
   private revision = 0;
@@ -93,10 +96,10 @@ export class RevisionController {
     });
   }
 
-  cancelPending(reason: string): void {
+  cancelPending(reason: string | Error): void {
     const pending = this.pending;
     this.pending = undefined;
-    pending?.reject(new Error(reason));
+    pending?.reject(reason instanceof Error ? reason : new Error(reason));
   }
 
   getSnapshot(): RevisionSnapshot {

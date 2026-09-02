@@ -25,7 +25,36 @@ describe("RevisionController", () => {
     });
   });
 
-  it("settles an expected agent change exactly once", () => {
+  it.each([
+    ["font size", { fontSize: 28 }],
+    ["arrowhead", { endArrowhead: "triangle" }],
+    ["group membership", { groupIds: ["group_1"] }],
+    ["link", { link: "https://example.com" }],
+    ["roundness", { roundness: { type: 3 } }],
+  ])("advances when %s changes", (_label, change) => {
+    const controller = new RevisionController();
+    const initial = scene(0);
+    controller.observe(initial);
+    controller.observe([{ ...initial[0], ...change }]);
+    expect(controller.getSnapshot()).toMatchObject({
+      revision: 1,
+      lastActor: "human",
+    });
+  });
+
+  it("advances when element order changes", () => {
+    const controller = new RevisionController();
+    const first = scene(0)[0];
+    const second = { ...first, id: "node_2", x: 200 };
+    controller.observe([first, second]);
+    controller.observe([second, first]);
+    expect(controller.getSnapshot()).toMatchObject({
+      revision: 1,
+      lastActor: "human",
+    });
+  });
+
+  it("settles an expected agent change exactly once", async () => {
     const controller = new RevisionController();
     controller.observe(scene(0));
     const pending = controller.expectAgentChange("move_node", scene(20));
@@ -36,7 +65,10 @@ describe("RevisionController", () => {
       lastActor: "agent",
       lastOperation: "move_node",
     });
-    expect(pending).resolves.toMatchObject({ revision: 1, actor: "agent" });
+    await expect(pending).resolves.toMatchObject({
+      revision: 1,
+      actor: "agent",
+    });
   });
 
   it("rejects a pending agent change when a different human edit wins", async () => {
