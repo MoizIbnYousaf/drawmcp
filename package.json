@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "oxlint src evals/oracles scripts/evals vite.config.ts vitest.config.ts",
+    "lint": "oxlint src evals/oracles benchmarks scripts/evals scripts/benchmarks vite.config.ts vitest.config.ts",
     "test": "vitest run",
     "test:watch": "vitest",
     "evals:export": "npx -y tsx@4.23.13 scripts/export-eval-fixtures.ts",
@@ -17,6 +17,9 @@
     "evals:schema": "npx -y tsx@4.23.13 scripts/evals/export-model-schema.ts",
     "evals:probabilistic": "npx -y tsx@4.23.13 scripts/evals/run-probabilistic.ts",
     "evals:accept": "npx -y tsx@4.23.13 scripts/evals/accept-probabilistic.ts",
+    "benchmark:prepare": "pnpm --dir vendor/excalidraw-mcp install --frozen-lockfile && pnpm --dir vendor/excalidraw-mcp run build",
+    "benchmark:run": "npm run benchmark:prepare && npx -y tsx@4.23.13 scripts/benchmarks/run-paired.ts",
+    "benchmark:verify": "npx -y tsx@4.23.13 scripts/benchmarks/verify-run.ts",
     "video:check": "npm --prefix video/comparison run check",
     "preview": "vite preview"
   },

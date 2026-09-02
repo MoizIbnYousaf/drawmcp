@@ -87,4 +87,44 @@ describe("semantic scene oracle", () => {
       ]),
     });
   });
+
+  it("normalizes the official MCP raw label and binding format", () => {
+    expect(
+      normalizeScene([
+        {
+          id: "a",
+          type: "rectangle",
+          x: 0,
+          y: 0,
+          width: 100,
+          height: 60,
+          label: { text: "A" },
+        },
+        {
+          id: "b",
+          type: "rectangle",
+          x: 200,
+          y: 0,
+          width: 100,
+          height: 60,
+        },
+        {
+          id: "edge",
+          type: "arrow",
+          x: 100,
+          y: 30,
+          width: 100,
+          height: 0,
+          startBinding: { elementId: "a" },
+          endBinding: { elementId: "b" },
+        },
+      ]),
+    ).toEqual({
+      nodes: [
+        expect.objectContaining({ id: "a", label: "A" }),
+        expect.objectContaining({ id: "b" }),
+      ],
+      edges: [{ id: "edge", type: "arrow", from: "a", to: "b" }],
+    });
+  });
 });

@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "run_id", "recorded_at", "environment", "method", "scenario", "trials", "summary"],
+  "properties": {
+    "schema_version": { "const": 2 },
+    "run_id": { "type": "string", "minLength": 1 },
+    "recorded_at": { "type": "string", "minLength": 1 },
+    "environment": { "type": "object" },
+    "method": { "type": "object" },
+    "scenario": { "type": "object" },
+    "trials": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["stratum", "trial", "lane", "order", "cold_start", "completed", "semantic_pass", "tool_calls", "input_bytes", "output_bytes"],
+        "properties": {
+          "stratum": { "enum": ["controlled-local", "live-service", "matched-host"] },
+          "trial": { "type": "integer", "minimum": 1 },
+          "lane": { "enum": ["webmcp", "official-mcp"] },
+          "order": { "enum": ["A", "B"] },
+          "cold_start": { "type": "boolean" },
+          "completed": { "type": "boolean" },
+          "semantic_pass": { "type": "boolean" },
+          "task_duration_ms": { "type": "number", "minimum": 0 },
+          "component_duration_ms": { "type": "number", "minimum": 0 },
+          "tool_calls": { "type": "integer", "minimum": 0 },
+          "input_bytes": { "type": "integer", "minimum": 0 },
+          "output_bytes": { "type": "integer", "minimum": 0 },
+          "oracle_calls": { "type": "integer", "minimum": 0 },
+          "checkpoint_id": { "type": "string" },
+          "semantic_evaluation": { "type": "object" },
+          "measures": { "type": "array" },
+          "failure": { "type": ["string", "null"] }
+        }
+      }
+    },
+    "summary": { "type": "object" }
+  }
+}

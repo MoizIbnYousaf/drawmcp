@@ -52,6 +52,11 @@ const EDGE_TYPES = new Set(["arrow", "line"]);
 const optionalString = (value: unknown): string | undefined =>
   typeof value === "string" ? value : undefined;
 
+const nestedString = (value: unknown, key: string): string | undefined => {
+  if (!value || typeof value !== "object") return undefined;
+  return optionalString((value as Record<string, unknown>)[key]);
+};
+
 export const normalizeScene = (elements: ProjectedSceneElement[]) => {
   const labels = new Map(
     elements
@@ -68,7 +73,12 @@ export const normalizeScene = (elements: ProjectedSceneElement[]) => {
     .map((element) => ({
       id: element.id,
       type: element.type,
-      ...(labels.has(element.id) ? { label: labels.get(element.id) } : {}),
+      ...(labels.has(element.id) || nestedString(element.label, "text")
+        ? {
+            label:
+              labels.get(element.id) ?? nestedString(element.label, "text"),
+          }
+        : {}),
       x: element.x,
       y: element.y,
       width: element.width,
@@ -83,11 +93,25 @@ export const normalizeScene = (elements: ProjectedSceneElement[]) => {
     .map((element) => ({
       id: element.id,
       type: element.type,
-      ...(optionalString(element.start_binding_id)
-        ? { from: String(element.start_binding_id) }
+      ...(optionalString(element.start_binding_id) ||
+      nestedString(element.startBinding, "elementId") ||
+      nestedString(element.start, "id")
+        ? {
+            from:
+              optionalString(element.start_binding_id) ??
+              nestedString(element.startBinding, "elementId") ??
+              nestedString(element.start, "id"),
+          }
         : {}),
-      ...(optionalString(element.end_binding_id)
-        ? { to: String(element.end_binding_id) }
+      ...(optionalString(element.end_binding_id) ||
+      nestedString(element.endBinding, "elementId") ||
+      nestedString(element.end, "id")
+        ? {
+            to:
+              optionalString(element.end_binding_id) ??
+              nestedString(element.endBinding, "elementId") ??
+              nestedString(element.end, "id"),
+          }
         : {}),
     }))
     .sort((left, right) => left.id.localeCompare(right.id));

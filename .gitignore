@@ -20,6 +20,7 @@ playwright-report
 test-results
 .firecrawl
 .evals
+.benchmarks
 work
 
 # Editor directories and files

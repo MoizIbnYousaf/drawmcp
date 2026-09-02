@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "name": "Browser-Agent-Canvas architecture",
+  "webmcp_elements": [
+    {
+      "id": "browser",
+      "type": "rectangle",
+      "x": 100,
+      "y": 100,
+      "width": 180,
+      "height": 90,
+      "backgroundColor": "#a5d8ff",
+      "fillStyle": "solid",
+      "label": { "text": "Browser" }
+    },
+    {
+      "id": "agent",
+      "type": "diamond",
+      "x": 380,
+      "y": 100,
+      "width": 180,
+      "height": 90,
+      "backgroundColor": "#d0bfff",
+      "fillStyle": "solid",
+      "label": { "text": "Agent" }
+    },
+    {
+      "id": "canvas",
+      "type": "rectangle",
+      "x": 660,
+      "y": 100,
+      "width": 180,
+      "height": 90,
+      "backgroundColor": "#b2f2bb",
+      "fillStyle": "solid",
+      "label": { "text": "Canvas" }
+    },
+    {
+      "id": "browser_agent",
+      "type": "arrow",
+      "x": 280,
+      "y": 145,
+      "points": [[0, 0], [100, 0]],
+      "start": { "id": "browser" },
+      "end": { "id": "agent" }
+    },
+    {
+      "id": "agent_canvas",
+      "type": "arrow",
+      "x": 560,
+      "y": 145,
+      "points": [[0, 0], [100, 0]],
+      "start": { "id": "agent" },
+      "end": { "id": "canvas" }
+    }
+  ],
+  "official_elements": [
+    { "type": "cameraUpdate", "width": 1200, "height": 900, "x": 0, "y": 0 },
+    {
+      "id": "browser",
+      "type": "rectangle",
+      "x": 100,
+      "y": 100,
+      "width": 180,
+      "height": 90,
+      "backgroundColor": "#a5d8ff",
+      "fillStyle": "solid",
+      "label": { "text": "Browser" }
+    },
+    {
+      "id": "agent",
+      "type": "diamond",
+      "x": 380,
+      "y": 100,
+      "width": 180,
+      "height": 90,
+      "backgroundColor": "#d0bfff",
+      "fillStyle": "solid",
+      "label": { "text": "Agent" }
+    },
+    {
+      "id": "canvas",
+      "type": "rectangle",
+      "x": 660,
+      "y": 100,
+      "width": 180,
+      "height": 90,
+      "backgroundColor": "#b2f2bb",
+      "fillStyle": "solid",
+      "label": { "text": "Canvas" }
+    },
+    {
+      "id": "browser_agent",
+      "type": "arrow",
+      "x": 280,
+      "y": 145,
+      "width": 100,
+      "height": 0,
+      "points": [[0, 0], [100, 0]],
+      "startBinding": { "elementId": "browser", "fixedPoint": [1, 0.5] },
+      "endBinding": { "elementId": "agent", "fixedPoint": [0, 0.5] },
+      "endArrowhead": "arrow"
+    },
+    {
+      "id": "agent_canvas",
+      "type": "arrow",
+      "x": 560,
+      "y": 145,
+      "width": 100,
+      "height": 0,
+      "points": [[0, 0], [100, 0]],
+      "startBinding": { "elementId": "agent", "fixedPoint": [1, 0.5] },
+      "endBinding": { "elementId": "canvas", "fixedPoint": [0, 0.5] },
+      "endArrowhead": "arrow"
+    }
+  ],
+  "expected_scene": {
+    "nodes": [
+      { "id": "browser", "type": "rectangle", "label": "Browser" },
+      { "id": "agent", "type": "diamond", "label": "Agent" },
+      { "id": "canvas", "type": "rectangle", "label": "Canvas" }
+    ],
+    "edges": [
+      { "from": "browser", "to": "agent", "type": "arrow" },
+      { "from": "agent", "to": "canvas", "type": "arrow" }
+    ]
+  }
+}
