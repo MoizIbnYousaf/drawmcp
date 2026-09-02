@@ -358,16 +358,16 @@ their deadline risk.
 
 ## Release gate checklist
 
-- [ ] Exact Excalidraw API adapter implemented
-- [ ] Seven top-level WebMCP tools registered
-- [ ] Human-agent conflict protection verified
-- [ ] Unit and component tests passing
-- [ ] Local lint and build passing
+- [x] Exact Excalidraw API adapter implemented
+- [x] Seven top-level WebMCP tools registered
+- [x] Human-agent conflict protection verified
+- [x] Unit and component tests passing
+- [x] Local lint and build passing
 - [ ] Vercel preview verified in the in-app browser
-- [ ] Production revision deployed to `drawmcp.dev`
-- [ ] DNS and TLS verified
-- [ ] Production WebMCP calls verified
+- [x] Production revision deployed to `drawmcp.dev`
+- [x] DNS and TLS verified
+- [x] Production WebMCP calls verified
 - [ ] Repository scrubbed and made public
 - [ ] Public demo video under three minutes
 - [ ] Devpost submission complete
-- [ ] Upstream contribution proposal prepared separately
+- [x] Upstream contribution proposal prepared separately
