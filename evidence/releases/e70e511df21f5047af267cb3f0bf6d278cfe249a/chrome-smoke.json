@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-09-02T09:50:10.807Z",
+  "runner": "webmcp-evals@0.0.4",
+  "target": "isolated-local-vite",
+  "target_url": "http://127.0.0.1:58184/canvas",
+  "cases": 7,
+  "passed_steps": 11,
+  "total_steps": 11,
+  "expected_steps": 11,
+  "passed": true
+}
