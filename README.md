@@ -101,7 +101,7 @@ source.
 Clone with submodules:
 
 ```bash
-git clone --recurse-submodules git@github.com:MoizIbnYousaf/drawmcp.git
+git clone --recurse-submodules https://github.com/MoizIbnYousaf/drawmcp.git
 cd drawmcp
 npm install
 npm run dev
