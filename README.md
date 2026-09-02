@@ -152,7 +152,8 @@ Read these before implementation:
 8. [Devpost submission checklist](docs/DEVPOST_SUBMISSION.md)
 9. [Excalidraw shortcuts audit](research/EXCALIDRAW_SHORTCUTS_AUDIT.md)
 10. [WebMCP conformance reference](research/WEBMCP_CONFORMANCE.md)
-11. [Excalidraw capability matrix](research/EXCALIDRAW_CAPABILITY_MATRIX.md)
+11. [Finalization audit and publication gates](docs/FINALIZATION_AUDIT.md)
+12. [Excalidraw capability matrix](research/EXCALIDRAW_CAPABILITY_MATRIX.md)
 
 ## Upstream projects
 

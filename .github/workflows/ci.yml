@@ -41,5 +41,14 @@ jobs:
       - name: Chrome Labs WebMCP smoke
         run: npm run evals:smoke
 
+      - name: Responsive visual QA
+        run: npm run evals:visual
+
+      - name: Verify accepted benchmark
+        run: npm run benchmark:verify
+
       - name: Build
         run: npm run build
+
+      - name: Audit production dependencies
+        run: npm audit --audit-level=high
