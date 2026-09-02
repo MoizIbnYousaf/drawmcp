@@ -23,7 +23,7 @@ export const BenchmarksPage = () => (
         </DrawablyHighlight>
       </h1>
       <p>
-        We ran {pairs} randomized production pairs from the same machine. Every
+        I ran {pairs} randomized production pairs from the same machine. Every
         trial had to produce the correct diagram, and every WebMCP trial had to
         change the rendered Excalidraw canvas before its clock stopped.
       </p>
@@ -125,11 +125,11 @@ export const BenchmarksPage = () => (
 
     <section className="benchmark-cta section-shell">
       <div>
-        <p className="section-kicker">The useful test</p>
-        <h2>Make a move by hand. Let the agent answer on the same board.</h2>
+        <p className="section-kicker">Try DrawMCP</p>
+        <h2>Draw through the normal Excalidraw controls.</h2>
       </div>
-      <DrawablyLink href="/canvas?demo=tic-tac-toe" tone="dark">
-        Play tic-tac-toe ↗
+      <DrawablyLink href="/canvas" tone="dark">
+        Open DrawMCP ↗
       </DrawablyLink>
     </section>
   </main>

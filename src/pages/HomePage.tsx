@@ -54,7 +54,8 @@ const DemoVideo = ({
       <source src={src} type="video/mp4" />
     </video>
     <img aria-hidden="true" className="comparison-video-poster" src={poster} alt="" />
-    <figcaption className="visually-hidden">{label}. Silent thirteen-second human-agent game.</figcaption>
+    <a href={src}>Watch the comparison video.</a>
+    <figcaption className="visually-hidden">{label}.</figcaption>
   </figure>
 );
 
@@ -66,7 +67,7 @@ export const HomePage = () => (
       <div className="hero-copy">
         <p className="section-kicker">
           <span className="live-dot" aria-hidden="true" />
-          Excalidraw with page-native agent tools
+          WebMCP for Excalidraw
         </p>
         <h1>
           You draw. The agent answers on the{" "}
@@ -75,9 +76,8 @@ export const HomePage = () => (
           </DrawablyHighlight>
         </h1>
         <p className="hero-lede">
-          DrawMCP gives the browser agent {TOOL_NAMES.length} tools over the
-          Excalidraw canvas on screen. You draw, the agent responds, and both
-          moves stay in one history.
+          DrawMCP is a WebMCP fork of the current Excalidraw MCP that allows the
+          interactive use of Excalidraw.
         </p>
         <div className="hero-actions">
           <DrawablyLink href="/canvas" tone="dark">
@@ -132,34 +132,33 @@ export const HomePage = () => (
       </DrawablyCard>
     </section>
 
-    <section className="game-showcase" id="play">
+    <section className="comparison-showcase" id="play">
       <div className="section-shell">
         <div className="section-heading split-heading">
           <div>
-            <p className="section-kicker">Moiz vs Codex</p>
-            <h2>You play X. The agent sees it.</h2>
+            <p className="section-kicker">MCP vs WebMCP</p>
+            <h2>Official Excalidraw MCP vs DrawMCP WebMCP</h2>
           </div>
           <p>
-            Draw through normal Excalidraw controls. The agent reads that exact
-            board, plays O through WebMCP, and leaves the canvas ready for your
-            next move.
+            Draw through the normal Excalidraw controls. The agent interacts via
+            WebMCP.
           </p>
         </div>
-        <DrawablyCard className="game-video-card" roughness={0.55} stroke="#63be73">
+        <DrawablyCard className="comparison-video-card" roughness={0.55} stroke="#77736a">
           <DemoVideo
-            label="Moiz and Codex playing tic-tac-toe on one live Excalidraw canvas"
-            poster="/videos/tic-tac-toe-poster.jpg"
-            src="/videos/tic-tac-toe.mp4"
+            label="Official Excalidraw MCP and DrawMCP WebMCP completing the measured production task side by side"
+            poster="/videos/mcp-vs-webmcp-poster.jpg"
+            src="/videos/mcp-vs-webmcp.mp4"
           />
-          <div className="game-video-facts">
-            <span><strong>Human</strong> Excalidraw keyboard and pointer</span>
-            <span><strong>Agent</strong> seven page-native tools</span>
-            <span><strong>State</strong> one revision and native Undo</span>
+          <div className="comparison-video-facts">
+            <span><strong>WebMCP</strong> 13.71 ms p50</span>
+            <span><strong>Official MCP</strong> 90.23 ms p50</span>
+            <span><strong>Result</strong> 6.58× faster here</span>
           </div>
         </DrawablyCard>
-        <div className="game-actions">
-          <DrawablyLink href="/canvas?demo=tic-tac-toe" tone="paper">
-            Play against the agent <span aria-hidden="true">↗</span>
+        <div className="comparison-actions">
+          <DrawablyLink href="/benchmarks" tone="paper">
+            Results <span aria-hidden="true">↗</span>
           </DrawablyLink>
         </div>
       </div>
@@ -195,7 +194,7 @@ export const HomePage = () => (
         </DrawablyCard>
         <a className="speed-link" href="/benchmarks">
           <DrawablyUnderline roughness={0.7} stroke="#6c5ce7">
-            Inspect the method and raw trials
+            Results
           </DrawablyUnderline>{" "}<span aria-hidden="true">→</span>
         </a>
       </div>
@@ -218,8 +217,8 @@ export const HomePage = () => (
     </section>
 
     <section className="closing-section section-shell">
-      <p className="section-kicker">Open the page. Ask the agent. Keep drawing.</p>
-      <h2>There is no second canvas to sync.</h2>
+      <p className="section-kicker">DrawMCP</p>
+      <h2>Open the canvas.</h2>
       <DrawablyLink href="/canvas" tone="dark">
         Open DrawMCP <span aria-hidden="true">↗</span>
       </DrawablyLink>
@@ -227,12 +226,10 @@ export const HomePage = () => (
 
     <footer className="site-footer section-shell">
       <span>
-        DrawMCP · Built for the{" "}
-        <a href="https://webmcp.devpost.com/">2026 WebMCP Challenge</a>
+        DrawMCP · Built for the 2026 WebMCP Challenge
       </span>
       <span>
-        Built on the published Excalidraw API · UI chrome by{" "}
-        <a href="https://github.com/Danilaa1/drawably">Drawably</a>
+        Built on the published Excalidraw API and the open-source Excalidraw SDK.
       </span>
     </footer>
   </main>

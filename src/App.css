@@ -393,7 +393,7 @@
 }
 
 .comparison-section,
-.game-showcase,
+.comparison-showcase,
 .boundaries-section {
   padding-block: 118px;
   background: #23231f;
@@ -433,20 +433,20 @@
 }
 
 .comparison-section .section-kicker,
-.game-showcase .section-kicker,
+.comparison-showcase .section-kicker,
 .boundaries-section .section-kicker {
   color: #a5a298;
 }
 
-.game-video-card {
+.comparison-video-card {
   padding: clamp(18px, 3vw, 32px);
   border-radius: var(--radius);
   background: #263129;
 }
 
-.game-video-card .comparison-video { margin: 0; }
+.comparison-video-card .comparison-video { margin: 0; }
 
-.game-video-facts {
+.comparison-video-facts {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1px;
@@ -456,7 +456,7 @@
   border-radius: 12px;
 }
 
-.game-video-facts span {
+.comparison-video-facts span {
   display: grid;
   gap: 5px;
   padding: 16px;
@@ -465,9 +465,9 @@
   font-size: 0.72rem;
 }
 
-.game-video-facts strong { color: #f8f7f1; font-size: 0.78rem; }
+.comparison-video-facts strong { color: #f8f7f1; font-size: 0.78rem; }
 
-.game-actions {
+.comparison-actions {
   display: flex;
   justify-content: flex-end;
   margin-top: 22px;
@@ -740,42 +740,6 @@
   grid-template-rows: auto minmax(0, 1fr);
   background: var(--paper);
 }
-
-.game-guide {
-  position: absolute;
-  z-index: 8;
-  top: 78px;
-  left: 16px;
-  max-width: min(620px, calc(100% - 32px));
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 10px 12px;
-  border: 1px solid #b8ddc0;
-  border-radius: 12px 10px 13px 9px;
-  background: rgba(245, 255, 247, 0.94);
-  box-shadow: 0 8px 28px rgba(48, 45, 38, 0.1);
-  color: #315e39;
-  backdrop-filter: blur(8px);
-}
-
-.game-guide > div { display: grid; gap: 2px; }
-.game-guide strong { font-size: 0.78rem; }
-.game-guide span { color: #5d715f; font-size: 0.66rem; }
-.game-guide button,
-.game-guide a {
-  flex: 0 0 auto;
-  padding: 7px 9px;
-  border: 1px solid #89bd92;
-  border-radius: 8px;
-  background: #fff;
-  color: #315e39;
-  font: 700 0.63rem "Inter", sans-serif;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.game-guide a { border-color: transparent; background: transparent; }
 
 .canvas-shell,
 .drawmcp-workspace,
@@ -1240,14 +1204,14 @@
   .sketch-agent { right: 24px; bottom: 92px; }
   .tool-receipt { top: 24px; right: 18px; }
   .comparison-section,
-  .game-showcase,
+  .comparison-showcase,
   .measurement-section,
   .tool-section,
   .timeline-section,
   .protocol-section,
   .boundaries-section { padding-block: 78px; }
   .lane-card { min-height: 0; padding: 24px; }
-  .game-video-facts,
+  .comparison-video-facts,
   .speed-grid { grid-template-columns: 1fr; }
   .speed-card { min-height: 210px; }
   .comparison-video { margin-block: 26px 24px; border-radius: 10px; }
@@ -1273,8 +1237,6 @@
   .observation-note { flex-direction: column; }
   .site-footer { align-items: flex-start; flex-direction: column; justify-content: center; }
   .webmcp-status { right: 8px; bottom: 8px; max-width: calc(100% - 16px); }
-  .game-guide { right: 8px; left: 8px; flex-wrap: wrap; }
-  .game-guide > div { flex: 1 1 100%; }
 }
 
 @media (prefers-reduced-motion: reduce) {

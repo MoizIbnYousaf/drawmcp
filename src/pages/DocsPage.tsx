@@ -6,8 +6,6 @@ import {
   DrawablyUnderline,
 } from "drawably/react";
 import { SiteHeader } from "../components/SiteHeader";
-import { releaseEvidence } from "../data/release-evidence";
-import { TIC_TAC_TOE_AGENT_PROMPT } from "../demos/tic-tac-toe";
 import { TOOL_NAMES, type ToolName } from "../webmcp/tool-names";
 
 const toolDescriptions: Record<ToolName, string> = {
@@ -20,7 +18,6 @@ const toolDescriptions: Record<ToolName, string> = {
   organize_diagram: "Arrange supported nodes with deterministic layout.",
 };
 const tools = TOOL_NAMES.map((name) => [name, toolDescriptions[name]] as const);
-const toolStatus = `${releaseEvidence.tools.passed}/${releaseEvidence.tools.total}`;
 
 export const DocsPage = () => (
   <main className="site-page docs-page">
@@ -29,8 +26,6 @@ export const DocsPage = () => (
       <aside className="docs-sidebar">
         <p>Get started</p>
         <a href="#why"><DrawablyUnderline>Why we built this</DrawablyUnderline></a>
-        <a href="#game"><DrawablyUnderline>Play tic-tac-toe</DrawablyUnderline></a>
-        <a href="#judge-path"><DrawablyUnderline>Verify in 90 seconds</DrawablyUnderline></a>
         <a href="#webmcp"><DrawablyUnderline>Use WebMCP</DrawablyUnderline></a>
         <a href="#official-mcp"><DrawablyUnderline>Connect official MCP</DrawablyUnderline></a>
         <a href="#shortcuts"><DrawablyUnderline>Native shortcuts</DrawablyUnderline></a>
@@ -51,101 +46,33 @@ export const DocsPage = () => (
             <DrawablyHighlight fill="#dff5e4">people and agents.</DrawablyHighlight>
           </h1>
           <p>
-            DrawMCP is an Excalidraw editor whose top-level page registers a
-            bounded tool surface through the WebMCP draft API.
+            DrawMCP is a WebMCP fork of the current Excalidraw MCP that allows
+            the interactive use of Excalidraw.
           </p>
         </header>
 
         <section id="why">
           <p className="doc-step">Why we built DrawMCP</p>
-          <h2>The interesting part was never drawing a rectangle</h2>
+          <h2>Why DrawMCP</h2>
           <p>
-            Excalidraw already had a capable MCP server. I was using it, and one
-            missing piece bothered me: the generated diagram lived behind a
-            service and a widget while the canvas in front of me remained a
-            separate thing.
-          </p>
-          <p>
-            I wanted to see what happened if the page registered tools against
-            the exact Excalidraw state I was touching. A person can move a shape
-            between agent calls. Undo still has to work. A stale write has to
-            stop before it erases the newer idea. Closing the page has to remove
-            the tools. The demo only counts if the ordinary editor stays
-            ordinary.
-          </p>
-          <p>
-            DrawMCP is that experiment made public: seven bounded tools, one
-            mounted editor, and a side-by-side comparison that keeps each clock
-            honest. Remote MCP servers remain useful. DrawMCP shows the
-            page-native case, where the browser already owns the work.
+            Excalidraw has a great MCP server, but it's been quite difficult to
+            use due to not having the ability to kind of interact with the
+            agent. WebMCP unlocks this by allowing us to basically have an agent
+            kind of co-work with the user right on the canvas. So by allowing us
+            to utilize WebMCP, this happens.
           </p>
           <a className="text-link" href="/benchmarks">
-            Read the measurements <span aria-hidden="true">→</span>
-          </a>
-        </section>
-
-        <section id="judge-path">
-          <p className="doc-step">00 · Challenge judge path</p>
-          <h2>Verify the shared canvas in 90 seconds</h2>
-          <ol className="doc-steps">
-            <li>
-              Open <a href="/canvas">the live canvas</a> in ChatGPT’s in-app
-              browser and wait for <strong>{toolStatus} site tools</strong>.
-            </li>
-            <li>
-              Ask: <em>“Summarize this canvas, add a green rectangle titled
-              WebMCP, then fit the view to the drawing.”</em>
-            </li>
-            <li>Move the new shape by hand in the normal Excalidraw editor.</li>
-            <li>
-              Ask the agent to summarize the canvas again, then use native Undo
-              and Redo to confirm that both actors share one history.
-            </li>
-          </ol>
-          <DrawablyCard className="callout callout-green" roughness={0.65} stroke="#2f9e44">
-            <strong>No login, connector, API key, or second canvas.</strong>
-            <span>The page owns the tools, live scene, revision, and undo history.</span>
-          </DrawablyCard>
-        </section>
-
-        <section id="game">
-          <p className="doc-step">Live human-agent demo</p>
-          <h2>Play one board with the agent</h2>
-          <p>
-            Open the seeded board, place X with the normal Excalidraw text tool,
-            then give the prompt below to the browser agent. The agent reads
-            your move from the current canvas and places O through WebMCP.
-          </p>
-          <pre className="code-block"><code>{TIC_TAC_TOE_AGENT_PROMPT}</code></pre>
-          <DrawablyCard className="callout callout-green" roughness={0.65} stroke="#2f9e44">
-            <strong>The game uses the same seven canvas tools.</strong>
-            <span>Your move and the agent move share one revision history and native Undo.</span>
-          </DrawablyCard>
-          <a className="text-link" href="/canvas?demo=tic-tac-toe">
-            Open the tic-tac-toe board <span aria-hidden="true">→</span>
+            Results <span aria-hidden="true">→</span>
           </a>
         </section>
 
         <section id="webmcp">
           <p className="doc-step">01 · WebMCP</p>
           <h2>Use DrawMCP in ChatGPT</h2>
-          <ol className="doc-steps">
-            <li>
-              Open <a href="/canvas">the DrawMCP canvas</a> in ChatGPT’s
-              in-app browser.
-            </li>
-            <li>
-              Wait for the status pill to show <strong>{toolStatus} site tools</strong>.
-            </li>
-            <li>
-              Ask the agent to inspect, create, update, delete, focus, or
-              organize the open drawing.
-            </li>
-            <li>
-              Keep editing normally. The next tool call reads the new page
-              state.
-            </li>
-          </ol>
+          <p>
+            Open the DrawMCP canvas in ChatGPT's in-app browser. Ask the agent
+            to use Excalidraw.
+          </p>
           <DrawablyCard className="callout callout-green" roughness={0.65} stroke="#2f9e44">
             <strong>No connector setup is required for WebMCP.</strong>
             <span>The tools exist only while the DrawMCP page is open.</span>

@@ -15,7 +15,7 @@ export const createReleaseManifest = () => {
   const deterministic = readJson(".evals/deterministic-latest.json");
   const cspDeterministic = readJson(".evals/csp-deterministic-latest.json");
   const smoke = readJson(".evals/smoke-latest.json");
-  const ticTacToe = readJson(".evals/tic-tac-toe-latest.json");
+  const continuity = readJson(".evals/shared-canvas-continuity-latest.json");
   const visual = readJson(".evals/visual-qa-latest.json");
   const benchmark = readJson("public/benchmarks/latest.json");
   const liveBenchmark = readJson("public/benchmarks/live-latest.json");
@@ -34,7 +34,7 @@ export const createReleaseManifest = () => {
     deterministic.passed !== true ||
     cspDeterministic.passed !== true ||
     smoke.passed !== true ||
-    ticTacToe.passed !== true ||
+    continuity.passed !== true ||
     visual.passed !== true ||
     probabilistic.passed !== true ||
     benchmark.counts?.semantic_failures !== 0 ||
@@ -75,7 +75,7 @@ export const createReleaseManifest = () => {
       passed: smoke.passed_steps,
       total: smoke.total_steps,
     },
-    tic_tac_toe: { passed: 1, total: 1 },
+    shared_canvas_continuity: { passed: 1, total: 1 },
     visual_routes: {
       passed: visual.passed_cases,
       total: visual.total_cases,
@@ -146,7 +146,10 @@ export const createReleaseManifest = () => {
     cspDeterministic,
   );
   const smokeArtifact = writeReleaseJson("chrome-smoke.json", smoke);
-  const ticTacToeArtifact = writeReleaseJson("tic-tac-toe.json", ticTacToe);
+  const continuityArtifact = writeReleaseJson(
+    "shared-canvas-continuity.json",
+    continuity,
+  );
   const visualArtifact = writeReleaseJson("visual-qa.json", {
     ...visual,
     cases: visual.cases.map(
@@ -155,7 +158,7 @@ export const createReleaseManifest = () => {
     ),
   });
   const manifest = {
-    schema_version: 1,
+    schema_version: 2,
     generated_at: new Date().toISOString(),
     source_commit: commit,
     source_tree_clean: true,
@@ -165,7 +168,7 @@ export const createReleaseManifest = () => {
       deterministic_browser: deterministicArtifact,
       csp_production_build: cspArtifact,
       chrome_smoke: smokeArtifact,
-      tic_tac_toe: ticTacToeArtifact,
+      shared_canvas_continuity: continuityArtifact,
       visual_qa: visualArtifact,
       probabilistic: `evidence/evals/${evalRun}/summary.json`,
       benchmark: "public/benchmarks/latest.json",

@@ -5,12 +5,22 @@ import { DocsPage } from "./DocsPage";
 import { HomePage } from "./HomePage";
 
 describe("DrawMCP site pages", () => {
-  it("leads with the shared game and verified live speedup", () => {
+  it("uses Moiz's approved copy and the verified protocol comparison", () => {
     const { container } = render(<HomePage />);
     expect(
       screen.getByRole("heading", {
-        name: "You play X. The agent sees it.",
+        name: "Official Excalidraw MCP vs DrawMCP WebMCP",
       }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        "DrawMCP is a WebMCP fork of the current Excalidraw MCP that allows the interactive use of Excalidraw.",
+      ),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        "Draw through the normal Excalidraw controls. The agent interacts via WebMCP.",
+      ),
     ).toBeInTheDocument();
     expect(
       screen.getByRole("heading", {
@@ -31,7 +41,9 @@ describe("DrawMCP site pages", () => {
       Array.from(container.querySelectorAll("video source"), (source) =>
         source.getAttribute("src"),
       ),
-    ).toEqual(["/videos/tic-tac-toe.mp4"]);
+    ).toEqual(["/videos/mcp-vs-webmcp.mp4"]);
+    expect(screen.getAllByRole("link", { name: /Results/ })).not.toHaveLength(0);
+    expect(screen.queryByText(/tic-tac-toe/i)).not.toBeInTheDocument();
   });
 
   it("documents both the page-native and official MCP setup", () => {
@@ -41,20 +53,21 @@ describe("DrawMCP site pages", () => {
     ).toBeInTheDocument();
     expect(
       screen.getByRole("heading", {
-        name: "The interesting part was never drawing a rectangle",
+        name: "Why DrawMCP",
       }),
     ).toBeInTheDocument();
     expect(screen.getByText("https://mcp.excalidraw.com")).toBeInTheDocument();
     expect(screen.getByText("get_canvas_summary")).toBeInTheDocument();
     expect(
-      screen.getByRole("heading", { name: "Verify the shared canvas in 90 seconds" }),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("heading", { name: "Play one board with the agent" }),
+      screen.getByText(
+        "Open the DrawMCP canvas in ChatGPT's in-app browser. Ask the agent to use Excalidraw.",
+      ),
     ).toBeInTheDocument();
     expect(
       screen.getByRole("heading", { name: "Every Excalidraw shortcut stays native" }),
     ).toBeInTheDocument();
+    expect(screen.queryByText(/tic-tac-toe/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/wait for the status pill/i)).not.toBeInTheDocument();
   });
 
   it("renders accepted live evidence with its exact task boundary", () => {
@@ -69,8 +82,10 @@ describe("DrawMCP site pages", () => {
       }),
     ).toBeInTheDocument();
     expect(screen.getByText("Show custom tracks")).toBeInTheDocument();
-    expect(
-      screen.getByRole("link", { name: "Play tic-tac-toe ↗" }),
-    ).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Open DrawMCP ↗" })).toHaveAttribute(
+      "href",
+      "/canvas",
+    );
+    expect(screen.queryByText(/tic-tac-toe/i)).not.toBeInTheDocument();
   });
 });

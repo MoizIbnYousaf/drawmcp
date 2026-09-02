@@ -1,12 +1,13 @@
 # DrawMCP comparison videos
 
-Two matched, silent HyperFrames compositions explain the boundary difference
-between the official Excalidraw MCP and DrawMCP WebMCP. Both use the same
-1280×720, 30 fps, nine-second structure so the comparison does not bias either
-lane through pacing or visual weight.
+The silent HyperFrames compositions explain the boundary difference between the
+official Excalidraw MCP and DrawMCP WebMCP. The homepage uses one 1280×720,
+30 fps comparison frame so both measured paths receive the same pacing and
+visual weight.
 
 - `compositions/official-mcp.html`: agent → remote MCP → MCP App widget
 - `compositions/drawmcp-webmcp.html`: agent → page tools → current canvas
+- `compositions/mcp-vs-webmcp.html`: both live task paths and the accepted result
 - `DESIGN.md`: visual system and motion constraints
 - `SCRIPT.md`: on-screen narrative
 - `STORYBOARD.md`: synchronized timing plan

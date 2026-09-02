@@ -19,8 +19,8 @@
     "evals:csp": "npx -y tsx@4.23.13 scripts/evals/run-csp-deterministic.ts",
     "evals:visual": "npx -y tsx@4.23.13 scripts/evals/run-visual-qa.ts",
     "evals:visual:production": "npx -y tsx@4.23.13 scripts/evals/run-visual-qa.ts --url https://drawmcp.dev",
-    "evals:tic-tac-toe": "npx -y tsx@4.23.13 scripts/evals/run-tic-tac-toe.ts",
-    "evals:tic-tac-toe:production": "npx -y tsx@4.23.13 scripts/evals/run-tic-tac-toe.ts --url https://drawmcp.dev/canvas?demo=tic-tac-toe",
+    "evals:continuity": "npx -y tsx@4.23.13 scripts/evals/run-shared-canvas-continuity.ts",
+    "evals:continuity:production": "npx -y tsx@4.23.13 scripts/evals/run-shared-canvas-continuity.ts --url https://drawmcp.dev/canvas",
     "evals:schema": "npx -y tsx@4.23.13 scripts/evals/export-model-schema.ts",
     "evals:probabilistic": "npx -y tsx@4.23.13 scripts/evals/run-probabilistic.ts",
     "evals:accept": "npx -y tsx@4.23.13 scripts/evals/accept-probabilistic.ts",
@@ -33,6 +33,7 @@
     "benchmark:accept": "npx -y tsx@4.23.13 scripts/benchmarks/accept-run.ts",
     "release:manifest": "npx -y tsx@4.23.13 scripts/release/create-manifest.ts",
     "release:validate": "npx -y tsx@4.23.13 scripts/release/validate.ts",
+    "copy:extract": "npx -y tsx@4.23.13 scripts/release/create-copy-payload.ts",
     "video:check": "npm --prefix video/comparison run check",
     "preview": "vite preview"
   },

@@ -2,6 +2,18 @@
 
 These are silent autoplay loops. On-screen copy carries the full story.
 
+## MCP vs WebMCP — 12 seconds
+
+1. **Setup:** One prompt, two paths, twenty randomized production pairs.
+2. **Official path:** Agent → remote service → widget. The clock stops at the
+   `create_view` checkpoint response: 90.23 ms p50.
+3. **WebMCP path:** Agent → page tools → open canvas. The clock stops after
+   `add_elements`, `fit_to_content`, and a rendered pixel change: 13.71 ms p50.
+4. **Result:** WebMCP was 6.58× faster at p50 and 9.93× faster at p90, with
+   40/40 correct trials.
+5. **Limit:** This is a result for the measured task, not a universal protocol
+   claim.
+
 ## Official Excalidraw MCP — 11 seconds
 
 1. **Prompt:** “Draw the browser-agent-canvas flow.”
@@ -25,14 +37,3 @@ These are silent autoplay loops. On-screen copy carries the full story.
 Same task. Different boundary.
 
 The measurements include different work. No protocol winner is claimed.
-
-## Moiz vs Codex tic-tac-toe — 13 seconds
-
-1. **Board:** The live DrawMCP canvas opens with seven site tools.
-2. **Human move:** Moiz places X through normal Excalidraw input.
-3. **Agent read:** Codex reads the same canvas through WebMCP.
-4. **Agent move:** Codex places O in the center with `add_elements`.
-5. **Receipt:** The visible move returns in 13.4 ms during the recorded release proof.
-6. **Continuation:** The board remains editable with native Undo and no second canvas.
-
-Final message: “Your move.”

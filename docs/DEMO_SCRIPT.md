@@ -5,41 +5,41 @@ no background music. Keep the pointer slow enough for judges to follow.
 
 ## 0:00–0:15 · The result
 
-**Picture:** Open the homepage on the live benchmark section, then scroll up to
-the tic-tac-toe video.
+**Picture:** Open the homepage on the MCP-versus-WebMCP comparison video. Hold
+on the final 6.58× result frame.
 
 **Voice:** “DrawMCP turns the Excalidraw page itself into an agent tool server.
 In twenty randomized live pairs, its rendered WebMCP task finished 6.58 times
 faster at the median than the official public MCP returned its checkpoint.”
 
-## 0:15–0:32 · One board
+## 0:15–0:32 · One canvas
 
-**Picture:** Open `/canvas?demo=tic-tac-toe`. Let the empty board and `7/7 site
-tools` status settle.
+**Picture:** Open `/canvas`. Draw a short note with the normal Excalidraw text
+tool.
 
 **Voice:** “The speed is useful because the agent works on the canvas already
 in front of me. There is no connector, login, export, or second drawing to
-reconcile. I am X. Codex is O.”
+reconcile.”
 
 ## 0:32–0:52 · Human move
 
-**Picture:** Use Excalidraw’s text tool and place X in the top-left cell.
+**Picture:** Move the note and add a rectangle through the normal editor.
 
 **Voice:** “I make the first move through the normal Excalidraw interface. This
 is a human edit, recorded in the same revision history the agent will read.”
 
-## 0:52–1:20 · Agent move
+## 0:52–1:20 · Agent continues
 
-**Picture:** Give the copied game prompt to the in-app browser agent. Show
-`get_canvas_summary`, then `add_elements`, and hold on O appearing in the center.
+**Picture:** Ask the in-app browser agent to read the note, add a labeled shape,
+and fit the view. Show `get_canvas_summary`, then `add_elements`.
 
-**Voice:** “Codex reads the current board through WebMCP, chooses a legal cell,
-and places O with a bounded page tool. The tool returns only after the pixels
-change. My X and the agent’s O now live in one Excalidraw scene.”
+**Voice:** “Codex reads the current canvas through WebMCP and responds with a
+bounded page tool. The tool returns only after the pixels change. My edit and
+the agent’s edit now live in one Excalidraw scene.”
 
 ## 1:20–1:38 · Continue normally
 
-**Picture:** Make another move or use native Undo and Redo.
+**Picture:** Move the new shape or use native Undo and Redo.
 
 **Voice:** “I can keep drawing, move either mark, or use native Undo. The next
 agent call reads the new page state. Nothing needs to sync because nothing left
@@ -57,9 +57,9 @@ before its widget rendered.”
 
 ## 1:55–2:00 · Close
 
-**Picture:** Return to the game board.
+**Picture:** Return to the comparison video.
 
-**Voice:** “Your move.”
+**Voice:** “DrawMCP lets the agent work with me on the page I already have open.”
 
 ## Recording checklist
 

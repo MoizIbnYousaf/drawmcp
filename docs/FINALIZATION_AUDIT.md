@@ -13,15 +13,15 @@ artifact paths in that manifest.
 | Proof level | Status | Authoritative evidence |
 | --- | --- | --- |
 | Static contract | Passed locally | Generated `evals/tools.json`, lint, TypeScript build, and closed-schema tests |
-| Unit and component behavior | Passed locally | 113/113 tests; durable unit summary linked by the release manifest |
+| Unit and component behavior | Passed locally | 115/115 tests; durable unit summary linked by the release manifest |
 | Real Chrome WebMCP behavior | Passed locally | 17/17 development-server steps, 17/17 production-build CSP steps, and 11/11 Chrome Labs smoke calls |
 | Responsive product rendering | Passed locally | 8/8 desktop/mobile route checks with screenshots, asset checks, clipping detection, and zero console errors |
 | Repeated model decisions | Passed locally | 125/125 accepted Qwen decisions, five runs per case, exact production-schema argument validation, and zero safety violations |
 | Controlled component benchmark | Passed locally | 220/220 semantic trials, 100 warm plus 10 cold pairs per lane, raw checksummed rows, and qualified statistics |
 | Live production task benchmark | Passed | 20 randomized pairs, 40/40 semantic successes, 20/20 rendered WebMCP changes, 6.58× p50 and 9.93× p90 observed task speedups |
-| Shared tic-tac-toe journey | Passed locally and in production | Human Excalidraw input followed by a rendered WebMCP agent move on one revisioned canvas |
+| Shared-canvas continuity | Passed locally | Human Excalidraw input → WebMCP read/write → rendered change → native Undo/Redo on one revisioned canvas |
 | Exact production deployment | Passed for the optimized runtime | Vercel deployment, `drawmcp.dev` alias, and exact `/release.json` source commit were verified; the final presentation revision repeats this gate |
-| Production WebMCP and headers | Passed and repeatable | Packaged production deterministic, Chrome Labs, visual, header, game, and live-observation commands have passed against `drawmcp.dev` |
+| Production WebMCP and headers | Passed for the prior release and repeatable | Packaged production deterministic, Chrome Labs, visual, header, continuity, and live-observation commands must be repeated against the new deployment |
 | Matched-model prompt journey | Evidence pending | The accepted live result starts at tool dispatch; model decision time remains outside the published speed claim |
 | Repository visibility, recording, Devpost submit | User-controlled | Explicit checklist in `docs/DEVPOST_SUBMISSION.md` |
 | Upstream Excalidraw MCP contribution | Paused by user | No active pull request or remote feature branch; local candidate details remain in `docs/UPSTREAM_CONTRIBUTION.md` |
@@ -35,7 +35,7 @@ artifact paths in that manifest.
 | R5-R8: mutation liveness, Excalidraw API, revisions, stale guards | Proven across no-op, abort, editor failure, timeout, detach, competing edit, queue recovery, real browser mutations, and Undo/Redo |
 | R9: local reload recovery | Proven for the versioned non-file scene subset; prior-session Undo/Redo is explicitly excluded |
 | R10: connected supported diagrams | Proven for labeled nodes and bound connectors through add, update, organize, human continuation, Undo, and Redo; unsupported types are reported rather than claimed as parity |
-| R11: deterministic coverage | Proven by 113 tests plus the 17-step semantic browser journey under both development and production CSP, the external 11-step smoke layer, and the shared game journey |
+| R11: deterministic coverage | Proven by 115 tests plus the 17-step semantic browser journey under both development and production CSP, the external 11-step smoke layer, and a generic shared-canvas continuity journey |
 | R12: probabilistic and adversarial coverage | Proven locally for direct, ambiguous, recovery, no-tool, and injection cases; judged-host confirmation remains a production gate |
 | R13: production verification | Executed against the optimized production runtime; the same exact-revision checks are repeated after the final presentation deployment |
 | R14-R17: benchmark boundaries, controls, statistics, oracle | Proven for controlled local and live production strata; the live task speedup is published separately from unmeasured model decision time |
@@ -62,9 +62,10 @@ artifact paths in that manifest.
 | FIND13 | Tool inventories, proof counters, benchmark values, and sample sizes are generated or read from evidence sources |
 | FIND14 | Cancellation, revision, persistence, and benchmark copy now names the tested boundary and its limitations |
 
-No local release blocker remains. The unresolved items are deliberately higher
-proof levels or actions controlled by the user, not substitutes for failed local
-work.
+The current candidate passed the shared-canvas continuity gate. The exact public
+copy payload is fingerprinted and ready for voice/detector review; the Pangram
+scan remains unrecorded because browser control was unavailable. Production and
+publication remain separate proof levels.
 
 ## Human-in-the-loop publication gate
 

@@ -1,7 +1,7 @@
 # DrawMCP
 
-DrawMCP is an Excalidraw-based canvas where a person and a browser agent work
-on the same live drawing through WebMCP.
+DrawMCP is a WebMCP fork of the current Excalidraw MCP that allows the
+interactive use of Excalidraw.
 
 The surrounding website UI uses
 [Drawably](https://github.com/Danilaa1/drawably) `0.3.10` for semantic HTML
@@ -9,23 +9,13 @@ controls with generated SVG chrome. Inter and Geist Mono are bundled locally,
 while the optional Drawably Pen font is limited to sketch annotations.
 Excalidraw remains the editor itself.
 
-- `/` shows the live speed result and the Moiz-versus-Codex game.
+- `/` shows the live MCP-versus-WebMCP comparison and speed result.
 - `/canvas` owns the live Excalidraw editor and all seven WebMCP tools.
-- `/canvas?demo=tic-tac-toe` opens a ready-to-play shared agent board.
 - `/benchmarks` publishes the verified live result and checksummed raw trials.
 - `/docs` documents WebMCP, the official MCP lane, security, and deployment.
 
-The project is being built for the 2026 WebMCP Challenge. Its central question
-is:
-
-> What becomes possible when an agent's drawing tools live inside the website
-> and share the human's current canvas, selection, viewport, and undo history?
-
-DrawMCP is intentionally compared with the official Excalidraw MCP App. The
-existing MCP service is a strong remote MCP experience that generates an
-interactive diagram widget. DrawMCP explores the complementary browser-native
-model: the website itself exposes tools over `document.modelContext`, and the
-agent operates the page the human is already editing.
+The project was built for the 2026 WebMCP Challenge. Draw through the normal
+Excalidraw controls. The agent interacts via WebMCP.
 
 ## Status
 
@@ -44,15 +34,14 @@ and the editor’s complete native keyboard surface.
 
 The project was created during the 2026 challenge window. Its first commit is
 dated September 1, 2026, and the repository history keeps the WebMCP work
-separate and reviewable. Judges can follow the 90-second verification path on
-the [live docs](https://drawmcp.dev/docs#judge-path).
+separate and reviewable. Judges can follow the setup on the
+[live docs](https://drawmcp.dev/docs#webmcp).
 
 - [Submission checklist and judging map](docs/DEVPOST_SUBMISSION.md)
 - [Under-three-minute narrated demo script](docs/DEMO_SCRIPT.md)
 
-The silent homepage loop shows a human move through normal Excalidraw input and
-an agent move through WebMCP on the same board. It does not replace the required
-narrated YouTube submission video.
+The silent homepage loop compares the measured public MCP and WebMCP paths in
+one frame. It does not replace the required narrated YouTube submission video.
 
 The live tool surface is:
 
@@ -64,7 +53,7 @@ The live tool surface is:
 - `fit_to_content`
 - `organize_diagram`
 
-The current candidate has passed 113 deterministic tests, 17/17 project-owned
+The current candidate has passed 115 deterministic tests, 17/17 project-owned
 browser proof steps, the Chrome Labs runner's 11/11 authored smoke calls, and
 125/125 repeated local-model decisions. In 20 randomized live production pairs,
 DrawMCP completed its two-call rendered task in 13.71 ms p50 while the official
@@ -130,7 +119,7 @@ Run the current checks:
 npm run lint
 npm test
 npm run evals:check
-npm run evals:tic-tac-toe
+npm run evals:continuity
 npm run benchmark:verify:live
 npm run video:check
 npm run build
