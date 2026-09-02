@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-09-02T14:10:57.428Z",
+  "target_url": "http://127.0.0.1:54670/canvas",
+  "workflow": "human editor change -> WebMCP read -> agent add -> fit -> undo -> redo",
+  "human_edit": {
+    "input": "Excalidraw keyboard and pointer",
+    "id": "FD_5XpzE-qekqzL5QoMTD",
+    "type": "rectangle",
+    "revision_after": 9
+  },
+  "agent_edit": {
+    "protocol": "WebMCP",
+    "tools": [
+      "add_elements",
+      "fit_to_content"
+    ],
+    "id": "agent_response",
+    "duration_ms": 12.788292000000183,
+    "add_receipt": {
+      "ok": true,
+      "operation": "add_elements",
+      "changed": true,
+      "revision_before": 9,
+      "revision_after": 10,
+      "affected_element_count": 2,
+      "affected_element_ids": [
+        "agent_response",
+        "FGipmkiimLA25a6ZSOItc"
+      ],
+      "affected_ids_truncated": false,
+      "element_count": 3
+    },
+    "fit_receipt": {
+      "ok": true,
+      "revision": 12,
+      "focused_element_count": 3,
+      "focused_element_ids": [
+        "FD_5XpzE-qekqzL5QoMTD",
+        "agent_response",
+        "FGipmkiimLA25a6ZSOItc"
+      ],
+      "focused_ids_truncated": false,
+      "scope": "all"
+    },
+    "revision_after": 10
+  },
+  "history": {
+    "revision_after_undo": 11,
+    "revision_after_redo": 12
+  },
+  "checks": {
+    "seven_tools_registered": true,
+    "human_edit_read_by_agent": true,
+    "agent_edit_present": true,
+    "rendered_before_return": true,
+    "fit_completed": true,
+    "undo_preserved_human_edit": true,
+    "undo_removed_agent_edit": true,
+    "redo_restored_agent_edit": true,
+    "no_console_errors": true
+  },
+  "console_errors": [],
+  "passed": true
+}

@@ -25,8 +25,8 @@ export const releaseEvidence = {
     "total": 1
   },
   "visual_routes": {
-    "passed": 8,
-    "total": 8
+    "passed": 9,
+    "total": 9
   },
   "unit_tests": {
     "passed": 115,
