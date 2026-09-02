@@ -15,7 +15,7 @@ artifact paths in that manifest.
 | Static contract | Passed locally | Generated `evals/tools.json`, lint, TypeScript build, and closed-schema tests |
 | Unit and component behavior | Passed locally | 115/115 tests; durable unit summary linked by the release manifest |
 | Real Chrome WebMCP behavior | Passed locally | 17/17 development-server steps, 17/17 production-build CSP steps, and 11/11 Chrome Labs smoke calls |
-| Responsive product rendering | Passed locally | 8/8 desktop/mobile route checks with screenshots, asset checks, clipping detection, and zero console errors |
+| Responsive product rendering | Passed locally | 9/9 desktop/mobile route checks, including the retired game query, with screenshots, asset checks, clipping detection, and zero console errors |
 | Repeated model decisions | Passed locally | 125/125 accepted Qwen decisions, five runs per case, exact production-schema argument validation, and zero safety violations |
 | Controlled component benchmark | Passed locally | 220/220 semantic trials, 100 warm plus 10 cold pairs per lane, raw checksummed rows, and qualified statistics |
 | Live production task benchmark | Passed | 20 randomized pairs, 40/40 semantic successes, 20/20 rendered WebMCP changes, 6.58× p50 and 9.93× p90 observed task speedups |

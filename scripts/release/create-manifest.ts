@@ -146,9 +146,11 @@ export const createReleaseManifest = () => {
     cspDeterministic,
   );
   const smokeArtifact = writeReleaseJson("chrome-smoke.json", smoke);
+  const { screenshot: _localContinuityScreenshot, ...durableContinuity } =
+    continuity;
   const continuityArtifact = writeReleaseJson(
     "shared-canvas-continuity.json",
-    continuity,
+    durableContinuity,
   );
   const visualArtifact = writeReleaseJson("visual-qa.json", {
     ...visual,

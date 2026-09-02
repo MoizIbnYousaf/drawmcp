@@ -43,6 +43,14 @@ const cases: VisualCase[] = [
     canvas: true,
   },
   {
+    name: "retired-game-query-desktop",
+    path: "/canvas?demo=tic-tac-toe",
+    width: 1440,
+    height: 1000,
+    heading: "DrawMCP",
+    canvas: true,
+  },
+  {
     name: "home-mobile",
     path: "/",
     width: 390,
@@ -181,6 +189,10 @@ const inspectPage = async (page: Page, testCase: VisualCase) => {
         excalidraw_mounted: canvas
           ? document.querySelectorAll(".excalidraw").length === 1
           : undefined,
+        retired_game_ui_absent:
+          !window.location.search.includes("demo=tic-tac-toe") ||
+          (!bodyText.includes("Tic-tac-toe") &&
+            !bodyText.includes("Copy agent prompt")),
       };
     },
     { expectedHeading: testCase.heading, canvas: testCase.canvas === true },
@@ -217,6 +229,9 @@ const inspectPage = async (page: Page, testCase: VisualCase) => {
     ...(testCase.canvas && inspection.excalidraw_mounted !== true
       ? ["Excalidraw did not mount exactly once."]
       : []),
+    ...(inspection.retired_game_ui_absent
+      ? []
+      : ["The retired game query rendered game-specific UI."]),
     ...consoleErrors.map((error) => `Console: ${error}`),
     ...pageErrors.map((error) => `Page: ${error}`),
   ];

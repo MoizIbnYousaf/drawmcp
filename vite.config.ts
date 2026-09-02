@@ -13,13 +13,14 @@ const buildMetadataPlugin = (): Plugin => ({
   generateBundle() {
     const manifestSource = readFileSync("public/evidence/latest.json", "utf8");
     const manifest = JSON.parse(manifestSource);
-    const sourceCommit =
-      process.env.VERCEL_GIT_COMMIT_SHA?.trim() || git("rev-parse", "HEAD");
+    const vercelGitCommit = process.env.VERCEL_GIT_COMMIT_SHA?.trim();
+    const sourceCommit = vercelGitCommit || git("rev-parse", "HEAD");
     const metadata = {
       schema_version: 1,
       generated_at: new Date().toISOString(),
       source_commit: sourceCommit,
-      source_tree_clean: git("status", "--porcelain") === "",
+      source_tree_clean:
+        Boolean(vercelGitCommit) || git("status", "--porcelain") === "",
       release_manifest_source_commit: manifest.source_commit,
       release_manifest_sha256: createHash("sha256")
         .update(manifestSource)
