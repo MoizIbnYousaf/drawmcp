@@ -5,7 +5,9 @@ on the same live drawing through WebMCP.
 
 The surrounding website UI uses
 [Drawably](https://github.com/Danilaa1/drawably) `0.3.10` for semantic HTML
-controls with generated SVG chrome. Excalidraw remains the editor itself.
+controls with generated SVG chrome. Inter and Geist Mono are bundled locally,
+while the optional Drawably Pen font is limited to sketch annotations.
+Excalidraw remains the editor itself.
 
 - `/` explains the side-by-side protocol comparison.
 - `/canvas` owns the live Excalidraw editor and all seven WebMCP tools.
