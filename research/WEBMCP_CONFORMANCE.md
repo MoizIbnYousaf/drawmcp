@@ -78,4 +78,3 @@ A lower level never substitutes for a higher level.
 - <https://developer.chrome.com/docs/ai/webmcp/compare-mcp>
 - <https://github.com/GoogleChromeLabs/webmcp-tools/tree/main/webmcp-evals>
 - <https://wpt.fyi/results/webmcp>
-

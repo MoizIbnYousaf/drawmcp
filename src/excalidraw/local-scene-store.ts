@@ -124,4 +124,3 @@ export const loadLocalScene = (storage: StorageLike): LocalScene | null => {
     return null;
   }
 };
-

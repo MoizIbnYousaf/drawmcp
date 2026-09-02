@@ -119,7 +119,13 @@ export const createReleaseManifest = () => {
     deterministic,
   );
   const smokeArtifact = writeReleaseJson("chrome-smoke.json", smoke);
-  const visualArtifact = writeReleaseJson("visual-qa.json", visual);
+  const visualArtifact = writeReleaseJson("visual-qa.json", {
+    ...visual,
+    cases: visual.cases.map(
+      ({ screenshot: _localScreenshot, ...testCase }: Record<string, unknown>) =>
+        testCase,
+    ),
+  });
   const manifest = {
     schema_version: 1,
     generated_at: new Date().toISOString(),

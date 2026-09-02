@@ -18,6 +18,9 @@ describe("release evidence", () => {
     for (const artifact of Object.values(manifest.artifacts) as string[]) {
       expect(artifact.startsWith(".evals/")).toBe(false);
       expect(existsSync(resolve(artifact)), artifact).toBe(true);
+      const source = readFileSync(resolve(artifact), "utf8");
+      expect(source).not.toContain(".evals/");
+      expect(source).not.toContain("/Users/");
     }
   });
 });

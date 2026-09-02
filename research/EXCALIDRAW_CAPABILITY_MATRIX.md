@@ -55,5 +55,4 @@ The official MCP registers five tools. `read_me` and `create_view` are model-vis
 
 ## Upstream contribution candidate
 
-`create_view` persists a checkpoint and creates a visible widget result while advertising `readOnlyHint: true`. The first upstream contribution should correct that annotation and add the narrowest contract verification the repository can support. DrawMCP benchmarking, branding, and page tools do not belong in that pull request.
-
+`create_view` persists a checkpoint and creates a visible widget result while advertising `readOnlyHint: true`. A locally validated contribution candidate corrects that annotation and adds a focused contract check. No public submission or remote branch is active; publishing requires the user's explicit review and approval. DrawMCP benchmarking, branding, and page tools do not belong in that contribution.
