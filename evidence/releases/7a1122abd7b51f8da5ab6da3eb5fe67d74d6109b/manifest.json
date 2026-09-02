@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-09-02T09:04:41.901Z",
+  "source_commit": "7a1122abd7b51f8da5ab6da3eb5fe67d74d6109b",
+  "source_tree_clean": true,
+  "proof": {
+    "tools": {
+      "passed": 7,
+      "total": 7
+    },
+    "deterministic_browser": {
+      "passed": 17,
+      "total": 17
+    },
+    "local_model": {
+      "passed": 125,
+      "total": 125
+    },
+    "chrome_smoke": {
+      "passed": 11,
+      "total": 11
+    },
+    "unit_tests": {
+      "passed": 104,
+      "total": 104
+    },
+    "controlled_benchmark": {
+      "semantic_passed": 220,
+      "total": 220
+    }
+  },
+  "artifacts": {
+    "deterministic_browser": ".evals/deterministic-latest.json",
+    "chrome_smoke": ".evals/smoke-latest.json",
+    "probabilistic": "evidence/evals/2026-09-02T08-37-45-793Z/summary.json",
+    "benchmark": "public/benchmarks/latest.json"
+  },
+  "production": {
+    "status": "pending-deployment-verification",
+    "deployment_id": null,
+    "deployed_commit": null
+  }
+}
