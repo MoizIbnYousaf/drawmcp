@@ -1,4 +1,6 @@
+import { DrawablyCard, DrawablyHighlight, DrawablyList } from "drawably/react";
 import type { CSSProperties } from "react";
+import { DrawablyLink } from "../components/DrawablyLink";
 import { SiteHeader } from "../components/SiteHeader";
 
 const phases = [
@@ -15,7 +17,10 @@ export const BenchmarksPage = () => (
     <SiteHeader current="benchmarks" />
     <section className="benchmark-hero section-shell">
       <p className="section-kicker">The measurement room</p>
-      <h1>Fast is only useful when we say what the clock includes.</h1>
+      <h1>
+        Fast is only useful when we say what the{" "}
+        <DrawablyHighlight fill="#ffec99">clock includes.</DrawablyHighlight>
+      </h1>
       <p>
         DrawMCP records protocol, agent, execution, and visible-result timing as
         separate boundaries. Tool-level observations are published below, but
@@ -24,21 +29,21 @@ export const BenchmarksPage = () => (
     </section>
 
     <section className="benchmark-snapshot section-shell">
-      <article className="snapshot-card snapshot-card-primary">
+      <DrawablyCard className="snapshot-card snapshot-card-primary" roughness={0.65} stroke="#2f9e44">
         <p>WebMCP page-local p50</p>
         <strong>1.4 <small>ms</small></strong>
         <span>Five warm deployed runs</span>
-      </article>
-      <article className="snapshot-card">
+      </DrawablyCard>
+      <DrawablyCard className="snapshot-card" roughness={0.65} stroke="#6c5ce7">
         <p>Official MCP direct p50</p>
         <strong>110.9 <small>ms</small></strong>
         <span>Five warm Streamable HTTP runs</span>
-      </article>
-      <article className="snapshot-card">
+      </DrawablyCard>
+      <DrawablyCard className="snapshot-card" roughness={0.65} stroke="#77736a">
         <p>Controlled paired runs</p>
         <strong>0</strong>
         <span>Not published yet</span>
-      </article>
+      </DrawablyCard>
     </section>
 
     <section className="observed-section section-shell">
@@ -52,12 +57,12 @@ export const BenchmarksPage = () => (
           separately because combining them would erase the architecture.
         </p>
       </div>
-      <div className="observed-table">
+      <DrawablyCard className="observed-table" roughness={0.5} stroke="#77736a">
         <div className="observed-head"><span>Boundary</span><span>p50</span><span>p95</span><span>Warm runs</span></div>
         <div><strong>WebMCP page-local execution</strong><span>1.4 ms</span><span>1.48 ms</span><span>5</span></div>
         <div><strong>Official MCP direct SDK transport</strong><span>110.9 ms</span><span>215.0 ms</span><span>5</span></div>
         <div><strong>ChatGPT WebMCP host round trip</strong><span>2961 ms</span><span>3491 ms</span><span>5</span></div>
-      </div>
+      </DrawablyCard>
       <div className="observation-note">
         <p>
           The same five-element diagram succeeded in every run. The official
@@ -82,7 +87,7 @@ export const BenchmarksPage = () => (
           one discarded cold run.
         </p>
       </div>
-      <div className="timeline-board">
+      <DrawablyCard className="timeline-board" roughness={0.55} stroke="#77736a">
         <div className="timeline-label">WebMCP</div>
         <div className="timeline-track timeline-track-webmcp">
           {phases.map((phase, index) => (
@@ -105,7 +110,7 @@ export const BenchmarksPage = () => (
           Structure shown now; segment widths become data-driven only after the
           controlled run set is recorded.
         </p>
-      </div>
+      </DrawablyCard>
     </section>
 
     <section className="protocol-section section-shell">
@@ -119,7 +124,7 @@ export const BenchmarksPage = () => (
           deployment.
         </p>
       </div>
-      <div className="protocol-checks">
+      <DrawablyList className="protocol-checks" marker="check" stroke="#2f9e44">
         {[
           "Same prompt and target diagram",
           "One discarded cold run",
@@ -128,19 +133,19 @@ export const BenchmarksPage = () => (
           "Tool calls, retries, and handoffs",
           "Human-edit state preservation",
         ].map((item) => (
-          <div key={item}><span aria-hidden="true">✓</span>{item}</div>
+          <li key={item}>{item}</li>
         ))}
-      </div>
+      </DrawablyList>
     </section>
 
     <section className="boundaries-section">
       <div className="section-shell">
         <p className="section-kicker">What each number means</p>
         <div className="boundary-grid">
-          <article><span>01</span><h3>Decision</h3><p>Prompt submission to the first tool call.</p></article>
-          <article><span>02</span><h3>Execution</h3><p>The tool boundary only—local JavaScript or remote service.</p></article>
-          <article><span>03</span><h3>Visible result</h3><p>Wall clock until the canvas is stable and useful.</p></article>
-          <article><span>04</span><h3>Continuity</h3><p>Whether a human edit survives the next agent operation.</p></article>
+          <DrawablyCard roughness={0.7} stroke="#817b70"><span>01</span><h3>Decision</h3><p>Prompt submission to the first tool call.</p></DrawablyCard>
+          <DrawablyCard roughness={0.7} stroke="#817b70"><span>02</span><h3>Execution</h3><p>The tool boundary only—local JavaScript or remote service.</p></DrawablyCard>
+          <DrawablyCard roughness={0.7} stroke="#817b70"><span>03</span><h3>Visible result</h3><p>Wall clock until the canvas is stable and useful.</p></DrawablyCard>
+          <DrawablyCard roughness={0.7} stroke="#817b70"><span>04</span><h3>Continuity</h3><p>Whether a human edit survives the next agent operation.</p></DrawablyCard>
         </div>
       </div>
     </section>
@@ -150,9 +155,9 @@ export const BenchmarksPage = () => (
         <p className="section-kicker">Current verdict</p>
         <h2>The WebMCP implementation works. The race has not been run.</h2>
       </div>
-      <a className="button button-dark" href="/canvas">
+      <DrawablyLink href="/canvas" tone="dark">
         Open the verified canvas ↗
-      </a>
+      </DrawablyLink>
     </section>
   </main>
 );

@@ -1,3 +1,10 @@
+import {
+  DrawablyBadge,
+  DrawablyCard,
+  DrawablyHighlight,
+  DrawablyList,
+  DrawablyUnderline,
+} from "drawably/react";
 import { SiteHeader } from "../components/SiteHeader";
 
 const tools = [
@@ -16,20 +23,24 @@ export const DocsPage = () => (
     <div className="docs-layout section-shell">
       <aside className="docs-sidebar">
         <p>Get started</p>
-        <a href="#webmcp">Use WebMCP</a>
-        <a href="#official-mcp">Connect official MCP</a>
-        <a href="#local">Run locally</a>
+        <a href="#webmcp"><DrawablyUnderline>Use WebMCP</DrawablyUnderline></a>
+        <a href="#official-mcp"><DrawablyUnderline>Connect official MCP</DrawablyUnderline></a>
+        <a href="#local"><DrawablyUnderline>Run locally</DrawablyUnderline></a>
         <p>Reference</p>
-        <a href="#tools">Site tools</a>
-        <a href="#revisions">Revisions and history</a>
-        <a href="#security">Security boundary</a>
-        <a href="#auth">Auth and hosting</a>
+        <a href="#tools"><DrawablyUnderline>Site tools</DrawablyUnderline></a>
+        <a href="#revisions"><DrawablyUnderline>Revisions and history</DrawablyUnderline></a>
+        <a href="#security"><DrawablyUnderline>Security boundary</DrawablyUnderline></a>
+        <a href="#auth"><DrawablyUnderline>Auth and hosting</DrawablyUnderline></a>
+        <a href="#ui-system"><DrawablyUnderline>UI system</DrawablyUnderline></a>
       </aside>
 
       <article className="docs-content">
         <header className="docs-hero">
           <p className="section-kicker">DrawMCP documentation</p>
-          <h1>One canvas, available to people and agents.</h1>
+          <h1>
+            One canvas, available to{" "}
+            <DrawablyHighlight fill="#dff5e4">people and agents.</DrawablyHighlight>
+          </h1>
           <p>
             DrawMCP is an Excalidraw editor whose top-level page registers a
             bounded tool surface through the WebMCP draft API.
@@ -56,10 +67,10 @@ export const DocsPage = () => (
               state.
             </li>
           </ol>
-          <div className="callout callout-green">
+          <DrawablyCard className="callout callout-green" roughness={0.65} stroke="#2f9e44">
             <strong>No connector setup is required for WebMCP.</strong>
             <span>The tools exist only while the DrawMCP page is open.</span>
-          </div>
+          </DrawablyCard>
           <p>
             In Google Chrome, enable the experimental testing flag at{" "}
             <code className="inline-code">
@@ -104,14 +115,14 @@ npm run build`}</code></pre>
         <section id="tools">
           <p className="doc-step">04 · Tool reference</p>
           <h2>The seven site tools</h2>
-          <div className="tool-reference">
+          <DrawablyCard className="tool-reference" roughness={0.55} stroke="#77736a">
             {tools.map(([name, description]) => (
               <div className="tool-reference-row" key={name}>
                 <code>{name}</code>
                 <p>{description}</p>
               </div>
             ))}
-          </div>
+          </DrawablyCard>
           <p>
             Every input schema is closed with{" "}
             <code className="inline-code">additionalProperties: false</code> and
@@ -128,8 +139,10 @@ npm run build`}</code></pre>
             className="revision-flow"
             aria-label="Revision-aware mutation flow"
           >
-            <span>Read rev 5</span><b>→</b><span>Validate IDs</span><b>→</b>
-            <span>Write rev 6</span><b>→</b><span>Undo / Redo</span>
+            <DrawablyBadge stroke="#6c5ce7">Read rev 5</DrawablyBadge><b>→</b>
+            <DrawablyBadge stroke="#6c5ce7">Validate IDs</DrawablyBadge><b>→</b>
+            <DrawablyBadge stroke="#2f9e44">Write rev 6</DrawablyBadge><b>→</b>
+            <DrawablyBadge stroke="#2f9e44">Undo / Redo</DrawablyBadge>
           </div>
           <p>
             Mutations may include{" "}
@@ -144,13 +157,13 @@ npm run build`}</code></pre>
         <section id="security">
           <p className="doc-step">06 · Security</p>
           <h2>A deliberately narrow page boundary</h2>
-          <ul className="doc-list">
+          <DrawablyList className="doc-list" marker="check" stroke="#2f9e44">
             <li>No tool accepts arbitrary code, HTML, URLs, selectors, or file paths.</li>
             <li>No canvas tool uploads, shares, navigates, purchases, or contacts a backend.</li>
             <li>User-authored canvas text is bounded and marked as untrusted content.</li>
             <li>Mutations are visible, revision-guarded, serialized, and undoable.</li>
             <li>Tool registrations are aborted when the owning canvas unmounts.</li>
-          </ul>
+          </DrawablyList>
         </section>
 
         <section id="auth">
@@ -163,13 +176,27 @@ npm run build`}</code></pre>
             provider. Vercel supplies HTTPS, which WebMCP requires as a secure
             context.
           </p>
-          <div className="callout">
+          <DrawablyCard className="callout" roughness={0.65} stroke="#6e675f">
             <strong>If persistence or private team canvases are added later,</strong>
             <span>
               auth and storage become a separate product decision—not a
               prerequisite for this proof.
             </span>
-          </div>
+          </DrawablyCard>
+        </section>
+
+        <section id="ui-system">
+          <p className="doc-step">08 · UI system</p>
+          <h2>Real controls with hand-drawn chrome</h2>
+          <p>
+            DrawMCP uses{" "}
+            <a href="https://github.com/Danilaa1/drawably">Drawably 0.3.10</a>{" "}
+            for SVG cards, badges, underlines, highlights, lists, calls to
+            action, and the live canvas status. The controls remain semantic
+            HTML, and Drawably automatically freezes its stroke animation when
+            reduced motion is preferred. Excalidraw remains the canvas editor;
+            Drawably styles the surrounding product and documentation.
+          </p>
         </section>
       </article>
     </div>

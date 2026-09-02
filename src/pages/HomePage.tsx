@@ -1,9 +1,17 @@
+import {
+  DrawablyBadge,
+  DrawablyCard,
+  DrawablyCircle,
+  DrawablyHighlight,
+  DrawablyUnderline,
+} from "drawably/react";
+import { DrawablyLink } from "../components/DrawablyLink";
 import { SiteHeader } from "../components/SiteHeader";
 
 const proof = [
   { value: "7/7", label: "deployed site tools" },
   { value: "11/11", label: "deployed smoke steps" },
-  { value: "46", label: "deterministic tests" },
+  { value: "50", label: "deterministic tests" },
 ];
 
 const mcpSteps = ["Agent", "Remote MCP", "MCP App widget", "Editor"];
@@ -41,7 +49,10 @@ export const HomePage = () => (
           A browser-native Excalidraw experiment
         </p>
         <h1>
-          The shortest path from an agent to the canvas is the page itself.
+          The shortest path from an agent to the canvas is the{" "}
+          <DrawablyHighlight fill="#dff5e4" roughness={0.7}>
+            page itself.
+          </DrawablyHighlight>
         </h1>
         <p className="hero-lede">
           DrawMCP exposes the open Excalidraw canvas as seven WebMCP tools—so a
@@ -49,47 +60,56 @@ export const HomePage = () => (
           live state.
         </p>
         <div className="hero-actions">
-          <a className="button button-dark" href="/canvas">
+          <DrawablyLink href="/canvas" tone="dark">
             Try the live canvas <span aria-hidden="true">↗</span>
-          </a>
-          <a className="button button-ghost" href="/docs">
+          </DrawablyLink>
+          <DrawablyLink href="/docs" tone="paper">
             Read the setup
-          </a>
+          </DrawablyLink>
         </div>
         <div className="proof-row" aria-label="Verified project results">
           {proof.map((item) => (
             <div className="proof-item" key={item.label}>
-              <strong>{item.value}</strong>
+              <DrawablyCircle roughness={0.65} stroke="#6c5ce7">
+                <strong>{item.value}</strong>
+              </DrawablyCircle>
               <span>{item.label}</span>
             </div>
           ))}
         </div>
       </div>
 
-      <div className="hero-art" aria-label="A shared human and agent canvas">
+      <DrawablyCard
+        className="hero-art"
+        aria-label="A shared human and agent canvas"
+        boil={0.16}
+        roughness={0.55}
+        stroke="#7b776d"
+        width={1.4}
+      >
         <div className="art-grid" />
-        <div className="sketch-card sketch-human">
+        <DrawablyCard className="sketch-card sketch-human" roughness={1.2} stroke="#2b2a26">
           <span className="sketch-label">Human</span>
           <strong>selects an idea</strong>
           <span className="selection-corner corner-one" />
           <span className="selection-corner corner-two" />
           <span className="selection-corner corner-three" />
           <span className="selection-corner corner-four" />
-        </div>
+        </DrawablyCard>
         <div className="sketch-arrow" aria-hidden="true">
           ↘
         </div>
-        <div className="sketch-card sketch-agent">
+        <DrawablyCard className="sketch-card sketch-agent" roughness={1.2} stroke="#2b2a26">
           <span className="sketch-label">Agent</span>
           <strong>continues the canvas</strong>
-        </div>
-        <div className="tool-receipt">
+        </DrawablyCard>
+        <DrawablyBadge className="tool-receipt" roughness={0.8} stroke="#2f9e44">
           <span className="receipt-light" />
           update_elements
           <span>rev 5 → 6</span>
-        </div>
+        </DrawablyBadge>
         <div className="pencil-trace" aria-hidden="true" />
-      </div>
+      </DrawablyCard>
     </section>
 
     <section className="comparison-section" id="comparison">
@@ -106,13 +126,13 @@ export const HomePage = () => (
         </div>
 
         <div className="comparison-grid">
-          <article className="lane-card lane-card-mcp">
+          <DrawablyCard className="lane-card lane-card-mcp" roughness={0.6} stroke="#8f80ff">
             <div className="lane-card-header">
               <div>
                 <p className="card-overline">Remote MCP lane</p>
                 <h3>Official Excalidraw MCP</h3>
               </div>
-              <span className="protocol-chip protocol-chip-violet">MCP App</span>
+              <DrawablyBadge className="protocol-chip protocol-chip-violet" roughness={0.7} stroke="#8f80ff" variant="scribble">MCP App</DrawablyBadge>
             </div>
             <Lane steps={mcpSteps} tone="violet" />
             <p className="lane-summary">
@@ -125,15 +145,15 @@ export const HomePage = () => (
               <div><dt>Primary write</dt><dd>create_view</dd></div>
               <div><dt>State bridge</dt><dd>checkpoint</dd></div>
             </dl>
-          </article>
+          </DrawablyCard>
 
-          <article className="lane-card lane-card-webmcp">
+          <DrawablyCard className="lane-card lane-card-webmcp" roughness={0.6} stroke="#63be73">
             <div className="lane-card-header">
               <div>
                 <p className="card-overline">Page-native lane</p>
                 <h3>DrawMCP WebMCP</h3>
               </div>
-              <span className="protocol-chip protocol-chip-green">WebMCP</span>
+              <DrawablyBadge className="protocol-chip protocol-chip-green" roughness={0.7} stroke="#2f9e44" variant="scribble">WebMCP</DrawablyBadge>
             </div>
             <Lane steps={webMcpSteps} tone="green" />
             <p className="lane-summary">
@@ -146,7 +166,7 @@ export const HomePage = () => (
               <div><dt>Primary writes</dt><dd>add / update</dd></div>
               <div><dt>State bridge</dt><dd>live revision</dd></div>
             </dl>
-          </article>
+          </DrawablyCard>
         </div>
       </div>
     </section>
@@ -164,15 +184,17 @@ export const HomePage = () => (
       </div>
 
       <div className="measurement-board">
-        <div className="metric-callout">
+        <DrawablyCard className="metric-callout" roughness={0.65} stroke="#2f9e44">
           <p>WebMCP page-local p50</p>
           <strong>1.4 ms</strong>
           <span>Five warm deployed runs · not end-to-end latency</span>
-        </div>
-        <div
+        </DrawablyCard>
+        <DrawablyCard
           className="metric-visual"
           role="img"
           aria-label="Benchmark collection status"
+          roughness={0.55}
+          stroke="#77736a"
         >
           <div className="metric-row">
             <span>WebMCP page execution</span>
@@ -188,9 +210,11 @@ export const HomePage = () => (
             These are different measurement boundaries. No end-to-end winner is
             published until both lanes run in the same model and host.
           </div>
-        </div>
+        </DrawablyCard>
         <a className="text-link" href="/benchmarks">
-          Open the benchmark room <span aria-hidden="true">→</span>
+          <DrawablyUnderline roughness={0.7} stroke="#6c5ce7">
+            Open the benchmark room
+          </DrawablyUnderline>{" "}<span aria-hidden="true">→</span>
         </a>
       </div>
     </section>
@@ -211,7 +235,9 @@ export const HomePage = () => (
             "fit_to_content",
             "organize_diagram",
           ].map((tool) => (
-            <code key={tool}>{tool}</code>
+            <DrawablyBadge key={tool} roughness={0.7} stroke="#6e675f">
+              <code>{tool}</code>
+            </DrawablyBadge>
           ))}
         </div>
       </div>
@@ -220,14 +246,17 @@ export const HomePage = () => (
     <section className="closing-section section-shell">
       <p className="section-kicker">Open the page. Ask the agent. Keep drawing.</p>
       <h2>There is no second canvas to sync.</h2>
-      <a className="button button-dark" href="/canvas">
+      <DrawablyLink href="/canvas" tone="dark">
         Open DrawMCP <span aria-hidden="true">↗</span>
-      </a>
+      </DrawablyLink>
     </section>
 
     <footer className="site-footer section-shell">
       <span>DrawMCP · Independent WebMCP experiment</span>
-      <span>Built on the published Excalidraw API</span>
+      <span>
+        Built on the published Excalidraw API · UI chrome by{" "}
+        <a href="https://github.com/Danilaa1/drawably">Drawably</a>
+      </span>
     </footer>
   </main>
 );

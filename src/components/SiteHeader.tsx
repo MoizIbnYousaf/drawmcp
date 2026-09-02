@@ -1,3 +1,6 @@
+import { DrawablyBadge, DrawablyUnderline } from "drawably/react";
+import { DrawablyLink } from "./DrawablyLink";
+
 type SiteHeaderProps = {
   current?: "home" | "canvas" | "docs" | "benchmarks";
   compact?: boolean;
@@ -27,19 +30,27 @@ export const SiteHeader = ({ current, compact = false }: SiteHeaderProps) => (
           href={link.href}
           key={link.href}
         >
-          {link.label}
+          <DrawablyUnderline boil={0.18} roughness={0.65} stroke="#6c5ce7">
+            {link.label}
+          </DrawablyUnderline>
         </a>
       ))}
       {current === "canvas" ? (
-        <span className="canvas-live-label">
+        <DrawablyBadge
+          className="canvas-live-label"
+          fill="#dff5e4"
+          roughness={0.7}
+          stroke="#2f9e44"
+          variant="outline"
+        >
           <span className="live-dot" aria-hidden="true" />
           Live canvas
-        </span>
+        </DrawablyBadge>
       ) : (
-        <a className="button button-small button-dark" href="/canvas">
+        <DrawablyLink className="button-small" href="/canvas" tone="dark">
           Open canvas
           <span aria-hidden="true">↗</span>
-        </a>
+        </DrawablyLink>
       )}
     </nav>
   </header>

@@ -1,3 +1,4 @@
+import { DrawablyCard } from "drawably/react";
 import type { CanvasStatus } from "../excalidraw/canvas-service";
 import type { RegistryState } from "../webmcp/register-tools";
 import type { ToolMetric } from "../observability/tool-metrics";
@@ -32,29 +33,34 @@ export const WebMcpStatus = ({
   expectedToolCount,
   lastMetric,
 }: WebMcpStatusProps) => (
-  <aside
+  <DrawablyCard
+    boil={0.16}
     className="webmcp-status"
-    aria-live="polite"
     data-testid="webmcp-status"
+    roughness={0.55}
+    stroke={registry.status === "registered" ? "#2f9e44" : "#d59f24"}
+    width={1.2}
   >
-    <span
-      className={`status-dot status-${registry.status}`}
-      aria-hidden="true"
-    />
-    <span>{registryLabel(registry, expectedToolCount)}</span>
-    <span className="status-divider" aria-hidden="true" />
-    <span>Revision {canvas.revision}</span>
-    {canvas.lastActor ? (
-      <>
-        <span className="status-divider" aria-hidden="true" />
-        <span>Last: {canvas.lastActor}</span>
-      </>
-    ) : null}
-    {lastMetric ? (
-      <>
-        <span className="status-divider" aria-hidden="true" />
-        <span>Last call {lastMetric.duration_ms.toFixed(1)} ms</span>
-      </>
-    ) : null}
-  </aside>
+    <aside className="webmcp-status-content" aria-live="polite">
+      <span
+        className={`status-dot status-${registry.status}`}
+        aria-hidden="true"
+      />
+      <span>{registryLabel(registry, expectedToolCount)}</span>
+      <span className="status-divider" aria-hidden="true" />
+      <span>Revision {canvas.revision}</span>
+      {canvas.lastActor ? (
+        <>
+          <span className="status-divider" aria-hidden="true" />
+          <span>Last: {canvas.lastActor}</span>
+        </>
+      ) : null}
+      {lastMetric ? (
+        <>
+          <span className="status-divider" aria-hidden="true" />
+          <span>Last call {lastMetric.duration_ms.toFixed(1)} ms</span>
+        </>
+      ) : null}
+    </aside>
+  </DrawablyCard>
 );

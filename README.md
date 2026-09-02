@@ -3,6 +3,10 @@
 DrawMCP is an Excalidraw-based canvas where a person and a browser agent work
 on the same live drawing through WebMCP.
 
+The surrounding website UI uses
+[Drawably](https://github.com/Danilaa1/drawably) `0.3.10` for semantic HTML
+controls with generated SVG chrome. Excalidraw remains the editor itself.
+
 - `/` explains the side-by-side protocol comparison.
 - `/canvas` owns the live Excalidraw editor and all seven WebMCP tools.
 - `/benchmarks` visualizes verified evidence and the controlled-run boundary.
