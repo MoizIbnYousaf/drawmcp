@@ -1,6 +1,6 @@
 # DrawMCP proof and side-by-side plan
 
-Last updated: 2026-09-01
+Last updated: 2026-09-02
 
 ## Proof standard
 
@@ -11,13 +11,15 @@ chain. These claims are deliberately separate:
 | --- | --- |
 | Static contract | Typecheck, schema tests, source review |
 | Local behavior | Browser test against local app and visible state assertions |
-| Local WebMCP | Fake/runtime tool enumeration and execution receipts |
+| Local WebMCP | Real browser enumeration, domain receipts, and semantic scene assertions |
 | Preview build | Vercel deployment state plus build logs and exact commit |
 | Preview runtime | Real in-app-browser calls against preview URL |
 | Production deployment | Vercel production alias points to exact release commit |
 | Domain | DNS resolution, valid TLS, canonical URL, direct-load response |
 | Production WebMCP | Live tool enumeration and successful calls on `drawmcp.dev` |
 | Human-agent continuity | Manual edit observed by next agent read and preserved by next mutation |
+| Repeated model eval | Versioned trials for a named model, backend, schema hash, and run count |
+| Benchmark | Raw trials, semantic results, exact boundary, uncertainty, commit, and environment |
 | Submission | Public repo, license, video, live URL, and Devpost record |
 
 A lower proof level never substitutes for a higher one.
@@ -47,7 +49,7 @@ Record:
 8. export/handoff behavior if used;
 9. final visible diagram.
 
-Store sanitized artifacts under `proof/mcp-baseline/`:
+Store sanitized artifacts under a dated release evidence directory:
 
 ```text
 tool-list.json
@@ -76,8 +78,9 @@ Record:
 9. undo and redo of the agent mutation;
 10. final visible diagram.
 
-Store sanitized artifacts under `proof/webmcp/` with the same naming structure
-plus `tool-list.json`, revision receipts, and undo assertions.
+Store sanitized artifacts in the same release evidence directory plus
+`tool-list.json`, revision receipts, semantic scene assertions, and current-session
+Undo/Redo assertions.
 
 ## Side-by-side product presentation
 
@@ -106,10 +109,10 @@ Every displayed claim links to a proof artifact, source file, or live action.
 - [ ] Closed JSON Schemas with bounded inputs
 - [ ] Accurate read-only and untrusted-content annotations
 - [ ] Current-state reads at execution time
-- [ ] Cancellation support for expensive operations
+- [ ] Pre-commit cancellation with an explicit non-rollback boundary
 - [ ] Revision preconditions for mutations
 - [ ] Structured success and error receipts
-- [ ] Same validation path as human controls
+- [ ] Closed tool validation plus the published Excalidraw mutation boundary
 - [ ] Visible, undoable agent mutations
 - [ ] No hidden external uploads or network effects
 - [ ] In-app-browser enumeration and invocation proof

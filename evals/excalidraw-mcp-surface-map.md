@@ -2,6 +2,9 @@
 
 Pinned baseline: `vendor/excalidraw-mcp` at `157aa23ceb1976008aadc89eb05e3444060f09d6`.
 
+The server registers five tools. `read_me` and `create_view` are model-visible;
+`export_to_excalidraw`, `save_checkpoint`, and `read_checkpoint` are app-only.
+
 | Official MCP surface                              | Source                                   | DrawMCP treatment                                                                              | Proof                                 |
 | ------------------------------------------------- | ---------------------------------------- | ---------------------------------------------------------------------------------------------- | ------------------------------------- |
 | `read_me` format guide                            | `src/server.ts`                          | Tool schemas and descriptions are self-describing; `/docs` will provide the human guide        | Schema tests and tool-selection evals |
@@ -15,7 +18,7 @@ Pinned baseline: `vendor/excalidraw-mcp` at `157aa23ceb1976008aadc89eb05e3444060
 | SVG draw-on animation                             | `src/mcp-app.tsx`, `global.css`          | Deferred to the later website comparison; not part of core mutation semantics                  | Scope boundary                        |
 | Fullscreen Excalidraw editing                     | `src/mcp-app.tsx`                        | The normal page is already the full editor                                                     | Canvas smoke and screenshot           |
 | Human edit diff to model context                  | `src/edit-context.ts`                    | Current selection, summary, revision, and structured receipts are available through page tools | Human-agent continuity eval           |
-| Local-storage checkpoint cache                    | `src/edit-context.ts`                    | Deferred; core state is the live page and refresh persistence is a later website unit          | Scope boundary                        |
+| Local-storage checkpoint cache                    | `src/edit-context.ts`                    | Use a versioned browser-local non-file recovery snapshot; do not claim server or history parity | Reload integration test               |
 | File, memory, and Redis checkpoints               | `src/checkpoint-store.ts`                | Not applicable to the local core; no backend canonical state                                   | Architecture assertion                |
 | `save_checkpoint` and `read_checkpoint` app tools | `src/server.ts`                          | Replaced by revision-aware live state; no private widget tool tier                             | Tool-list proof                       |
 | `export_to_excalidraw` upload                     | `src/server.ts`, `src/mcp-app.tsx`       | Deferred external side effect; core tools do not upload or navigate                            | Network-effect audit                  |
@@ -26,3 +29,4 @@ Pinned baseline: `vendor/excalidraw-mcp` at `157aa23ceb1976008aadc89eb05e3444060
 | Pencil audio and camera motion                    | `src/pencil-audio.ts`, `src/mcp-app.tsx` | Deferred presentation polish                                                                   | Scope boundary                        |
 | Dev mock and standalone widget harness            | `src/dev-mock.ts`, `src/dev.tsx`         | Replaced by fake model-context unit tests and real in-app-browser tools                        | Test and live proof layers            |
 | Build pipeline                                    | `scripts/build.mjs`                      | DrawMCP uses TypeScript, Vite, unit tests, CI, and Vercel preview gates                        | Verification contract                 |
+| `create_view` mutation annotation                 | `src/server.ts`                          | Upstream marks a checkpoint-creating tool read-only; prepare a narrow annotation correction     | Upstream contract test                |

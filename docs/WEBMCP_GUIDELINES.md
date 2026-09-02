@@ -1,11 +1,11 @@
 # WebMCP implementation guidelines
 
-Last updated: 2026-09-01
+Last updated: 2026-09-02
 
-These rules are derived from the dated source snapshots under
-`research/snapshots/`. The WebMCP specification is a Community Group draft and
-can change. When a live platform and the draft disagree, record the platform
-behavior and update this document deliberately.
+These rules are derived from `research/WEBMCP_CONFORMANCE.md` and the dated
+source snapshots under `research/snapshots/`. The WebMCP specification is a
+Community Group draft and can change. When a live platform and the draft
+disagree, record the platform behavior and update this document deliberately.
 
 ## Supported surface for DrawMCP
 
@@ -75,11 +75,13 @@ validation is not a security boundary.
 ## Execution
 
 - Read current state inside `execute`; never close over a stale canvas snapshot.
-- Honor cancellation through the callback's signal for layout or large
-  conversions.
+- Honor cancellation before computation and immediately before a canvas
+  commit. Once a synchronous `updateScene` commit begins, report the observed
+  result instead of claiming rollback.
 - Serialize mutations to avoid interleaved `updateScene` calls.
 - Check `expected_revision` immediately before mutation.
-- Reuse the exact application logic that powers the human interface.
+- Reuse the published Excalidraw state and mutation API that powers the mounted
+  editor.
 - Do not dispatch synthetic clicks when a direct Excalidraw API operation
   exists.
 - Do not call external services from a local canvas tool.
@@ -93,11 +95,13 @@ receipt contains:
 type MutationReceipt = {
   ok: true;
   operation: string;
-  revisionBefore: number;
-  revisionAfter: number;
-  affectedElementIds: string[];
-  elementCount: number;
-  summary: string;
+  changed: boolean;
+  revision_before: number;
+  revision_after: number;
+  affected_element_count: number;
+  affected_element_ids: string[];
+  affected_ids_truncated: boolean;
+  element_count: number;
 };
 ```
 
@@ -108,12 +112,15 @@ type ToolError = {
   ok: false;
   code: "INVALID_INPUT" | "STALE_REVISION" | "NOT_FOUND" | "CANCELED";
   message: string;
-  currentRevision?: number;
+  current_revision?: number;
 };
 ```
 
-Never return binary files, data URLs, the complete application state, tokens,
-browser storage, or unrelated canvas content by default.
+Every serialized result must fit within 1,536 Unicode characters. Paginate
+scene reads with a revision-bound cursor, cap identifier samples in receipts,
+and always return full counts. Never return binary files, data URLs, the
+complete application state, tokens, browser storage, or unrelated canvas
+content by default.
 
 ## Security and privacy
 
@@ -125,7 +132,8 @@ DrawMCP mitigations:
 
 - tool metadata is static source-controlled text;
 - canvas-derived output is bounded and marked untrusted;
-- tool code calls the same validation and mutation service as visible controls;
+- tool code uses its own closed validation contract and the same published
+  Excalidraw mutation boundary as the visible editor;
 - local canvas tools cannot upload, share, navigate, or transact;
 - input sizes have explicit hard limits;
 - no tool accepts arbitrary code, HTML, URLs, selectors, or file paths;
@@ -136,9 +144,10 @@ DrawMCP mitigations:
 ## Secure contexts and origins
 
 `document.modelContext` is a secure-context API. Production must use HTTPS;
-Vercel provides this after domain attachment and certificate issuance. Cross-
-origin tool exposure is out of scope. The MVP registers tools only from the
-top-level `drawmcp.dev` document.
+Vercel provides this after domain attachment and certificate issuance.
+Cross-origin tool exposure is out of scope. DrawMCP relies on the specification's
+self-only default and sends `Permissions-Policy: tools=(self)`. Tools register
+only from the top-level `drawmcp.dev` document.
 
 ## Progressive enhancement
 
@@ -155,7 +164,9 @@ For every release:
 3. test a Vercel preview in ChatGPT's in-app browser;
 4. enumerate the live tool names and schemas;
 5. invoke every tool and verify the page state afterward;
-6. record any divergence between the draft, Chrome, and OpenAI behavior.
+6. run negative results through the project-owned oracle rather than treating a
+   completed browser call as domain success;
+7. record any divergence between the draft, Chrome, and OpenAI behavior.
 
 ## Source snapshots
 
@@ -163,3 +174,5 @@ For every release:
 - `research/snapshots/chrome-webmcp-2026-09-01.md`
 - `research/snapshots/openai-webmcp-2026-09-01.md`
 - `research/snapshots/openai-webmcp-showcase-2026-09-01.md`
+- `research/WEBMCP_CONFORMANCE.md`
+- `research/EXCALIDRAW_CAPABILITY_MATRIX.md`
